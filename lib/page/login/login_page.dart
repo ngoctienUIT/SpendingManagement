@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:spending_management/constants/app_colors.dart';
+import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/page/login/widget/custom_button.dart';
+import 'package:spending_management/page/login/widget/input_password.dart';
+import 'package:spending_management/page/login/widget/input_text.dart';
+import 'package:spending_management/page/login/widget/text_continue.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -9,14 +15,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _userController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   bool hide = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(244, 239, 243, 1),
+      backgroundColor: AppColors.whisperBackground,
       body: SafeArea(
         child: Form(
+          key: _formKey,
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
@@ -35,56 +45,22 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(fontSize: 20),
                   ),
                   const SizedBox(height: 50),
-                  TextFormField(
-                    style: const TextStyle(fontSize: 16),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      hintStyle: const TextStyle(fontSize: 16),
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Username',
-                      contentPadding: const EdgeInsets.all(20),
-                    ),
+                  inputText(
+                    hint: "Username",
+                    validator: 0,
+                    controller: _userController,
+                    inputType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 20),
-                  TextFormField(
-                    obscureText: hide,
-                    style: const TextStyle(fontSize: 16),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      hintStyle: const TextStyle(fontSize: 16),
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Password',
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            hide = !hide;
-                          });
-                        },
-                        splashColor: Colors.transparent,
-                        icon: Icon(
-                          hide
-                              ? FontAwesomeIcons.eye
-                              : FontAwesomeIcons.eyeSlash,
-                          size: 20,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.all(20),
-                    ),
-                  ),
+                  inputPassword(
+                      hint: "Password",
+                      controller: _passwordController,
+                      hide: hide,
+                      action: () {
+                        setState(() {
+                          hide = !hide;
+                        });
+                      }),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -94,46 +70,16 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromRGBO(252, 107, 104, 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        "Sign In",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ),
+                  customButton(
+                      text: 'Sign In',
+                      action: () {
+                        if (_formKey.currentState!.validate()) {
+                          return;
+                        }
+                        // _formKey.currentState!.save();
+                      }),
                   const SizedBox(height: 30),
-                  Row(
-                    children: const [
-                      Expanded(
-                        child: Divider(
-                          color: Colors.black,
-                          endIndent: 10,
-                          indent: 20,
-                        ),
-                      ),
-                      Text(
-                        "Or continue with",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: Colors.black,
-                          endIndent: 20,
-                          indent: 10,
-                        ),
-                      ),
-                    ],
-                  ),
+                  textContinue(),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -167,17 +113,14 @@ class _LoginPageState extends State<LoginPage> {
                           height: 50,
                           child: ElevatedButton.icon(
                             onPressed: () {},
-                            icon: Image.asset(
-                              "assets/logo/google_logo.png",
-                              width: 20,
-                            ),
+                            icon: const Icon(FontAwesomeIcons.facebook),
                             label: const Text(
-                              "Google",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(125, 125, 125, 1)),
+                              "Facebook",
+                              style: TextStyle(color: Colors.white),
                             ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
+                              backgroundColor:
+                                  const Color.fromRGBO(66, 103, 178, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -191,17 +134,17 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         "Do not have an account?",
-                        style: TextStyle(fontSize: 16),
+                        style: AppStyles.p,
                       ),
                       TextButton(
                         onPressed: () {
                           Navigator.pushReplacementNamed(context, '/signup');
                         },
-                        child: const Text(
+                        child: Text(
                           "Register now",
-                          style: TextStyle(fontSize: 16),
+                          style: AppStyles.p,
                         ),
                       )
                     ],
