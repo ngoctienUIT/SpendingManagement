@@ -76,7 +76,7 @@ class _SignupPageState extends State<SignupPage> {
                       }
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.only(right: 10, left: 20),
                       alignment: Alignment.centerLeft,
                       width: double.infinity,
                       height: 57,
@@ -102,33 +102,36 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   const SizedBox(height: 20),
                   inputPassword(
-                      hint: "Password",
-                      controller: _passwordController,
-                      hide: hide,
-                      action: () {
-                        setState(() {
-                          hide = !hide;
-                        });
-                      }),
+                    action: () {
+                      setState(() {
+                        hide = !hide;
+                      });
+                    },
+                    hint: "Password",
+                    controller: _passwordController,
+                    hide: hide,
+                  ),
                   const SizedBox(height: 20),
                   inputPassword(
-                      hint: "Repassword",
-                      controller: _repasswordController,
-                      password: _passwordController,
-                      hide: hide,
-                      action: () {
-                        setState(() {
-                          hide = !hide;
-                        });
-                      }),
+                    action: () {
+                      setState(() {
+                        hide = !hide;
+                      });
+                    },
+                    hint: "Repassword",
+                    controller: _repasswordController,
+                    password: _passwordController,
+                    hide: hide,
+                  ),
                   const SizedBox(height: 20),
                   customButton(
-                      text: 'Sign Up',
-                      action: () {
-                        if (_formKey.currentState!.validate()) {
-                          return;
-                        }
-                      }),
+                    action: () {
+                      if (_formKey.currentState!.validate()) {
+                        return;
+                      }
+                    },
+                    text: 'Sign Up',
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

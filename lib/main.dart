@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:spending_management/firebase_options.dart';
 import 'package:spending_management/page/login/login_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
+import 'package:spending_management/page/main/main_page.dart';
 import 'package:spending_management/page/onboarding/onboarding_page.dart';
 import 'package:spending_management/page/signup/signup_page.dart';
 
@@ -25,12 +27,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/",
+      initialRoute: FirebaseAuth.instance.currentUser == null ? "/" : '/main',
       routes: {
         '/': (context) => const OnboardingPage(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
-        '/home': (context) => const HomePage()
+        '/home': (context) => const HomePage(),
+        '/main': (context) => const MainPage()
       },
       // home: const OnboardingPage(),
     );
