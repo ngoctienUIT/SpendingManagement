@@ -21,10 +21,20 @@ class _SignupFormState extends State<SignupForm> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _repasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final _formKey = GlobalKey<FormState>();
   DateTime birthday = DateTime.now();
   bool hide = true;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _userController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,8 +147,8 @@ class _SignupFormState extends State<SignupForm> {
                         hide = !hide;
                       });
                     },
-                    hint: "Repassword",
-                    controller: _repasswordController,
+                    hint: "Confirm Password",
+                    controller: _confirmPasswordController,
                     password: _passwordController,
                     hide: hide,
                   ),

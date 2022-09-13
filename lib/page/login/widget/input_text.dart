@@ -19,6 +19,8 @@ Widget inputText(
         return 'Enter a valid email!';
       } else if (validator == 1 && value!.isEmpty) {
         return 'Enter a valid name';
+      } else if (validator == 2 && value!.isEmpty) {
+        return 'Enter a valid OTP';
       }
       return null;
     },

@@ -25,6 +25,13 @@ class _LoginFormState extends State<LoginForm> {
   bool hide = true;
 
   @override
+  void dispose() {
+    _userController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
@@ -83,7 +90,9 @@ class _LoginFormState extends State<LoginForm> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/forgot');
+                          },
                           child: const Text("Forgot Password?")),
                     ],
                   ),

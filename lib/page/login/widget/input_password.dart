@@ -17,7 +17,7 @@ Widget inputPassword(
       if (password != null &&
               password.text.toString() != controller.text.toString() ||
           password != null && value!.isEmpty) {
-        return 'Enter a valid repassword!';
+        return 'Enter a valid confirm password!';
       }
 
       if (value!.isEmpty && password == null) {
