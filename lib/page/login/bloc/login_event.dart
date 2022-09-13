@@ -1,8 +1,8 @@
 abstract class LoginEvent {}
 
 class LoginWithEmailPasswordEvent extends LoginEvent {
-  String email;
-  String password;
+  final String email;
+  final String password;
 
   LoginWithEmailPasswordEvent({required this.email, required this.password});
 }
