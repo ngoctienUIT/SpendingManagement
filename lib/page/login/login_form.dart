@@ -149,8 +149,8 @@ class _LoginFormState extends State<LoginForm> {
                           height: 50,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              // BlocProvider.of<LoginBloc>(context)
-                              //     .add(LoginWithFacebookEvent());
+                              BlocProvider.of<LoginBloc>(context)
+                                  .add(LoginWithFacebookEvent());
                             },
                             icon: const Icon(FontAwesomeIcons.facebook),
                             label: const Text(

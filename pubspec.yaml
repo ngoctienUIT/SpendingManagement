@@ -49,6 +49,7 @@ dependencies:
   shared_preferences: ^2.0.15
   intl: ^0.17.0
   flutter_facebook_auth: ^4.4.1
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
