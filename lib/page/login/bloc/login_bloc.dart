@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'package:spending_management/page/login/bloc/login_event.dart';
 import 'package:spending_management/page/login/bloc/login_state.dart';
+import 'package:spending_management/models/user.dart' as myuser;
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(InitState()) {
@@ -20,6 +23,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginWithGoogleEvent>((event, emit) async {
       UserCredential? user = await signInWithGoogle();
       if (user != null) {
+        await initInfoUser();
         emit(LoginSuccessState());
       } else {
         emit(LoginErrorState());
@@ -72,5 +76,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
       return false;
     }
+  }
+
+  Future initInfoUser() async {
+    var firestore = FirebaseFirestore.instance
+        .collection("info")
+        .doc(FirebaseAuth.instance.currentUser!.email.toString());
+    await firestore.get().then((value) async {
+      if (!value.exists) {
+        await firestore.set(myuser.User(
+                name: FirebaseAuth.instance.currentUser!.displayName.toString(),
+                birthday: DateFormat("dd/MM/yyyy").format(DateTime.now()),
+                avatar: FirebaseAuth.instance.currentUser!.photoURL.toString())
+            .toMap());
+      }
+    });
   }
 }

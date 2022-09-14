@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spending_management/page/signup/bloc/signup_event.dart';
 import 'package:spending_management/page/signup/bloc/singup_state.dart';
+import 'package:spending_management/models/user.dart' as myuser;
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(InitState()) {
@@ -9,6 +11,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       bool check =
           await createAccount(email: event.email, password: event.password);
       if (check) {
+        await initInfoUser(event.user);
         emit(SignupSuccessState());
       } else {
         emit(SignupErrorState());
@@ -19,8 +22,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   Future<bool> createAccount(
       {required String email, required String password}) async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -35,5 +37,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       print(e);
     }
     return false;
+  }
+
+  Future initInfoUser(myuser.User user) async {
+    var firestore = FirebaseFirestore.instance
+        .collection("info")
+        .doc(FirebaseAuth.instance.currentUser!.email.toString());
+    await firestore.set(user
+        .copyWith(avatar: FirebaseAuth.instance.currentUser!.photoURL)
+        .toMap());
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/models/user.dart';
 import 'package:spending_management/page/login/widget/custom_button.dart';
 import 'package:spending_management/page/login/widget/input_password.dart';
 import 'package:spending_management/page/login/widget/input_text.dart';
@@ -160,6 +161,11 @@ class _SignupFormState extends State<SignupForm> {
                           SignupEmailPasswordEvent(
                             email: _userController.text.toString(),
                             password: _passwordController.text.toString(),
+                            user: User(
+                                name: _nameController.text.toString(),
+                                birthday:
+                                    DateFormat("dd/MM/yyyy").format(birthday),
+                                avatar: ""),
                           ),
                         );
                         return;
