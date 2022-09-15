@@ -72,7 +72,6 @@ class _VerifyPageState extends State<VerifyPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
                       "Verify Email",

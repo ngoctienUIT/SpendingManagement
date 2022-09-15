@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spending_management/constants/app_colors.dart';
 import 'package:spending_management/page/login/widget/custom_button.dart';
@@ -42,7 +43,7 @@ class _ForgotPageState extends State<ForgotPage> {
               const SizedBox(height: 20),
               const Text(
                 textAlign: TextAlign.center,
-                "Don't worry! It happens. Please enter the email address with your account",
+                "Don't worry! It happens. Please enter the email address with your account!",
                 style: TextStyle(
                   fontSize: 18,
                 ),
@@ -56,9 +57,17 @@ class _ForgotPageState extends State<ForgotPage> {
               ),
               const SizedBox(height: 30),
               customButton(
-                action: () {
+                action: () async {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, '/otp');
+                    try {
+                      await FirebaseAuth.instance.sendPasswordResetEmail(
+                          email: _emailController.text.trim());
+                      if (!mounted) return;
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/success', (route) => false);
+                    } catch (e) {
+                      print(e);
+                    }
                     return;
                   }
                 },

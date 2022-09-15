@@ -2,9 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:spending_management/firebase_options.dart';
-import 'package:spending_management/page/forgot/enter_otp_page.dart';
 import 'package:spending_management/page/forgot/forgot_page.dart';
-import 'package:spending_management/page/forgot/reset_password_page.dart';
+import 'package:spending_management/page/forgot/success_page.dart';
 import 'package:spending_management/page/login/login_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
 import 'package:spending_management/page/main/main_page.dart';
@@ -39,8 +38,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/main': (context) => const MainPage(),
         '/forgot': (context) => const ForgotPage(),
-        '/otp': (context) => const EnterOTPPage(),
-        '/reset': (context) => const ResetPasswordPage(),
+        '/success': (context) => const SuccessPage(),
         '/verify': (context) => const VerifyPage()
       },
     );
