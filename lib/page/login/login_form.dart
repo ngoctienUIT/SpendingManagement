@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,8 @@ class _LoginFormState extends State<LoginForm> {
       builder: (context, state) {
         if (state is LoginSuccessState) {
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            if (state.social == Social.email) {
+            if (state.social == Social.email &&
+                !FirebaseAuth.instance.currentUser!.emailVerified) {
               Navigator.pushReplacementNamed(context, "/verify");
             } else {
               Navigator.pushReplacementNamed(context, "/main");
