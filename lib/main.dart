@@ -10,6 +10,7 @@ import 'package:spending_management/page/main/home/home_page.dart';
 import 'package:spending_management/page/main/main_page.dart';
 import 'package:spending_management/page/onboarding/onboarding_page.dart';
 import 'package:spending_management/page/signup/signup_page.dart';
+import 'package:spending_management/page/signup/verify/verify_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: FirebaseAuth.instance.currentUser == null ? "/" : '/main',
+      initialRoute: FirebaseAuth.instance.currentUser == null ? "/" : '/verify',
       routes: {
         '/': (context) => const OnboardingPage(),
         '/login': (context) => const LoginPage(),
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
         '/main': (context) => const MainPage(),
         '/forgot': (context) => const ForgotPage(),
         '/otp': (context) => const EnterOTPPage(),
-        '/reset': (context) => const ResetPasswordPage()
+        '/reset': (context) => const ResetPasswordPage(),
+        '/verify': (context) => const VerifyPage()
       },
     );
   }

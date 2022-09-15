@@ -14,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       bool check = await signInWithEmailAndPassword(
           emailAddress: event.email, password: event.password);
       if (check) {
-        emit(LoginSuccessState());
+        emit(LoginSuccessState(social: Social.email));
       } else {
         emit(LoginErrorState());
       }
@@ -24,7 +24,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       UserCredential? user = await signInWithGoogle();
       if (user != null) {
         await initInfoUser();
-        emit(LoginSuccessState());
+        emit(LoginSuccessState(social: Social.google));
       } else {
         emit(LoginErrorState());
       }
@@ -33,8 +33,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginWithFacebookEvent>((event, emit) async {
       bool check = await signInWithFacebook();
       if (check) {
-        await initInfoUser();
-        emit(LoginSuccessState());
+        // await initInfoUser();
+        emit(LoginSuccessState(social: Social.facebook));
       } else {
         emit(LoginErrorState());
       }
@@ -60,8 +60,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<bool> signInWithFacebook() async {
-    final LoginResult loginResult = await FacebookAuth.instance
-        .login(permissions: ['email', 'public_profile', 'user_photos']);
+    final LoginResult loginResult = await FacebookAuth.instance.login();
 
     if (loginResult.accessToken != null) {
       final OAuthCredential facebookAuthCredential =

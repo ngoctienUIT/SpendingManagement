@@ -37,7 +37,11 @@ class _LoginFormState extends State<LoginForm> {
       builder: (context, state) {
         if (state is LoginSuccessState) {
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            Navigator.pushReplacementNamed(context, "/main");
+            if (state.social == Social.email) {
+              Navigator.pushReplacementNamed(context, "/verify");
+            } else {
+              Navigator.pushReplacementNamed(context, "/main");
+            }
           });
         }
 
@@ -102,8 +106,8 @@ class _LoginFormState extends State<LoginForm> {
                       if (_formKey.currentState!.validate()) {
                         BlocProvider.of<LoginBloc>(context).add(
                           LoginWithEmailPasswordEvent(
-                            email: _userController.text,
-                            password: _passwordController.text,
+                            email: _userController.text.trim(),
+                            password: _passwordController.text.trim(),
                           ),
                         );
                         return;

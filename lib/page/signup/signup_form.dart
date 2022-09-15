@@ -48,6 +48,9 @@ class _SignupFormState extends State<SignupForm> {
             var snackBar =
                 const SnackBar(content: Text('Tạo tài khoản thành công'));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            Future.delayed(const Duration(seconds: 3), () {
+              Navigator.pushReplacementNamed(context, "/verify");
+            });
           });
         }
 
@@ -189,10 +192,10 @@ class _SignupFormState extends State<SignupForm> {
                       if (_formKey.currentState!.validate()) {
                         BlocProvider.of<SignupBloc>(context).add(
                           SignupEmailPasswordEvent(
-                            email: _userController.text.toString(),
-                            password: _passwordController.text.toString(),
+                            email: _userController.text.trim(),
+                            password: _passwordController.text,
                             user: User(
-                              name: _nameController.text.toString(),
+                              name: _nameController.text.trim(),
                               birthday:
                                   DateFormat("dd/MM/yyyy").format(birthday),
                               gender: gender,
