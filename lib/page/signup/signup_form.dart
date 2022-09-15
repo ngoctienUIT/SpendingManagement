@@ -10,6 +10,7 @@ import 'package:spending_management/page/login/widget/input_text.dart';
 import 'package:spending_management/page/signup/bloc/signup_bloc.dart';
 import 'package:spending_management/page/signup/bloc/signup_event.dart';
 import 'package:spending_management/page/signup/bloc/singup_state.dart';
+import 'package:spending_management/page/signup/gender_widget.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -27,6 +28,7 @@ class _SignupFormState extends State<SignupForm> {
   final _formKey = GlobalKey<FormState>();
   DateTime birthday = DateTime.now();
   bool hide = true;
+  bool gender = true;
 
   @override
   void dispose() {
@@ -89,6 +91,34 @@ class _SignupFormState extends State<SignupForm> {
                     validator: 0,
                     controller: _userController,
                     inputType: TextInputType.emailAddress,
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      const Spacer(),
+                      genderWidget(
+                          currentGender: gender,
+                          gender: true,
+                          action: () {
+                            if (!gender) {
+                              setState(() {
+                                gender = true;
+                              });
+                            }
+                          }),
+                      const Spacer(),
+                      genderWidget(
+                          currentGender: gender,
+                          gender: false,
+                          action: () {
+                            if (gender) {
+                              setState(() {
+                                gender = false;
+                              });
+                            }
+                          }),
+                      const Spacer(),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   InkWell(
@@ -162,10 +192,12 @@ class _SignupFormState extends State<SignupForm> {
                             email: _userController.text.toString(),
                             password: _passwordController.text.toString(),
                             user: User(
-                                name: _nameController.text.toString(),
-                                birthday:
-                                    DateFormat("dd/MM/yyyy").format(birthday),
-                                avatar: ""),
+                              name: _nameController.text.toString(),
+                              birthday:
+                                  DateFormat("dd/MM/yyyy").format(birthday),
+                              gender: gender,
+                              avatar: "",
+                            ),
                           ),
                         );
                         return;

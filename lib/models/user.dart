@@ -7,23 +7,34 @@ class User {
   String name;
   String birthday;
   String avatar;
+  bool gender;
 
-  User({required this.name, required this.birthday, required this.avatar});
+  User(
+      {required this.name,
+      required this.birthday,
+      required this.avatar,
+      this.gender = true});
 
   Map<String, dynamic> toMap() =>
-      {"name": name, "birthday": birthday, "avatar": avatar};
+      {"name": name, "birthday": birthday, "avatar": avatar, "gender": gender};
 
   factory User.fromFirebase(DocumentSnapshot snapshot) {
     var data = snapshot.data() as Map<String, dynamic>;
     return User(
-        name: data["name"], birthday: data["birthday"], avatar: data["avatar"]);
+      name: data["name"],
+      birthday: data["birthday"],
+      avatar: data["avatar"],
+      gender: data['gender'] as bool,
+    );
   }
 
-  User copyWith({String? name, String? birthday, String? avatar}) {
+  User copyWith(
+      {String? name, String? birthday, String? avatar, bool? gender}) {
     return User(
       name: name ?? this.name,
       birthday: birthday ?? this.birthday,
       avatar: avatar ?? defaultAvatar,
+      gender: gender ?? this.gender,
     );
   }
 }

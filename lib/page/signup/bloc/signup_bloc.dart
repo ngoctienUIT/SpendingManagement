@@ -26,6 +26,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         email: email,
         password: password,
       );
+      FirebaseAuth.instance.signOut();
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
