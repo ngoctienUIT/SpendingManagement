@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/app_colors.dart';
+import 'package:spending_management/constants/onWillPop.dart';
 import 'package:spending_management/page/main/analytic/analytic_page.dart';
 import 'package:spending_management/page/main/calendar/calendar_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
@@ -23,14 +24,18 @@ class _MainPageState extends State<MainPage> {
     const SettingPage()
   ];
 
+  DateTime? currentBackPressTime;
   final PageStorageBucket bucket = PageStorageBucket();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageStorage(
-        bucket: bucket,
-        child: screens[currentTab],
+      body: WillPopScope(
+        onWillPop: () => onWillPop(currentBackPressTime: currentBackPressTime),
+        child: PageStorage(
+          bucket: bucket,
+          child: screens[currentTab],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
