@@ -42,7 +42,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   Future initInfoUser(myuser.User user) async {
     var firestore = FirebaseFirestore.instance
         .collection("info")
-        .doc(FirebaseAuth.instance.currentUser!.email.toString());
+        .doc(FirebaseAuth.instance.currentUser!.uid);
     await firestore.set(user
         .copyWith(avatar: FirebaseAuth.instance.currentUser!.photoURL)
         .toMap());

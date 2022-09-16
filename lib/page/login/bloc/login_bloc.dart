@@ -33,7 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginWithFacebookEvent>((event, emit) async {
       bool check = await signInWithFacebook();
       if (check) {
-        // await initInfoUser();
+        await initInfoUser();
         emit(LoginSuccessState(social: Social.facebook));
       } else {
         emit(LoginErrorState());
@@ -65,7 +65,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (loginResult.accessToken != null) {
       final OAuthCredential facebookAuthCredential =
           FacebookAuthProvider.credential(loginResult.accessToken!.token);
-      FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
       return true;
     }
 
@@ -91,7 +91,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future initInfoUser() async {
     var firestore = FirebaseFirestore.instance
         .collection("info")
-        .doc(FirebaseAuth.instance.currentUser!.email.toString());
+        .doc(FirebaseAuth.instance.currentUser!.uid);
     await firestore.get().then((value) async {
       if (!value.exists) {
         await firestore.set(myuser.User(
