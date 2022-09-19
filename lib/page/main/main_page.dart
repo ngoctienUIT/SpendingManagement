@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/app_colors.dart';
-import 'package:spending_management/constants/onWillPop.dart';
 import 'package:spending_management/page/main/analytic/analytic_page.dart';
 import 'package:spending_management/page/main/calendar/calendar_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: WillPopScope(
-        onWillPop: () => onWillPop(currentBackPressTime: currentBackPressTime),
+        onWillPop: onWillPop,
         child: PageStorage(
           bucket: bucket,
           child: screens[currentTab],
@@ -111,5 +111,16 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime!) > const Duration(seconds: 3)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: "Nhấn thêm lần nữa để thoát");
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 }
