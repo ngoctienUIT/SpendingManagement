@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spending_management/constants/app_colors.dart';
+import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/page/signup/bloc/signup_bloc.dart';
 import 'package:spending_management/page/signup/signup_form.dart';
 
@@ -20,7 +20,10 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       backgroundColor: AppColors.whisperBackground,
       body: WillPopScope(
-        onWillPop: onWillPop,
+        onWillPop: () => onWillPop(
+          action: (now) => currentBackPressTime = now,
+          currentBackPressTime: currentBackPressTime,
+        ),
         child: SafeArea(
           child: BlocProvider(
             create: (context) => SignupBloc(),
@@ -29,16 +32,5 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
-  }
-
-  Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > const Duration(seconds: 3)) {
-      currentBackPressTime = now;
-      Fluttertoast.showToast(msg: "Nhấn thêm lần nữa để thoát");
-      return Future.value(false);
-    }
-    return Future.value(true);
   }
 }

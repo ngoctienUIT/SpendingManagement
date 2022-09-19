@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/app_colors.dart';
 import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/constants/function/on_will_pop.dart';
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({Key? key}) : super(key: key);
@@ -62,23 +63,15 @@ class _VerifyPageState extends State<VerifyPage> {
     }
   }
 
-  Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > const Duration(seconds: 3)) {
-      currentBackPressTime = now;
-      Fluttertoast.showToast(msg: "Nhấn thêm lần nữa để thoát");
-      return Future.value(false);
-    }
-    return Future.value(true);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whisperBackground,
       body: WillPopScope(
-        onWillPop: onWillPop,
+        onWillPop: () => onWillPop(
+          action: (now) => currentBackPressTime = now,
+          currentBackPressTime: currentBackPressTime,
+        ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),

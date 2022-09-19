@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spending_management/constants/app_colors.dart';
+import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/page/login/bloc/login_bloc.dart';
 import 'package:spending_management/page/login/login_form.dart';
 
@@ -20,7 +21,10 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: AppColors.whisperBackground,
       body: WillPopScope(
-        onWillPop: onWillPop,
+        onWillPop: () => onWillPop(
+          action: (now) => currentBackPressTime = now,
+          currentBackPressTime: currentBackPressTime,
+        ),
         child: SafeArea(
           child: BlocProvider(
             create: (context) => LoginBloc(),
@@ -29,16 +33,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > const Duration(seconds: 3)) {
-      currentBackPressTime = now;
-      Fluttertoast.showToast(msg: "Nhấn thêm lần nữa để thoát");
-      return Future.value(false);
-    }
-    return Future.value(true);
   }
 }
