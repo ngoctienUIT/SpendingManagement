@@ -9,14 +9,19 @@ class User {
   String avatar;
   bool gender;
 
-  User(
-      {required this.name,
-      required this.birthday,
-      required this.avatar,
-      this.gender = true});
+  User({
+    required this.name,
+    required this.birthday,
+    required this.avatar,
+    this.gender = true,
+  });
 
-  Map<String, dynamic> toMap() =>
-      {"name": name, "birthday": birthday, "avatar": avatar, "gender": gender};
+  Map<String, dynamic> toMap() => {
+        "name": name,
+        "birthday": birthday,
+        "avatar": avatar,
+        "gender": gender,
+      };
 
   factory User.fromFirebase(DocumentSnapshot snapshot) {
     var data = snapshot.data() as Map<String, dynamic>;

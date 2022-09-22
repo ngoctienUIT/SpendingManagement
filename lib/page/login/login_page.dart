@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spending_management/constants/app_colors.dart';
 import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/page/login/bloc/login_bloc.dart';
