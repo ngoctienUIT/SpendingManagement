@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/constants/function/loading_animation.dart';
 import 'package:spending_management/page/login/bloc/login_bloc.dart';
 import 'package:spending_management/page/login/bloc/login_event.dart';
 import 'package:spending_management/page/login/bloc/login_state.dart';
@@ -37,6 +38,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         if (state is LoginSuccessState) {
+          Navigator.pop(context);
           SchedulerBinding.instance.addPostFrameCallback((_) {
             if (state.social == Social.email &&
                 !FirebaseAuth.instance.currentUser!.emailVerified) {
@@ -48,6 +50,7 @@ class _LoginFormState extends State<LoginForm> {
         }
 
         if (state is LoginErrorState) {
+          Navigator.pop(context);
           SchedulerBinding.instance.addPostFrameCallback((_) {
             var snackBar = const SnackBar(
                 content: Text('Tài khoản hoặc mật khẩu không đúng'));
@@ -106,6 +109,7 @@ class _LoginFormState extends State<LoginForm> {
                   customButton(
                     action: () {
                       if (_formKey.currentState!.validate()) {
+                        loadingAnimation(context);
                         BlocProvider.of<LoginBloc>(context).add(
                           LoginWithEmailPasswordEvent(
                             email: _userController.text.trim(),
