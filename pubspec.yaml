@@ -51,6 +51,7 @@ dependencies:
   flutter_facebook_auth: ^4.4.1
   http: ^0.13.5
   fluttertoast: ^8.0.9
+  table_calendar: ^3.0.7
 
 dev_dependencies:
   flutter_test:
