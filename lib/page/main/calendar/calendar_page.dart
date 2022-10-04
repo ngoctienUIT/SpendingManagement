@@ -24,6 +24,7 @@ class _CalendarPageState extends State<CalendarPage> {
           firstDay: DateTime(1990),
           lastDay: DateTime(2050),
           calendarFormat: format,
+
           onFormatChanged: (CalendarFormat _format){
             setState(() {
               format= _format;
@@ -31,6 +32,7 @@ class _CalendarPageState extends State<CalendarPage> {
             },
         startingDayOfWeek: StartingDayOfWeek.monday,
         daysOfWeekVisible: true,
+
 
 
         //Chọn ngày
@@ -44,20 +46,42 @@ class _CalendarPageState extends State<CalendarPage> {
           return isSameDay(selectedDay,date);
         },
 
+        daysOfWeekStyle: DaysOfWeekStyle(decoration: BoxDecoration(color: Colors.black12),
+          weekendStyle: TextStyle(color: Colors.redAccent),
+         weekdayStyle:  TextStyle(color: Colors.black54),
+        ),
         //Style
         calendarStyle: CalendarStyle(
+          tableBorder: TableBorder(
+              bottom: BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
+             horizontalInside:  BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
+            verticalInside: BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
+              left: BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
+              right:BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
+              top: BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
+          ),
+
           isTodayHighlighted: true,
           selectedDecoration: BoxDecoration(
             color: Colors.cyanAccent,
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(6.0),
           ),
           selectedTextStyle: TextStyle(color: Colors.green),
           todayDecoration: BoxDecoration(
             color: Colors.cyanAccent,
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(6.0),
           ),
+          defaultDecoration:BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+          weekendDecoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(6.0)
+          ),
+        outsideDaysVisible: false,
           todayTextStyle: TextStyle(color: Colors.green)
         ),
         headerStyle: HeaderStyle(
@@ -72,6 +96,8 @@ class _CalendarPageState extends State<CalendarPage> {
           titleTextStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,color: Colors.black54)
 
           ),
+        rowHeight: 40,
+
         ),
         );
   }
