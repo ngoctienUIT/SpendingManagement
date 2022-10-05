@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spending_management/page/main/calendar/Calendar_Event.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatefulWidget {
@@ -9,9 +10,20 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  // Map<DateTime,List<Event>> selectedEvents;
   CalendarFormat format= CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+
+  @override
+  void initState() {
+    // selectedEvents = {   };
+    super.initState();
+  }
+  // List<Event> _getEventsfromDay(DateTime date){
+  //   // return selectedEvents[date] ?? [];
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +48,8 @@ class _CalendarPageState extends State<CalendarPage> {
 
 
         //Chọn ngày
-        onDaySelected: (DateTime selectDay, DateTime focusDay){
+        onDaySelected: (DateTime selectDay, DateTime focusDay){ 
+
             setState(() {
               selectedDay=selectDay;
               focusedDay=focusDay;
@@ -45,14 +58,24 @@ class _CalendarPageState extends State<CalendarPage> {
         selectedDayPredicate: (DateTime date){
           return isSameDay(selectedDay,date);
         },
+         
+        
+        eventLoader:(day) {
 
+            return ["1"];
+        },
+// calendarBuilders: CalendarBuilders(
+//   markerBuilder: (context, day, events) {
+//     return Text(events.length.toString());
+//   },
+// ),
         daysOfWeekStyle: DaysOfWeekStyle(decoration: BoxDecoration(color: Colors.black12),
           weekendStyle: TextStyle(color: Colors.redAccent),
          weekdayStyle:  TextStyle(color: Colors.black54),
         ),
         //Style
         calendarStyle: CalendarStyle(
-          tableBorder: TableBorder(
+          tableBorder: const TableBorder(
               bottom: BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
              horizontalInside:  BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
             verticalInside: BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
@@ -60,18 +83,20 @@ class _CalendarPageState extends State<CalendarPage> {
               right:BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
               top: BorderSide(color: Colors.black12,width: 1.0,style: BorderStyle.solid,strokeAlign: StrokeAlign.inside),
           ),
-
+        
           isTodayHighlighted: true,
           selectedDecoration: BoxDecoration(
             color: Colors.cyanAccent,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(6.0),
           ),
+          cellPadding: EdgeInsets.all(0),
           selectedTextStyle: TextStyle(color: Colors.green),
           todayDecoration: BoxDecoration(
             color: Colors.cyanAccent,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(6.0),
+            
           ),
           defaultDecoration:BoxDecoration(
           shape: BoxShape.rectangle,
@@ -81,12 +106,14 @@ class _CalendarPageState extends State<CalendarPage> {
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(6.0)
           ),
-        outsideDaysVisible: false,
+        outsideDaysVisible: true
+            ,
           todayTextStyle: TextStyle(color: Colors.green)
         ),
         headerStyle: HeaderStyle(
           formatButtonVisible: false,
           titleCentered: true,
+          rightChevronPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 0),
           decoration: BoxDecoration(
             color: Colors.greenAccent,
             borderRadius: BorderRadius.circular(10.0),
@@ -97,7 +124,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
           ),
         rowHeight: 40,
-
+        // locale: 'vi',
         ),
         );
   }
