@@ -40,10 +40,100 @@ class _MainPageState extends State<MainPage> {
           child: screens[currentTab],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+
+              isScrollControlled: false,
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20),
+                ),
+              ),
+              
+              builder: (context)=>
+                  Column(
+
+                    children: [
+                      Text("Nhập thu chi",style:
+                      TextStyle(color: Colors.orange,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      ),
+                      DefaultTabController(
+                        length: 2,
+                        initialIndex: 0,
+                        child:
+                         Container(
+                              // decoration: BoxDecoration(
+                              //   color: Colors.black,
+                              //   borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                              // ),
+                              margin: EdgeInsets.symmetric(vertical: 0) ,
+                              padding: EdgeInsets.all(10),
+                              child: Container(
+                                width: 260,
+                                decoration: BoxDecoration(
+
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                ),
+                                child: TabBar(
+
+                                  padding: EdgeInsets.all(5),
+                                  tabs: <Widget>[
+
+                                    Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      width: 100,
+                                      height: 40,
+                                      child: Center(
+                                        child:Text("Tiền chi "),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      width: 100,
+                                      height: 40,
+                                      child: Center(child:
+                                      Text("Tiền thu"),
+                                      ),
+                                    ),
+                                  ],
+                                  unselectedLabelColor: Colors.black54,
+                                  labelColor: Colors.black,
+                                  unselectedLabelStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  labelStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  indicatorSize: TabBarIndicatorSize.label,
+                                  indicator: BoxDecoration(
+                                    border: Border.all(color: Colors.grey, width: 2),
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                    ],
+                  ),
+          );
+        } ,
+
         child: const Icon(Icons.add_rounded),
       ),
+
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: AppColors.whisperBackground,
