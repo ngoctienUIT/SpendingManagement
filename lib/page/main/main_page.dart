@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/app_colors.dart';
@@ -26,7 +27,7 @@ class _MainPageState extends State<MainPage> {
 
   DateTime? currentBackPressTime;
   final PageStorageBucket bucket = PageStorageBucket();
-
+  DateTime dateTime=DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,8 +46,7 @@ class _MainPageState extends State<MainPage> {
         onPressed: () {
           showModalBottomSheet(
               context: context,
-
-              isScrollControlled: false,
+              isScrollControlled: true,
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
@@ -55,78 +55,178 @@ class _MainPageState extends State<MainPage> {
               ),
               
               builder: (context)=>
-                  Column(
-
-                    children: [
-                      Text("Nhập thu chi",style:
-                      TextStyle(color: Colors.orange,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(150.0,10.0,150.0,10.0),
+                      child: Container(
+                        height: 8.0,
+                        width: 80.0,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(8.0)),
+                        ),
                       ),
-                      ),
-                      DefaultTabController(
-                        length: 2,
-                        initialIndex: 0,
-                        child:
-                         Container(
-                              // decoration: BoxDecoration(
-                              //   color: Colors.black,
-                              //   borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                              // ),
-                              margin: EdgeInsets.symmetric(vertical: 0) ,
-                              padding: EdgeInsets.all(10),
-                              child: Container(
-                                width: 260,
-                                decoration: BoxDecoration(
+                    ),
+                    Text("Nhập thu chi", style:
+                    TextStyle(color: Colors.orange,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
+                    DefaultTabController(
+                      length: 2,
+                      child:
+                      Column(
+                        children: [
+                          Container(
+                          child:
+                              Column(
+                              mainAxisSize: MainAxisSize.min,
+                               children: <Widget>[
+                                 Container(
+                                   padding: EdgeInsets.all(0),
+                                   margin: EdgeInsets.all(10),
+                                   width: 260,
+                                   decoration: BoxDecoration(
+                                     color: Colors.grey,
+                                     borderRadius: BorderRadius.all(
+                                       Radius.circular(30),
+                                     ),
+                                   ),
+                                   child: TabBar(
 
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                ),
-                                child: TabBar(
+                                     padding: EdgeInsets.all(5),
+                                     tabs: <Widget>[
 
-                                  padding: EdgeInsets.all(5),
-                                  tabs: <Widget>[
+                                       Container(
+                                         padding: const EdgeInsets.all(5.0),
+                                         width: 100,
+                                         // color: Colors.black,
+                                         height: 40,
+                                         child: Center(
+                                           child: Text("Tiền chi ",style: TextStyle(fontSize: 17),),
+                                         ),
+                                       ),
+                                       Container(
+                                         padding: const EdgeInsets.all(5.0),
+                                         width: 100,
+                                         height: 40,
+                                         child: Center(child:
+                                         Text("Tiền thu",style: TextStyle(fontSize: 17),),
+                                         ),
+                                       ),
+                                     ],
+                                     unselectedLabelColor: Colors.black54,
+                                     labelColor: Colors.black,
+                                     unselectedLabelStyle: TextStyle(
+                                       fontWeight: FontWeight.bold,
+                                     ),
+                                     labelStyle: TextStyle(
+                                       fontWeight: FontWeight.bold,
+                                     ),
+                                     indicatorSize: TabBarIndicatorSize.label,
+                                     indicator: BoxDecoration(
+                                       border: Border.all(color: Colors.grey, width: 2),
+                                       shape: BoxShape.rectangle,
+                                       borderRadius: BorderRadius.circular(50),
+                                       color: Colors.white,
+                                     ),
+                                   ),
+                                 ),
 
-                                    Container(
-                                      padding: const EdgeInsets.all(10.0),
-                                      width: 100,
-                                      height: 40,
-                                      child: Center(
-                                        child:Text("Tiền chi "),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.all(10.0),
-                                      width: 100,
-                                      height: 40,
-                                      child: Center(child:
-                                      Text("Tiền thu"),
-                                      ),
-                                    ),
-                                  ],
-                                  unselectedLabelColor: Colors.black54,
-                                  labelColor: Colors.black,
-                                  unselectedLabelStyle: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  labelStyle: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  indicatorSize: TabBarIndicatorSize.label,
-                                  indicator: BoxDecoration(
-                                    border: Border.all(color: Colors.grey, width: 2),
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: Colors.white,
-                                  ),
-                                ),
+                                 Container(
+                                   height: 520,
+                                   child: TabBarView(
+                                     children: <Widget> [
+                                       Column(
+                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                         children: [
+                                           Row(
+                                             children: <Widget> [
+                                               Text(
+                                                 "Ngày",
+                                                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                                               ),
+                                               Container(
+                                                 child: Center(child:
+                                                 CupertinoButton(
+
+                                                   color: Colors.black12,
+                                                   borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                   child: Text("${dateTime.day}/${dateTime.month}/${dateTime.year}(${dateTime.weekday})",
+                                                     style: TextStyle(
+                                                       fontSize: 15,
+                                                       color: Colors.black,
+
+                                                     ),),
+                                                   onPressed: () {
+                                                     showCupertinoModalPopup(
+                                                       context: context,
+                                                       builder: (BuildContext context) => SizedBox(
+                                                         height: 250,
+                                                         child: CupertinoDatePicker(
+                                                           backgroundColor: Colors.white,
+                                                           initialDateTime: dateTime,
+                                                           onDateTimeChanged: (DateTime newTime) {
+                                                             setState(() =>dateTime = newTime);
+                                                           },
+                                                           use24hFormat: true,
+                                                           mode: CupertinoDatePickerMode.date,
+
+                                                         ),
+                                                       ),
+                                                     );
+                                                   },
+                                                 ),
+                                                 ),
+                                               ),
+                                             ],
+                                           ),
+                                           Row(
+                                              children: <Widget> [
+                                                Text(
+                                                "Ghi chú",
+                                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  "Nhập ghi chú",
+                                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                                                ),
+
+
+                                              ],
+                                           ),
+                                        ],
+                                       ),
+                                       Column(
+                                         children: <Widget>[
+                                           TextField(
+                                             decoration:
+                                             InputDecoration(hintText: 'Personal Note'),
+                                           ),
+                                         ],
+                                       )
+                                     ],
+                                   ),
+                                 ),
+                        ],
+
                               ),
-                            ),
+
                           ),
-                    ],
-                  ),
+
+                        ],
+
+                      ),
+
+                    ),
+                  ],
+
+                ),
+
           );
         } ,
 
