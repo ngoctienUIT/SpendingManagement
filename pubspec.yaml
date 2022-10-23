@@ -52,6 +52,7 @@ dependencies:
   http: ^0.13.5
   fluttertoast: ^8.0.9
   table_calendar: ^3.0.7
+  group_button: ^5.2.2
 
 dev_dependencies:
   flutter_test:
@@ -93,6 +94,8 @@ flutter:
   assets:
      - assets/logo/
      - assets/images/
+     - assets/category/
+
 
   # An images asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
