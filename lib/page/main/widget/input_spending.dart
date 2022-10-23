@@ -30,10 +30,7 @@ class _InputSpendingState extends State<InputSpending> {
               width: 70,
               child: Text(
                 "Ngày",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(
@@ -42,10 +39,7 @@ class _InputSpendingState extends State<InputSpending> {
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 child: Text(
                   "${DateFormat("dd/MM/yyyy").format(dateTime)}(${dateTime.weekday})",
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                  ),
+                  style: const TextStyle(fontSize: 15, color: Colors.black),
                 ),
                 onPressed: () {
                   showCupertinoModalPopup(

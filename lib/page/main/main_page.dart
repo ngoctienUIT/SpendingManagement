@@ -6,6 +6,7 @@ import 'package:spending_management/page/main/analytic/analytic_page.dart';
 import 'package:spending_management/page/main/calendar/calendar_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
 import 'package:spending_management/page/main/setting/setting_page.dart';
+import 'package:spending_management/page/main/widget/custom_tabbar.dart';
 import 'package:spending_management/page/main/widget/input_income.dart';
 import 'package:spending_management/page/main/widget/input_spending.dart';
 import 'package:spending_management/page/main/widget/item_bottom_tab.dart';
@@ -131,8 +132,8 @@ class _MainPageState extends State<MainPage> {
         children: [
           Container(
             margin: const EdgeInsets.fromLTRB(150, 10.0, 150, 0.0),
-            height: 8.0,
-            width: 80.0,
+            height: 8,
+            width: 80,
             decoration: BoxDecoration(
               color: Colors.grey[300],
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),
@@ -142,10 +143,7 @@ class _MainPageState extends State<MainPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: const Icon(
-                  Icons.add_a_photo_outlined,
-                  size: 30,
-                ),
+                icon: const Icon(Icons.add_a_photo_outlined, size: 30),
                 onPressed: () {},
               ),
               TextButton(
@@ -156,7 +154,9 @@ class _MainPageState extends State<MainPage> {
                     style: TextStyle(fontSize: 18, color: Colors.redAccent),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),
@@ -173,58 +173,7 @@ class _MainPageState extends State<MainPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(0),
-                  margin: const EdgeInsets.all(10),
-                  width: 250,
-                  decoration: const BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                  ),
-                  child: TabBar(
-                    padding: const EdgeInsets.all(3),
-                    tabs: [
-                      Container(
-                        padding: const EdgeInsets.all(0),
-                        width: 100,
-                        // color: Colors.black,
-                        height: 30,
-                        child: const Center(
-                          child: Text(
-                            "Tiền chi ",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(0),
-                        width: 100,
-                        height: 30,
-                        child: const Center(
-                          child: Text(
-                            "Tiền thu",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    ],
-                    unselectedLabelColor: Colors.black54,
-                    labelColor: Colors.black,
-                    unselectedLabelStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    labelStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    indicatorSize: TabBarIndicatorSize.label,
-                    indicator: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 2),
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                customTabBar(),
                 Container(
                   height: 500,
                   child: const TabBarView(
