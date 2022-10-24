@@ -1,150 +1,139 @@
+import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:spending_management/page/main/analytic/chart/indicator.dart';
+import 'package:spending_management/constants/function/list_categories.dart';
+import 'package:spending_management/models/spending.dart';
 
 class MyPieChart extends StatefulWidget {
-  const MyPieChart({Key? key}) : super(key: key);
+  const MyPieChart({Key? key, required this.list}) : super(key: key);
+  final List<Spending> list;
 
   @override
-  State<StatefulWidget> createState() => MyPieChartState();
+  State<StatefulWidget> createState() => _MyPieChartState();
 }
 
-class MyPieChartState extends State {
+class _MyPieChartState extends State<MyPieChart> {
   int touchedIndex = -1;
+  int sum = 1;
+  List<Color> listColor = [];
+
+  @override
+  void initState() {
+    for (int i = 0; i < categories.length; i++) {
+      listColor.add(
+          Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0));
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        const SizedBox(
-          height: 18,
+    sum = widget.list
+        .map((e) => e.money.abs())
+        .reduce((value, element) => value + element);
+
+    return AspectRatio(
+      aspectRatio: 1,
+      child: PieChart(
+        PieChartData(
+          pieTouchData: PieTouchData(touchCallback: (event, pieTouchResponse) {
+            setState(() {
+              if (!event.isInterestedForInteractions ||
+                  pieTouchResponse == null ||
+                  pieTouchResponse.touchedSection == null) {
+                touchedIndex = -1;
+                return;
+              }
+              touchedIndex =
+                  pieTouchResponse.touchedSection!.touchedSectionIndex;
+            });
+          }),
+          borderData: FlBorderData(show: false),
+          sectionsSpace: 0,
+          centerSpaceRadius: 0,
+          sections: showingSections(),
         ),
-        Expanded(
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: PieChart(
-              PieChartData(
-                  pieTouchData: PieTouchData(
-                      touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                    setState(() {
-                      if (!event.isInterestedForInteractions ||
-                          pieTouchResponse == null ||
-                          pieTouchResponse.touchedSection == null) {
-                        touchedIndex = -1;
-                        return;
-                      }
-                      touchedIndex =
-                          pieTouchResponse.touchedSection!.touchedSectionIndex;
-                    });
-                  }),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 40,
-                  sections: showingSections()),
-            ),
-          ),
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-            Indicator(
-              color: Color(0xff0293ee),
-              text: 'First',
-              isSquare: true,
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Indicator(
-              color: Color(0xfff8b250),
-              text: 'Second',
-              isSquare: true,
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Indicator(
-              color: Color(0xff845bef),
-              text: 'Third',
-              isSquare: true,
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Indicator(
-              color: Color(0xff13d38e),
-              text: 'Fourth',
-              isSquare: true,
-            ),
-            SizedBox(
-              height: 18,
-            ),
-          ],
-        ),
-        const SizedBox(
-          width: 28,
-        ),
-      ],
+      ),
     );
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
+    List<PieChartSectionData> pieChartList = [];
+    for (int i = 0; i < categories.length; i++) {
+      if (![0, 10, 21, 27, 35, 38].contains(i)) {
+        List<Spending> spendingList =
+            widget.list.where((element) => element.type == i).toList();
+        if (spendingList.isNotEmpty) {
+          final isTouched = pieChartList.length == touchedIndex;
+          final fontSize = isTouched ? 20.0 : 16.0;
+          final radius = isTouched ? 110.0 : 100.0;
+          final widgetSize = isTouched ? 55.0 : 40.0;
+
+          int sumSpending = spendingList
+              .map((e) => e.money.abs())
+              .reduce((value, element) => value + element);
+
+          pieChartList.add(
+            PieChartSectionData(
+              color: listColor[i],
+              value: (sumSpending / sum) * 100,
+              title: isTouched
+                  ? "${((sumSpending / sum) * 100).toStringAsFixed(2)}%"
+                  : "",
+              radius: radius,
+              titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
+                color: const Color(0xffffffff),
+              ),
+              badgeWidget: _Badge(
+                categories[i]["icon"]!,
+                size: widgetSize,
+                borderColor: const Color(0xff0293ee),
+              ),
+              badgePositionPercentageOffset: .98,
+            ),
           );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        default:
-          throw Error();
+        }
       }
-    });
+    }
+    return pieChartList;
+  }
+}
+
+class _Badge extends StatelessWidget {
+  const _Badge(
+    this.imgAsset, {
+    Key? key,
+    required this.size,
+    required this.borderColor,
+  }) : super(key: key);
+
+  final String imgAsset;
+  final double size;
+  final Color borderColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: PieChart.defaultDuration,
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        border: Border.all(color: borderColor, width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(.5),
+            offset: const Offset(3, 3),
+            blurRadius: 3,
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(size * .15),
+      child: Center(child: Image.asset(imgAsset, fit: BoxFit.contain)),
+    );
   }
 }

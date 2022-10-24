@@ -1,8 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/constants/function/get_data_spending.dart';
+import 'package:spending_management/constants/function/get_date.dart';
+import 'package:spending_management/controls/spending_firebase.dart';
+import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/page/main/analytic/chart/column_chart.dart';
 import 'package:spending_management/page/main/analytic/chart/pie_chart.dart';
+import 'package:spending_management/page/main/analytic/search_page.dart';
+import 'package:spending_management/page/main/analytic/widget/custom_tabbar.dart';
+import 'package:spending_management/page/main/analytic/widget/show_date.dart';
+import 'package:spending_management/page/main/analytic/widget/show_list_spending.dart';
+import 'package:spending_management/page/main/analytic/widget/tabbar_chart.dart';
+import 'package:spending_management/page/main/analytic/widget/tabbar_type.dart';
+import 'package:spending_management/page/main/analytic/widget/total_report.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AnalyticPage extends StatefulWidget {
   const AnalyticPage({Key? key}) : super(key: key);
@@ -14,7 +27,9 @@ class AnalyticPage extends StatefulWidget {
 class _AnalyticPageState extends State<AnalyticPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  bool chart = true;
+  late TabController _chartController;
+  late TabController _typeController;
+  bool chart = false;
   DateTime now = DateTime.now();
   String date = "";
 
@@ -22,6 +37,8 @@ class _AnalyticPageState extends State<AnalyticPage>
   void initState() {
     date = getWeek(now);
     _tabController = TabController(length: 3, vsync: this);
+    _chartController = TabController(length: 2, vsync: this);
+    _typeController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       now = DateTime.now();
       setState(() {
@@ -34,140 +51,219 @@ class _AnalyticPageState extends State<AnalyticPage>
         }
       });
     });
-
+    _chartController.addListener(() {
+      setState(() {
+        if (_chartController.index == 0) {
+          chart = false;
+        } else {
+          chart = true;
+        }
+      });
+    });
+    _typeController.addListener(() {
+      setState(() {});
+    });
     super.initState();
   }
 
-  String getWeek(DateTime dateTime) {
-    int weekDay = dateTime.weekday;
-    DateTime firstDayOfWeek = dateTime.subtract(Duration(days: weekDay - 1));
-    return "${DateFormat("dd/MM/yyyy").format(firstDayOfWeek)} - ${DateFormat("dd/MM/yyyy").format(firstDayOfWeek.add(const Duration(days: 6)))}";
-  }
+  bool checkDate(DateTime date) {
+    if (_tabController.index == 0) {
+      int weekDay = now.weekday;
+      DateTime firstDayOfWeek = DateTime(now.year, now.month, now.day)
+          .subtract(Duration(days: weekDay - 1));
 
-  String getMonth(DateTime dateTime) {
-    int lastDay = DateTime(now.year, now.month + 1, 0).day;
-    return "01${DateFormat("/MM/yyyy").format(dateTime)} - $lastDay${DateFormat("/MM/yyyy").format(DateTime(dateTime.year, dateTime.month))}";
-  }
+      DateTime lastDayOfWeek = firstDayOfWeek.add(const Duration(days: 6));
 
-  String getYear(DateTime dateTime) {
-    return "01/01/${dateTime.year} - 31/12/${dateTime.year}";
+      if (firstDayOfWeek.isBefore(date) && lastDayOfWeek.isAfter(date) ||
+          isSameDay(firstDayOfWeek, date) ||
+          isSameDay(lastDayOfWeek, date)) return true;
+    } else if (_tabController.index == 1 && isSameMonth(date, now)) {
+      return true;
+    } else if (_tabController.index == 2 && date.year == now.year) {
+      return true;
+    }
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Row(
-                children: const [
-                  Text(
-                    "Spending",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text(
+                        "Spending",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                      ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SearchPage(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.magnifyingGlass,
+                          size: 20,
+                          color: Color.fromRGBO(180, 190, 190, 1),
+                        ),
+                      )
+                    ],
                   ),
+                  const SizedBox(height: 20),
+                  CustomTabBar(controller: _tabController),
                 ],
               ),
-              const SizedBox(height: 20),
-              Container(
-                height: 40,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                    color: const Color.fromRGBO(242, 243, 247, 1),
-                    borderRadius: BorderRadius.circular(10)),
-                child: TabBar(
-                    controller: _tabController,
-                    labelColor: Colors.black87,
-                    labelStyle: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
-                    unselectedLabelColor: const Color.fromRGBO(45, 216, 198, 1),
-                    unselectedLabelStyle: AppStyles.p,
-                    isScrollable: false,
-                    indicatorColor: Colors.red,
-                    indicator: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    tabs: const [
-                      Tab(text: "Weekly"),
-                      Tab(text: "Monthly"),
-                      Tab(text: "Yearly")
-                    ]),
-              ),
-              const SizedBox(height: 20),
-              Card(
-                // elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4)),
-                color: const Color(0xff2c4260),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                if (_tabController.index == 0) {
-                                  now = now.subtract(const Duration(days: 6));
-                                  date = getWeek(now);
-                                } else if (_tabController.index == 1) {
-                                  now = DateTime(now.year, now.month - 1);
-                                  date = getMonth(now);
-                                } else {
-                                  now = DateTime(now.year - 1);
-                                  date = getYear(now);
-                                }
-                              });
-                            },
-                            child: const Icon(Icons.arrow_back_ios_new_rounded),
-                          ),
-                          Text(
-                            date,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                if (_tabController.index == 0) {
-                                  now = now.add(const Duration(days: 6));
-                                  date = getWeek(now);
-                                } else if (_tabController.index == 1) {
-                                  now = DateTime(now.year, now.month + 1);
-                                  date = getMonth(now);
-                                } else {
-                                  now = DateTime(now.year + 1);
-                                  date = getYear(now);
-                                }
-                              });
-                            },
-                            child: const Icon(Icons.arrow_forward_ios_rounded),
-                          )
-                        ],
-                      ),
-                    ),
-                    chart ? const MyPieChart() : const MyPieChart(),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    chart = !chart;
-                  });
-                },
-                child: const Text("change"),
-              )
-            ],
-          ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("data")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var data =
+                          snapshot.requireData.data() as Map<String, dynamic>;
+                      List<String> list = getDataSpending(
+                        data: data,
+                        index: _tabController.index,
+                        date: now,
+                      );
+
+                      return FutureBuilder(
+                          future: SpendingFirebase.getSpendingList(list),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var dataSpending = snapshot.data;
+
+                              List<Spending> spendingList = dataSpending!
+                                  .where(
+                                      (element) => checkDate(element.dateTime))
+                                  .toList();
+
+                              List<Spending> classifySpending =
+                                  spendingList.where((element) {
+                                if (_typeController.index == 0 &&
+                                    element.money > 0) return false;
+                                if (_typeController.index == 1 &&
+                                    element.money < 0) return false;
+                                return true;
+                              }).toList();
+
+                              return SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 10,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
+                                        color: const Color(0xff2c4260),
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 10),
+                                            showDate(
+                                              date: date,
+                                              index: _tabController.index,
+                                              now: now,
+                                              action: (date, now) {
+                                                setState(() {
+                                                  this.date = date;
+                                                  this.now = now;
+                                                });
+                                              },
+                                            ),
+                                            TabBarType(
+                                                controller: _typeController),
+                                            classifySpending.isNotEmpty
+                                                ? (chart
+                                                    ? MyPieChart(
+                                                        list: classifySpending)
+                                                    : ColumnChart(
+                                                        index: _tabController
+                                                            .index,
+                                                        list: classifySpending,
+                                                        dateTime: now,
+                                                      ))
+                                                : const SizedBox(
+                                                    height: 350,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Không có dữ liệu!",
+                                                        style: TextStyle(
+                                                          color: Colors.blue,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                            tabBarChart(
+                                                controller: _chartController),
+                                            const SizedBox(height: 10),
+                                          ],
+                                        ),
+                                      ),
+                                      if (spendingList.isNotEmpty)
+                                        TotalReport(list: spendingList),
+                                      if (spendingList.isNotEmpty)
+                                        showListSpending(list: spendingList)
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                            return loading();
+                          });
+                    }
+
+                    return loading();
+                  }),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget loading() {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      color: const Color(0xff2c4260),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          showDate(
+            date: date,
+            index: 0,
+            now: now,
+            action: (date, now) {},
+          ),
+          TabBarType(controller: TabController(length: 2, vsync: this)),
+          const SizedBox(
+            height: 350,
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          tabBarChart(controller: TabController(length: 2, vsync: this)),
+          const SizedBox(height: 10),
+        ],
       ),
     );
   }

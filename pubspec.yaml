@@ -54,6 +54,7 @@ dependencies:
   table_calendar: ^3.0.7
   group_button: ^5.2.2
   currency_text_input_formatter: ^2.1.7
+  dropdown_button2: ^1.8.8
 
 dev_dependencies:
   flutter_test:

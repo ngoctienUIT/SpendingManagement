@@ -1,6 +1,39 @@
-List<String> week = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+List<String> listDayOfWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+];
 
-List<String> month = [
+List<String> listDayOfWeekAcronym = [
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+  "Sun"
+];
+
+List<String> listMonthOfYear = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
+List<String> listMonthOfYearAcronym = [
   "Jan",
   "Feb",
   "Mar",
