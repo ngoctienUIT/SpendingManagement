@@ -18,10 +18,7 @@ Widget customTabBar() {
           // color: Colors.black,
           height: 30,
           child: const Center(
-            child: Text(
-              "Tiền chi ",
-              style: TextStyle(fontSize: 15),
-            ),
+            child: Text("Tiền chi ", style: TextStyle(fontSize: 15)),
           ),
         ),
         Container(
@@ -29,10 +26,7 @@ Widget customTabBar() {
           width: 100,
           height: 30,
           child: const Center(
-            child: Text(
-              "Tiền thu",
-              style: TextStyle(fontSize: 15),
-            ),
+            child: Text("Tiền thu", style: TextStyle(fontSize: 15)),
           ),
         ),
       ],

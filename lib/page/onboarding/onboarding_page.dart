@@ -47,20 +47,18 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ),
         child: Stack(
           children: [
-            Expanded(
-              child: PageView.builder(
-                scrollDirection: Axis.horizontal,
-                controller: _pageController,
-                itemCount: _pages.length,
-                onPageChanged: (value) {
-                  setState(() {
-                    currentPage = value;
-                  });
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  return _pages[index];
-                },
-              ),
+            PageView.builder(
+              scrollDirection: Axis.horizontal,
+              controller: _pageController,
+              itemCount: _pages.length,
+              onPageChanged: (value) {
+                setState(() {
+                  currentPage = value;
+                });
+              },
+              itemBuilder: (BuildContext context, int index) {
+                return _pages[index];
+              },
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,

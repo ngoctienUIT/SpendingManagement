@@ -24,7 +24,7 @@ class _InputSpendingState extends State<InputSpending> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      // key: _formKey,
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -32,9 +32,8 @@ class _InputSpendingState extends State<InputSpending> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const SizedBox(height: 30, width: 30),
+              const SizedBox(width: 30),
               const SizedBox(
-                height: 30,
                 width: 70,
                 child: Text(
                   "Ngày",
@@ -116,10 +115,9 @@ class _InputSpendingState extends State<InputSpending> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(height: 30, width: 30),
+              const SizedBox(width: 30),
               const SizedBox(
                 width: 70,
-                height: 30,
                 child: Text(
                   "Ghi chú",
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
@@ -131,7 +129,7 @@ class _InputSpendingState extends State<InputSpending> {
                   decoration: const InputDecoration(hintText: 'Nhập ghi chú'),
                 ),
               ),
-              const SizedBox(height: 30, width: 30),
+              const SizedBox(width: 30),
             ],
           ),
           Row(
@@ -139,10 +137,9 @@ class _InputSpendingState extends State<InputSpending> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SizedBox(height: 30, width: 30),
+              const SizedBox(width: 30),
               const SizedBox(
                 width: 70,
-                height: 30,
                 child: Text(
                   "Tiền chi",
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),

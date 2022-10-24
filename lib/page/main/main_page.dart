@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:spending_management/constants/app_colors.dart';
 import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/page/main/analytic/analytic_page.dart';
@@ -29,6 +31,7 @@ class _MainPageState extends State<MainPage> {
 
   DateTime? currentBackPressTime;
   final PageStorageBucket bucket = PageStorageBucket();
+  XFile? image;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +147,7 @@ class _MainPageState extends State<MainPage> {
             children: [
               IconButton(
                 icon: const Icon(Icons.add_a_photo_outlined, size: 30),
-                onPressed: () {},
+                onPressed: () => pickImage(),
               ),
               TextButton(
                 child: Container(
@@ -189,5 +192,14 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
     );
+  }
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        setState(() => this.image = image);
+      }
+    } on PlatformException catch (_) {}
   }
 }
