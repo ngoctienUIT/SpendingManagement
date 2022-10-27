@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SharedPreferences.getInstance().then((value) {
+      value.setBool("firstStart", false);
+    });
     return MultiBlocProvider(
       providers: [
         BlocProvider<SettingCubit>(
