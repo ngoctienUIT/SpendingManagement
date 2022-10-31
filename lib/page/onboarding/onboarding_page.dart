@@ -4,6 +4,7 @@ import 'onboarding_body.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
+
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
@@ -39,6 +40,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    //final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: WillPopScope(
         onWillPop: () => onWillPop(
