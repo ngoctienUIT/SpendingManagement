@@ -1,3 +1,5 @@
+// ignore_for_file: use_function_type_syntax_for_parameters
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,14 +35,22 @@ class _SettingPageState extends State<SettingPage> {
       valNotify3 = newValue3;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
         child: ListView(
           children: [
+            const SizedBox(height: 10, width:50),
+            Row(
+              children:const [
+                   Text("Setting",
+              style: TextStyle(
+                  fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
             const SizedBox(height: 40),
             Row(
               children:const [
@@ -52,28 +62,28 @@ class _SettingPageState extends State<SettingPage> {
                 Text("Account", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold))
               ],
             ),
-            const Divider(height:20, thickness: 1),
+            const Divider(height:20, thickness: 2),
             const SizedBox(height:10),
-            buildAccountOption(context, "Change Password"),
-            buildAccountOption(context, "Edit profile"),
-            buildAccountOption(context, "Languages"),
+            buildAccountOption(Icons.password_outlined,const Color(0xff000000),context, "Change Password"),
+            buildAccountOption(Icons.wallet,const Color(0xff050832),context, "Edit profile"),
+            buildAccountOption(Icons.language_rounded,const Color(0xff0a439a),context, "Languages"),
             const SizedBox(height:40),
             Row(
               children:const [
-                Icon(Icons.volume_off_outlined, color: Colors.blue),
+                Icon(Icons.volume_down, color: Colors.blue),
                 SizedBox(width:10),
                 Text ("Notifications", style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold
                 ))
               ],
             ),
             const Divider(height: 20,thickness: 1),
             const SizedBox(height:10),
-            buildNotificationsOptions("theme Dark", valNotify1,onChangeFunction1),
-            buildNotificationsOptions("Account Active", valNotify2,onChangeFunction2),
-            buildNotificationsOptions("Opportunity", valNotify3,onChangeFunction3),
-            const SizedBox(height:50),
+            buildNotificationsOptions(Icons.dark_mode,const Color(0xFF642ef3),"Dark mode", valNotify1,onChangeFunction1),
+            buildNotificationsOptions(Icons.notifications_active, Colors.black,"Account Active", valNotify2,onChangeFunction2),
+           // buildNotificationsOptions(isIcon1,"Opportunity", valNotify3,onChangeFunction3),
+            const SizedBox(height:80),
             Center(
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
@@ -90,9 +100,9 @@ class _SettingPageState extends State<SettingPage> {
                   Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                 },
                 child:const Text("SIGN OUT", style: TextStyle(
-                  fontSize: 16,
-                  letterSpacing: 2.2,
-                  color: Colors.black
+                    fontSize: 16,
+                    letterSpacing: 2.2,
+                    color: Colors.black
                 )),
               ),
             )
@@ -102,15 +112,20 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
-  Padding buildNotificationsOptions(String title, bool value, Function onChangedMethod){
+    Padding buildNotificationsOptions(IconData icon,Color color,String title, bool value, Function onChangedMethod){
     return Padding(padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Icon(
+        icon,
+        color: color
+          ),
+          const SizedBox(width:10),
         Text(title, style: TextStyle(
           fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: Colors.grey[600]
+          fontWeight: FontWeight.w100,
+          color: Colors.grey[1]
         )),
         Transform.scale(
           scale: 0.7,
@@ -128,7 +143,7 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
-  GestureDetector buildAccountOption(BuildContext context,String title){
+  GestureDetector buildAccountOption(IconData icon,Color color,BuildContext context,String title){
     return GestureDetector(
       onTap: (){
         showDialog(context: context, builder: (BuildContext context){
@@ -136,7 +151,7 @@ class _SettingPageState extends State<SettingPage> {
             title: Text(title),
             content: Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children:const [
                 Text("options 1"),
                 Text("options 2")
               ],
@@ -144,7 +159,7 @@ class _SettingPageState extends State<SettingPage> {
             actions: [
               TextButton(onPressed:(){
                 Navigator.of(context).pop();
-              }, child: Text("close"))
+              }, child:const Text("close"))
             ],
           );
         });
@@ -154,10 +169,14 @@ class _SettingPageState extends State<SettingPage> {
         child:Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Icon(
+                icon,
+                color: color
+            ),
             Text(title, style: TextStyle(
               fontSize:20,
               fontWeight: FontWeight.w500,
-              color: Colors.grey[600]
+              color: Colors.grey[10]
             )),
             const Icon(Icons.arrow_forward_ios, color: Colors.grey)
           ],
