@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spending_management/page/login/bloc/login_event.dart';
 import 'package:spending_management/page/login/bloc/login_state.dart';
 import 'package:spending_management/models/user.dart' as myuser;
@@ -14,6 +15,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       bool check = await signInWithEmailAndPassword(
           emailAddress: event.email, password: event.password);
       if (check) {
+        SharedPreferences.getInstance().then((value) {
+          value.setBool("login", true);
+        });
         emit(LoginSuccessState(social: Social.email));
       } else {
         emit(LoginErrorState());
@@ -23,6 +27,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginWithGoogleEvent>((event, emit) async {
       UserCredential? user = await signInWithGoogle();
       if (user != null) {
+        SharedPreferences.getInstance().then((value) {
+          value.setBool("login", false);
+        });
         await initInfoUser();
         emit(LoginSuccessState(social: Social.google));
       } else {
@@ -33,6 +40,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginWithFacebookEvent>((event, emit) async {
       bool check = await signInWithFacebook();
       if (check) {
+        SharedPreferences.getInstance().then((value) {
+          value.setBool("login", false);
+        });
         await initInfoUser();
         emit(LoginSuccessState(social: Social.facebook));
       } else {
