@@ -61,7 +61,6 @@
   "operation-not-allowed": "Tài khoản email/mật khẩu không được kích hoạt",
   "weak-password": "Mật khẩu không đủ mạnh",
   "create-account-success": "Tạo tài khoản thành công",
-<<<<<<< HEAD
   "notifications": "Thông báo",
   "account_active": "Tài khoản hoạt động",
   "edit_profile": "Chỉnh sửa hồ sơ",
@@ -83,13 +82,12 @@
   "commuting": "đi lại",
   "contact": "Liên lạc",
   "house": "tiền nhà",
-  "add_category": "Thêm danh mục"
+  "add_category": "Thêm danh mục",
 
-=======
   "cancel": "Hủy",
   "resend_email": "Gửi lại email",
   "go_to_home": "Đi đến Trang Chủ",
   "verify_email": "Xác Nhận Email",
   "login_success": "Đăng nhập thành công"
->>>>>>> 6ec9588490c6c157b289d1c1472db2b0fb13b962
+
 }
