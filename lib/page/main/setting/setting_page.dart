@@ -93,13 +93,13 @@ class _SettingPageState extends State<SettingPage> {
                 Icons.password_outlined,
                 const Color(0xff000000),
                 context,
-                "Change Password",
+                AppLocalizations.of(context).translate('change_password'),
               ),
             buildAccountOption(
               Icons.wallet,
               const Color(0xff050832),
               context,
-              "Edit profile",
+              AppLocalizations.of(context).translate('edit_profile'),
             ),
             buildAccountOption(
               Icons.language_rounded,
@@ -109,12 +109,13 @@ class _SettingPageState extends State<SettingPage> {
             ),
             const SizedBox(height: 40),
             Row(
-              children: const [
-                Icon(Icons.volume_down, color: Colors.blue),
-                SizedBox(width: 10),
+              children:  [
+                const Icon(Icons.volume_down, color: Colors.blue),
+                const SizedBox(width: 10),
                 Text(
-                  "Notifications",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  AppLocalizations.of(context).translate('notifications'),
+                  //"Notifications",
+                  style:const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -130,7 +131,7 @@ class _SettingPageState extends State<SettingPage> {
             buildNotificationsOptions(
               Icons.notifications_active,
               Colors.black,
-              "Account Active",
+              AppLocalizations.of(context).translate('account_active'),
               valNotify2,
               onChangeFunction2,
             ),
@@ -219,13 +220,13 @@ class _SettingPageState extends State<SettingPage> {
                       onPressed: () {
                         changeLanguage(1);
                       },
-                      child: const Text("options 1"),
+                      child: const Text("English"),
                     ),
                     TextButton(
                       onPressed: () {
                         changeLanguage(0);
                       },
-                      child: const Text("options 2"),
+                      child: const Text("Vietnamese"),
                     ),
                   ],
                 ),

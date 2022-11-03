@@ -115,9 +115,9 @@ class _AnalyticPageState extends State<AnalyticPage>
         children: [
           Row(
             children: [
-              const Text(
-                "Spending",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+               Text(
+                AppLocalizations.of(context).translate('spending'),
+                style:const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
               IconButton(

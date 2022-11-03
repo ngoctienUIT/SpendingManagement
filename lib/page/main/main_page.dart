@@ -13,6 +13,8 @@ import 'package:spending_management/page/main/widget/input_income.dart';
 import 'package:spending_management/page/main/widget/input_spending.dart';
 import 'package:spending_management/page/main/widget/item_bottom_tab.dart';
 
+import '../../setting/localization/app_localizations.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -64,7 +66,8 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   itemBottomTab(
-                    text: "Home",
+                    text:
+                    AppLocalizations.of(context).translate('home'),
                     index: 0,
                     current: currentTab,
                     icon: FontAwesomeIcons.house,
@@ -75,7 +78,7 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                   itemBottomTab(
-                    text: "Calendar",
+                    text: AppLocalizations.of(context).translate('calendar'),
                     index: 1,
                     current: currentTab,
                     size: 28,
@@ -92,7 +95,8 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   itemBottomTab(
-                    text: "Analytic",
+                    text:
+                    AppLocalizations.of(context).translate('analytic'),
                     index: 2,
                     current: currentTab,
                     icon: FontAwesomeIcons.chartPie,
@@ -103,7 +107,8 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                   itemBottomTab(
-                    text: "Setting",
+                    text:
+                    AppLocalizations.of(context).translate('setting'),
                     index: 3,
                     current: currentTab,
                     icon: FontAwesomeIcons.gear,
@@ -152,9 +157,9 @@ class _MainPageState extends State<MainPage> {
               TextButton(
                 child: Container(
                   padding: const EdgeInsets.only(right: 8),
-                  child: const Text(
-                    'Bỏ qua',
-                    style: TextStyle(fontSize: 18, color: Colors.redAccent),
+                  child:  Text(
+                    AppLocalizations.of(context).translate('skip'),
+                    style:const TextStyle(fontSize: 18, color: Colors.redAccent),
                   ),
                 ),
                 onPressed: () {
@@ -163,9 +168,9 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-          const Text(
-            "Nhập thu chi",
-            style: TextStyle(
+           Text(
+             AppLocalizations.of(context).translate('add_spending'),
+            style:const TextStyle(
               color: Colors.orange,
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -177,9 +182,9 @@ class _MainPageState extends State<MainPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 customTabBar(),
-                Container(
+                const SizedBox(
                   height: 500,
-                  child: const TabBarView(
+                  child:  TabBarView(
                     children: [
                       InputSpending(),
                       InputIncome(),

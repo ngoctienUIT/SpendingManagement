@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:spending_management/constants/function/list_categories.dart';
 import 'package:spending_management/controls/spending_firebase.dart';
 import 'package:spending_management/models/spending.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class InputSpending extends StatefulWidget {
   const InputSpending({Key? key}) : super(key: key);
@@ -33,11 +34,11 @@ class _InputSpendingState extends State<InputSpending> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const SizedBox(width: 30),
-              const SizedBox(
+               SizedBox(
                 width: 70,
                 child: Text(
-                  "Ngày",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  AppLocalizations.of(context).translate('spending_date'),
+                  style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
@@ -116,17 +117,17 @@ class _InputSpendingState extends State<InputSpending> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(width: 30),
-              const SizedBox(
+               SizedBox(
                 width: 70,
                 child: Text(
-                  "Ghi chú",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  AppLocalizations.of(context).translate('note'),
+                  style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
                 child: TextFormField(
                   controller: _noteController,
-                  decoration: const InputDecoration(hintText: 'Nhập ghi chú'),
+                  decoration: InputDecoration(hintText: AppLocalizations.of(context).translate('more_details')),
                 ),
               ),
               const SizedBox(width: 30),
@@ -138,11 +139,11 @@ class _InputSpendingState extends State<InputSpending> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(width: 30),
-              const SizedBox(
+               SizedBox(
                 width: 70,
                 child: Text(
-                  "Tiền chi",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  AppLocalizations.of(context).translate('expense'),
+                  style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
@@ -152,7 +153,7 @@ class _InputSpendingState extends State<InputSpending> {
                   inputFormatters: [CurrencyTextInputFormatter(locale: "vi")],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Vui lòng nhập vào số tiền";
+                      return AppLocalizations.of(context).translate('please_enter_the_amount');
                     }
                     return null;
                   },
@@ -160,7 +161,7 @@ class _InputSpendingState extends State<InputSpending> {
                     hintText: '10.000 VND',
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Colors.grey,
                       fontSize: 20,
                     ),
                   ),
@@ -171,11 +172,11 @@ class _InputSpendingState extends State<InputSpending> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              SizedBox(height: 30, width: 30),
+            children: [
+              const SizedBox(height: 30, width: 30),
               Text(
-                "Danh mục",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                AppLocalizations.of(context).translate('category'),
+                style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -235,7 +236,7 @@ class _InputSpendingState extends State<InputSpending> {
                                 ),
                               ),
                               Text(
-                                categories[index]['name'],
+                                AppLocalizations.of(context).translate(categories[index]['name']),
                                 style: const TextStyle(
                                   color: Colors.black87,
                                   fontWeight: FontWeight.bold,
@@ -270,7 +271,7 @@ class _InputSpendingState extends State<InputSpending> {
                     Navigator.pop(context);
                   }
                 },
-                child: const Text("Nhập khoản chi"),
+                child: Text(AppLocalizations.of(context).translate('save')),
               ),
             ),
           ]),
