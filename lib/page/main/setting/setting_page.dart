@@ -134,6 +134,7 @@ class _SettingPageState extends State<SettingPage> {
               AppLocalizations.of(context).translate('account_active'),
               valNotify2,
               onChangeFunction2,
+              
             ),
             // buildNotificationsOptions(isIcon1,"Opportunity", valNotify3,onChangeFunction3),
             const SizedBox(height: 80),
