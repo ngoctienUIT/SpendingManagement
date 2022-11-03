@@ -60,5 +60,10 @@
   "email-already-in-use": "Người dùng đã có tài khoản với địa chỉ email này",
   "operation-not-allowed": "Tài khoản email/mật khẩu không được kích hoạt",
   "weak-password": "Mật khẩu không đủ mạnh",
-  "create-account-success": "Tạo tài khoản thành công"
+  "create-account-success": "Tạo tài khoản thành công",
+  "cancel": "Hủy",
+  "resend_email": "Gửi lại email",
+  "go_to_home": "Đi đến Trang Chủ",
+  "verify_email": "Xác Nhận Email",
+  "login_success": "Đăng nhập thành công"
 }

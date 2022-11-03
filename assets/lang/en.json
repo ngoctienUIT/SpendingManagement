@@ -60,5 +60,10 @@
   "email-already-in-use": "User already has an account with this email address",
   "operation-not-allowed": "Email/password accounts are not enabled",
   "weak-password": "Password is not strong enough",
-  "create-account-success": "Create account success"
+  "create-account-success": "Create account success",
+  "cancel": "Cancel",
+  "resend_email": "Resend email",
+  "go_to_home": "Go to Home",
+  "verify_email": "Verify Email",
+  "login_success": "Login success"
 }

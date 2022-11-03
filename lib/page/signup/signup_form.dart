@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:spending_management/constants/app_styles.dart';
 import 'package:spending_management/constants/function/loading_animation.dart';
@@ -31,6 +32,7 @@ class _SignupFormState extends State<SignupForm> {
   DateTime birthday = DateTime.now();
   bool hide = true;
   bool gender = true;
+  bool check = true;
 
   @override
   void dispose() {
@@ -45,28 +47,24 @@ class _SignupFormState extends State<SignupForm> {
   Widget build(BuildContext context) {
     return BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
-        if (state is SignupSuccessState) {
+        if (state is SignupSuccessState && check) {
           Navigator.pop(context);
+          Fluttertoast.showToast(
+              msg: AppLocalizations.of(context)
+                  .translate("create-account-success"));
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            var snackBar = SnackBar(
-                content: Text(AppLocalizations.of(context)
-                    .translate("create-account-success")));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
             Future.delayed(const Duration(seconds: 3), () {
               Navigator.pushReplacementNamed(context, "/verify");
             });
           });
         }
 
-        if (state is SignupErrorState) {
+        if (state is SignupErrorState && check) {
           Navigator.pop(context);
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            var snackBar = SnackBar(
-                content:
-                    Text(AppLocalizations.of(context).translate(state.status)));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          });
+          Fluttertoast.showToast(
+              msg: AppLocalizations.of(context).translate(state.status));
         }
+        check = true;
 
         return Form(
           key: _formKey,
@@ -77,26 +75,20 @@ class _SignupFormState extends State<SignupForm> {
                 children: [
                   const Text(
                     "Hello New User!",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    "Welcome to App",
-                    style: TextStyle(fontSize: 20),
-                  ),
+                  const Text("Welcome to App", style: TextStyle(fontSize: 20)),
                   const SizedBox(height: 50),
                   inputText(
-                    hint: AppLocalizations.of(context).translate("full_name"),
+                    hint: AppLocalizations.of(context).translate('full_name'),
                     validator: 1,
                     controller: _nameController,
                     inputType: TextInputType.name,
                   ),
                   const SizedBox(height: 20),
                   inputText(
-                    hint: "Username",
+                    hint: "Email",
                     validator: 0,
                     controller: _userController,
                     inputType: TextInputType.emailAddress,
@@ -110,6 +102,7 @@ class _SignupFormState extends State<SignupForm> {
                           gender: true,
                           action: () {
                             if (!gender) {
+                              check = false;
                               setState(() => gender = true);
                             }
                           }),
@@ -119,6 +112,7 @@ class _SignupFormState extends State<SignupForm> {
                           gender: false,
                           action: () {
                             if (gender) {
+                              check = false;
                               setState(() => gender = false);
                             }
                           }),
@@ -135,6 +129,7 @@ class _SignupFormState extends State<SignupForm> {
                         lastDate: DateTime.now(),
                       );
                       if (picked != null && picked != birthday) {
+                        check = false;
                         setState(() => birthday = picked);
                       }
                     },
@@ -166,18 +161,21 @@ class _SignupFormState extends State<SignupForm> {
                   const SizedBox(height: 20),
                   inputPassword(
                     action: () {
+                      check = false;
                       setState(() => hide = !hide);
                     },
-                    hint: "Password",
+                    hint: AppLocalizations.of(context).translate('password'),
                     controller: _passwordController,
                     hide: hide,
                   ),
                   const SizedBox(height: 20),
                   inputPassword(
                     action: () {
+                      check = false;
                       setState(() => hide = !hide);
                     },
-                    hint: "Confirm Password",
+                    hint: AppLocalizations.of(context)
+                        .translate('confirm_password'),
                     controller: _confirmPasswordController,
                     password: _passwordController,
                     hide: hide,
@@ -193,6 +191,7 @@ class _SignupFormState extends State<SignupForm> {
                             password: _passwordController.text,
                             user: User(
                               name: _nameController.text.trim(),
+                              // money: 0,
                               birthday:
                                   DateFormat("dd/MM/yyyy").format(birthday),
                               gender: gender,
@@ -203,14 +202,14 @@ class _SignupFormState extends State<SignupForm> {
                         return;
                       }
                     },
-                    text: 'Sign Up',
+                    text: AppLocalizations.of(context).translate('sign_up'),
                   ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Have an account?",
+                        AppLocalizations.of(context).translate('have_account'),
                         style: AppStyles.p,
                       ),
                       TextButton(
@@ -218,7 +217,7 @@ class _SignupFormState extends State<SignupForm> {
                           Navigator.pushReplacementNamed(context, '/login');
                         },
                         child: Text(
-                          "Login now",
+                          AppLocalizations.of(context).translate('login_now'),
                           style: AppStyles.p,
                         ),
                       )
