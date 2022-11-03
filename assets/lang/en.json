@@ -61,6 +61,7 @@
   "operation-not-allowed": "Email/password accounts are not enabled",
   "weak-password": "Password is not strong enough",
   "create-account-success": "Create account success",
+<<<<<<< HEAD
   "notifications": "Notifications",
   "account_active": "Account active",
   "edit_profile": "Edit profile",
@@ -83,4 +84,11 @@
   "contact": "Contact",
   "house": "House",
   "add_category": "Add category"
+=======
+  "cancel": "Cancel",
+  "resend_email": "Resend email",
+  "go_to_home": "Go to Home",
+  "verify_email": "Verify Email",
+  "login_success": "Login success"
+>>>>>>> 6ec9588490c6c157b289d1c1472db2b0fb13b962
 }

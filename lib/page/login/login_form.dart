@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/app_styles.dart';
 import 'package:spending_management/constants/function/loading_animation.dart';
@@ -26,6 +27,7 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool hide = true;
+  bool check = true;
 
   @override
   void dispose() {
@@ -38,8 +40,10 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        if (state is LoginSuccessState) {
+        if (state is LoginSuccessState && check) {
           Navigator.pop(context);
+          Fluttertoast.showToast(
+              msg: AppLocalizations.of(context).translate("login_success"));
           SchedulerBinding.instance.addPostFrameCallback((_) {
             if (state.social == Social.email &&
                 !FirebaseAuth.instance.currentUser!.emailVerified) {
@@ -50,15 +54,12 @@ class _LoginFormState extends State<LoginForm> {
           });
         }
 
-        if (state is LoginErrorState) {
+        if (state is LoginErrorState && check) {
           Navigator.pop(context);
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            var snackBar = SnackBar(
-                content:
-                    Text(AppLocalizations.of(context).translate(state.status)));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          });
+          Fluttertoast.showToast(
+              msg: AppLocalizations.of(context).translate(state.status));
         }
+        check = true;
 
         return Form(
           key: _formKey,
@@ -89,11 +90,10 @@ class _LoginFormState extends State<LoginForm> {
                   const SizedBox(height: 20),
                   inputPassword(
                     action: () {
-                      setState(() {
-                        hide = !hide;
-                      });
+                      check = false;
+                      setState(() => hide = !hide);
                     },
-                    hint: AppLocalizations.of(context).translate("password"),
+                    hint: AppLocalizations.of(context).translate('password'),
                     controller: _passwordController,
                     hide: hide,
                   ),
@@ -105,7 +105,7 @@ class _LoginFormState extends State<LoginForm> {
                             Navigator.pushNamed(context, '/forgot');
                           },
                           child: Text(AppLocalizations.of(context)
-                              .translate("forgot_password"))),
+                              .translate('forgot_password'))),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -122,7 +122,7 @@ class _LoginFormState extends State<LoginForm> {
                         return;
                       }
                     },
-                    text: AppLocalizations.of(context).translate("sign_in"),
+                    text: AppLocalizations.of(context).translate('sign_in'),
                   ),
                   const SizedBox(height: 30),
                   textContinue(),
@@ -188,7 +188,7 @@ class _LoginFormState extends State<LoginForm> {
                     children: [
                       Text(
                         AppLocalizations.of(context)
-                            .translate("do_not_have_account"),
+                            .translate('do_not_have_account'),
                         style: AppStyles.p,
                       ),
                       TextButton(
@@ -197,7 +197,7 @@ class _LoginFormState extends State<LoginForm> {
                         },
                         child: Text(
                           AppLocalizations.of(context)
-                              .translate("register_now"),
+                              .translate('register_now'),
                           style: AppStyles.p,
                         ),
                       )
