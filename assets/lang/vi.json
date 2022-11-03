@@ -51,5 +51,14 @@
   "wallet": "Ví",
   "time": "Thời Gian",
   "group": "Nhóm",
-  "all": "Tất cả"
+  "all": "Tất cả",
+  "replace": "Thay thế",
+  "invalid-email": "Địa chỉ email của bạn dường như không đúng định dạng",
+  "wrong-password": "Mật khẩu của bạn sai",
+  "user-not-found": "Người dùng có email này không tồn tại",
+  "user-disabled": "Người dùng có email này đã bị vô hiệu hóa",
+  "email-already-in-use": "Người dùng đã có tài khoản với địa chỉ email này",
+  "operation-not-allowed": "Tài khoản email/mật khẩu không được kích hoạt",
+  "weak-password": "Mật khẩu không đủ mạnh",
+  "create-account-success": "Tạo tài khoản thành công"
 }

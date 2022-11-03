@@ -51,5 +51,14 @@
   "wallet": "Wallet",
   "time": "Time",
   "group": "Group",
-  "all": "All"
+  "all": "All",
+  "replace": "Replace",
+  "invalid-email": "Your email address appears to be malformed",
+  "wrong-password": "Your password is wrong",
+  "user-not-found": "User with this email doesn't exist",
+  "user-disabled": "User with this email has been disabled",
+  "email-already-in-use": "User already has an account with this email address",
+  "operation-not-allowed": "Email/password accounts are not enabled",
+  "weak-password": "Password is not strong enough",
+  "create-account-success": "Create account success"
 }

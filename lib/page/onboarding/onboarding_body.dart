@@ -5,8 +5,12 @@ class OnboardingBody extends StatelessWidget {
   final String description;
   final String image;
 
-  const OnboardingBody(
-      {required this.title, required this.description, required this.image});
+  const OnboardingBody({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.image,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

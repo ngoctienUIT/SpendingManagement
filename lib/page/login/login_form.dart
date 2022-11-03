@@ -12,6 +12,7 @@ import 'package:spending_management/page/login/widget/custom_button.dart';
 import 'package:spending_management/page/login/widget/input_password.dart';
 import 'package:spending_management/page/login/widget/input_text.dart';
 import 'package:spending_management/page/login/widget/text_continue.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -52,8 +53,9 @@ class _LoginFormState extends State<LoginForm> {
         if (state is LoginErrorState) {
           Navigator.pop(context);
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            var snackBar = const SnackBar(
-                content: Text('Tài khoản hoặc mật khẩu không đúng'));
+            var snackBar = SnackBar(
+                content:
+                    Text(AppLocalizations.of(context).translate(state.status)));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           });
         }
@@ -79,7 +81,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                   const SizedBox(height: 50),
                   inputText(
-                    hint: "Username",
+                    hint: "Email",
                     validator: 0,
                     controller: _userController,
                     inputType: TextInputType.emailAddress,
@@ -91,7 +93,7 @@ class _LoginFormState extends State<LoginForm> {
                         hide = !hide;
                       });
                     },
-                    hint: "Password",
+                    hint: AppLocalizations.of(context).translate("password"),
                     controller: _passwordController,
                     hide: hide,
                   ),
@@ -102,7 +104,8 @@ class _LoginFormState extends State<LoginForm> {
                           onPressed: () {
                             Navigator.pushNamed(context, '/forgot');
                           },
-                          child: const Text("Forgot Password?")),
+                          child: Text(AppLocalizations.of(context)
+                              .translate("forgot_password"))),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -119,7 +122,7 @@ class _LoginFormState extends State<LoginForm> {
                         return;
                       }
                     },
-                    text: 'Sign In',
+                    text: AppLocalizations.of(context).translate("sign_in"),
                   ),
                   const SizedBox(height: 30),
                   textContinue(),
@@ -184,7 +187,8 @@ class _LoginFormState extends State<LoginForm> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Do not have an account?",
+                        AppLocalizations.of(context)
+                            .translate("do_not_have_account"),
                         style: AppStyles.p,
                       ),
                       TextButton(
@@ -192,7 +196,8 @@ class _LoginFormState extends State<LoginForm> {
                           Navigator.pushReplacementNamed(context, '/signup');
                         },
                         child: Text(
-                          "Register now",
+                          AppLocalizations.of(context)
+                              .translate("register_now"),
                           style: AppStyles.p,
                         ),
                       )

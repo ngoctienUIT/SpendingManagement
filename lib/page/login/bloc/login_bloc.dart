@@ -10,6 +10,8 @@ import 'package:spending_management/page/login/bloc/login_state.dart';
 import 'package:spending_management/models/user.dart' as myuser;
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  String _status = "";
+
   LoginBloc() : super(InitState()) {
     on<LoginWithEmailPasswordEvent>((event, emit) async {
       bool check = await signInWithEmailAndPassword(
@@ -20,7 +22,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         });
         emit(LoginSuccessState(social: Social.email));
       } else {
-        emit(LoginErrorState());
+        emit(LoginErrorState(status: _status));
       }
     });
 
@@ -33,7 +35,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await initInfoUser();
         emit(LoginSuccessState(social: Social.google));
       } else {
-        emit(LoginErrorState());
+        emit(LoginErrorState(status: _status));
       }
     });
 
@@ -46,7 +48,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await initInfoUser();
         emit(LoginSuccessState(social: Social.facebook));
       } else {
-        emit(LoginErrorState());
+        emit(LoginErrorState(status: _status));
       }
     });
   }
@@ -89,11 +91,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           .signInWithEmailAndPassword(email: emailAddress, password: password);
       return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
+      _status = e.code;
       return false;
     }
   }

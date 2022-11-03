@@ -9,4 +9,7 @@ class LoginSuccessState extends LoginState {
   LoginSuccessState({required this.social});
 }
 
-class LoginErrorState extends LoginState {}
+class LoginErrorState extends LoginState {
+  String status;
+  LoginErrorState({required this.status});
+}

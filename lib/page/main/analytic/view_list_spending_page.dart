@@ -25,6 +25,6 @@ class ViewListSpendingPage extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        body: itemSpendingDay(spendingList));
+        body: ItemSpendingDay(spendingList: spendingList));
   }
 }

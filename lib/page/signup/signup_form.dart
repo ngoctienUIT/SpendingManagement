@@ -12,6 +12,7 @@ import 'package:spending_management/page/signup/bloc/signup_bloc.dart';
 import 'package:spending_management/page/signup/bloc/signup_event.dart';
 import 'package:spending_management/page/signup/bloc/singup_state.dart';
 import 'package:spending_management/page/signup/gender_widget.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -47,8 +48,9 @@ class _SignupFormState extends State<SignupForm> {
         if (state is SignupSuccessState) {
           Navigator.pop(context);
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            var snackBar =
-                const SnackBar(content: Text('Tạo tài khoản thành công'));
+            var snackBar = SnackBar(
+                content: Text(AppLocalizations.of(context)
+                    .translate("create-account-success")));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             Future.delayed(const Duration(seconds: 3), () {
               Navigator.pushReplacementNamed(context, "/verify");
@@ -59,8 +61,9 @@ class _SignupFormState extends State<SignupForm> {
         if (state is SignupErrorState) {
           Navigator.pop(context);
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            var snackBar =
-                const SnackBar(content: Text('Không thể tạo tài khoản'));
+            var snackBar = SnackBar(
+                content:
+                    Text(AppLocalizations.of(context).translate(state.status)));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           });
         }
@@ -86,7 +89,7 @@ class _SignupFormState extends State<SignupForm> {
                   ),
                   const SizedBox(height: 50),
                   inputText(
-                    hint: "Name",
+                    hint: AppLocalizations.of(context).translate("full_name"),
                     validator: 1,
                     controller: _nameController,
                     inputType: TextInputType.name,
@@ -107,9 +110,7 @@ class _SignupFormState extends State<SignupForm> {
                           gender: true,
                           action: () {
                             if (!gender) {
-                              setState(() {
-                                gender = true;
-                              });
+                              setState(() => gender = true);
                             }
                           }),
                       const Spacer(),
@@ -118,9 +119,7 @@ class _SignupFormState extends State<SignupForm> {
                           gender: false,
                           action: () {
                             if (gender) {
-                              setState(() {
-                                gender = false;
-                              });
+                              setState(() => gender = false);
                             }
                           }),
                       const Spacer(),
@@ -136,9 +135,7 @@ class _SignupFormState extends State<SignupForm> {
                         lastDate: DateTime.now(),
                       );
                       if (picked != null && picked != birthday) {
-                        setState(() {
-                          birthday = picked;
-                        });
+                        setState(() => birthday = picked);
                       }
                     },
                     child: Container(
@@ -169,9 +166,7 @@ class _SignupFormState extends State<SignupForm> {
                   const SizedBox(height: 20),
                   inputPassword(
                     action: () {
-                      setState(() {
-                        hide = !hide;
-                      });
+                      setState(() => hide = !hide);
                     },
                     hint: "Password",
                     controller: _passwordController,
@@ -180,9 +175,7 @@ class _SignupFormState extends State<SignupForm> {
                   const SizedBox(height: 20),
                   inputPassword(
                     action: () {
-                      setState(() {
-                        hide = !hide;
-                      });
+                      setState(() => hide = !hide);
                     },
                     hint: "Confirm Password",
                     controller: _confirmPasswordController,
