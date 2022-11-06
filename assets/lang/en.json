@@ -61,7 +61,6 @@
   "operation-not-allowed": "Email/password accounts are not enabled",
   "weak-password": "Password is not strong enough",
   "create-account-success": "Create account success",
-
   "notifications": "Notifications",
   "account_active": "Account active",
   "edit_profile": "Edit profile",
@@ -71,7 +70,6 @@
   "incomes": "Incomes",
   "please_enter_the_amount": "Please enter the amount",
   "category": "Category",
-  "save": "Save",
   "eating": "Eating",
   "living": "Living",
   "clothes": "Clothes",
@@ -84,11 +82,9 @@
   "contact": "Contact",
   "house": "House",
   "add_category": "Add category",
-
   "cancel": "Cancel",
   "resend_email": "Resend email",
   "go_to_home": "Go to Home",
   "verify_email": "Verify Email",
   "login_success": "Login success"
-
 }

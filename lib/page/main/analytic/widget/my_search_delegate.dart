@@ -111,13 +111,23 @@ class MySearchDelegate extends SearchDelegate<String> {
           .doc(FirebaseAuth.instance.currentUser!.uid);
 
       firestore.get().then((value) {
-        var data = value.data() as Map<String, dynamic>;
-        List<String> history = (data["history"] as List<dynamic>)
-            .map((e) => e.toString())
-            .toList();
+        var data = {};
+        if (value.data() != null) {
+          data = value.data() as Map<String, dynamic>;
+        }
+        List<String> history = [];
+        if (data["history"] != null) {
+          history = (data["history"] as List<dynamic>)
+              .map((e) => e.toString())
+              .toList();
+        }
         history.remove(query);
         history.add(query);
-        firestore.update({"history": history});
+        if (value.data() == null) {
+          firestore.set({"history": history});
+        } else {
+          firestore.update({"history": history});
+        }
       });
       close(context, query);
     }

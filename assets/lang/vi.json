@@ -70,7 +70,6 @@
   "incomes": "Tiền thu",
   "please_enter_the_amount": "Vui lòng nhập số tiền",
   "category": "Danh mục",
-  "save": "Lưu",
   "eating": "Ăn uống",
   "living": "Sinh hoạt",
   "clothes": "Quần áo",
@@ -83,11 +82,9 @@
   "contact": "Liên lạc",
   "house": "tiền nhà",
   "add_category": "Thêm danh mục",
-
   "cancel": "Hủy",
   "resend_email": "Gửi lại email",
   "go_to_home": "Đi đến Trang Chủ",
   "verify_email": "Xác Nhận Email",
   "login_success": "Đăng nhập thành công"
-
 }
