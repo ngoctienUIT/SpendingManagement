@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    const SizedBox(height:25),
+                    const SizedBox(height:15),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(height: 15,),
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: Row(
@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 0),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Column(
