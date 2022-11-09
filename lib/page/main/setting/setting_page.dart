@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spending_management/page/main/setting/profile_page.dart';
 import 'package:spending_management/setting/bloc/setting_cubit.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
 
@@ -95,7 +97,7 @@ class _SettingPageState extends State<SettingPage> {
                 context,
                 AppLocalizations.of(context).translate('change_password'),
               ),
-            buildAccountOption(
+            buildAccountOption1(
               Icons.wallet,
               const Color(0xff050832),
               context,
@@ -134,7 +136,7 @@ class _SettingPageState extends State<SettingPage> {
               AppLocalizations.of(context).translate('account_active'),
               valNotify2,
               onChangeFunction2,
-              
+
             ),
             // buildNotificationsOptions(isIcon1,"Opportunity", valNotify3,onChangeFunction3),
             const SizedBox(height: 80),
@@ -242,6 +244,42 @@ class _SettingPageState extends State<SettingPage> {
               );
             });
       },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(icon, color: color),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey[10],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, color: Colors.grey)
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildAccountOption1(
+      IconData icon,
+      Color color,
+      BuildContext context,
+      String title,
+      ) {
+    return GestureDetector(
+      onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>  SettingProfile(),
+              ),
+            );
+          },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         child: Row(
