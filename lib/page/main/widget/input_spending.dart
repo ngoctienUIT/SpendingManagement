@@ -270,9 +270,9 @@ class _InputSpendingState extends State<InputSpending> {
                     backgroundColor: MaterialStateProperty.all(Colors.black54),
                     padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 10,horizontal: 20)),
                     textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20,fontWeight: FontWeight.bold))),
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    SpendingFirebase.addSpending(
+                    await SpendingFirebase.addSpending(
                       Spending(
                         money: int.parse(_moneyController.text
                             .replaceAll(RegExp(r'[^0-9]'), '')),
