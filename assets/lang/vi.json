@@ -66,6 +66,7 @@
   "edit_profile": "Chỉnh sửa hồ sơ",
   "change_password": "Đổi mật khẩu",
   "spending_date": "Ngày chi tiêu",
+  "income_date": "Ngày thu vào",
   "expense": "Tiền chi",
   "incomes": "Tiền thu",
   "please_enter_the_amount": "Vui lòng nhập số tiền",
@@ -87,5 +88,10 @@
   "go_to_home": "Đi đến Trang Chủ",
   "verify_email": "Xác Nhận Email",
   "login_success": "Đăng nhập thành công",
-  "surplus": "Số dư"
+  "surplus": "Số dư",
+  "bonus": "Tiền thưởng",
+  "salary": "Tiền lương",
+  "charity": "Tiền trợ cấp",
+  "invest": "Đầu tư",
+  "paycheck": "Thu nhập phụ"
 }

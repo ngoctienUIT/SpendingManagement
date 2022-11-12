@@ -128,8 +128,9 @@ class _MainPageState extends State<MainPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
+     backgroundColor:  Color.fromRGBO(240, 240, 240, 1),
       shape: const RoundedRectangleBorder(
+
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) => Column(
@@ -140,11 +141,13 @@ class _MainPageState extends State<MainPage> {
             height: 8,
             width: 80,
             decoration: BoxDecoration(
+
               color: Colors.grey[300],
               borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             ),
           ),
           Row(
+
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
@@ -169,18 +172,20 @@ class _MainPageState extends State<MainPage> {
           Text(
             AppLocalizations.of(context).translate('add_spending'),
             style: const TextStyle(
-              color: Colors.orange,
-              fontSize: 20,
+              color: Colors.black87,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
           ),
           DefaultTabController(
             length: 2,
+
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
                 CustomTabBar(),
                 SizedBox(
+
                   height: 500,
                   child: TabBarView(
                     children: [

@@ -17,7 +17,7 @@ class InputSpending extends StatefulWidget {
 class _InputSpendingState extends State<InputSpending> {
   DateTime dateTime = DateTime.now();
   int activeCategory = 0;
-  Color primary = const Color(0xFFFF3378);
+  Color primary = const Color(0xFFFF3333);
   final TextEditingController _noteController = TextEditingController();
   final TextEditingController _moneyController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -29,151 +29,159 @@ class _InputSpendingState extends State<InputSpending> {
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(width: 30),
-               SizedBox(
-                width: 70,
-                child: Text(
-                  AppLocalizations.of(context).translate('spending_date'),
-                  style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          Container(
+            height: 60,
+            margin: EdgeInsets.symmetric(horizontal: 30,vertical: 5),
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 10,
                 ),
-              ),
-              Expanded(
-                child: CupertinoButton(
-                  color: Colors.black12,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ]
+            ),
+            child:Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+
+                SizedBox(
+                  width: 70,
                   child: Text(
-                    "${DateFormat("dd/MM/yyyy").format(dateTime)} (${dateTime.weekday})",
-                    style: const TextStyle(fontSize: 15, color: Colors.black),
+                    AppLocalizations.of(context).translate('spending_date'),
+                    style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {
-                    showCupertinoModalPopup(
-                      context: context,
-                      builder: (BuildContext context) => SizedBox(
-                        height: 280,
-                        child: CupertinoDatePicker(
-                          backgroundColor: Colors.white,
-                          initialDateTime: dateTime,
-                          onDateTimeChanged: (DateTime newTime) {
-                            setState(() => dateTime = newTime);
-                          },
-                          use24hFormat: true,
-                          mode: CupertinoDatePickerMode.date,
-                        ),
-                        // Column(
-                        //   children: [
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: [
-                        //   TextButton(
-                        //     child:
-                        //     Container(
-                        //       padding: EdgeInsets.only(right: 8),
-                        //       child:
-                        //       Text('Hủy',style: TextStyle(fontSize: 18,color: Colors.redAccent),),
-                        //     ),
-                        //     onPressed: (){},
-                        //   ),
-                        //   TextButton(
-                        //     child:
-                        //     Container(
-                        //       padding: EdgeInsets.only(right: 8),
-                        //       child:
-                        //       Text('Chọn',style: TextStyle(fontSize: 18,color: Colors.redAccent),),
-                        //     ),
-                        //     onPressed: (){},
-                        //   ),
-                        //   ],
-                        // ),
-                        //   Row(
-                        //     children: [
-                        //       Expanded(child:
-                        //       CupertinoDatePicker(
-                        //         backgroundColor: Colors.white,
-                        //         initialDateTime: dateTime,
-                        //         onDateTimeChanged: (DateTime newTime) {
-                        //           setState(() =>dateTime = newTime);
-                        //         },
-                        //         use24hFormat: true,
-                        //         mode: CupertinoDatePickerMode.date,
-                        //       ),),
-                        // ],
-                        // ),
-                        //   ],
-                        // ),
-                      ),
-                    );
-                  },
                 ),
-              ),
-              const SizedBox(height: 30, width: 30),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(width: 30),
-               SizedBox(
-                width: 70,
-                child: Text(
-                  AppLocalizations.of(context).translate('note'),
-                  style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Expanded(
-                child: TextFormField(
-                  controller: _noteController,
-                  decoration: InputDecoration(hintText: AppLocalizations.of(context).translate('more_details')),
-                ),
-              ),
-              const SizedBox(width: 30),
-            ],
-          ),
-          Row(
-            textBaseline: TextBaseline.alphabetic,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(width: 30),
-               SizedBox(
-                width: 70,
-                child: Text(
-                  AppLocalizations.of(context).translate('expense'),
-                  style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Expanded(
-                child: TextFormField(
-                  controller: _moneyController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [CurrencyTextInputFormatter(locale: "vi")],
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context).translate('please_enter_the_amount');
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    hintText: '10.000 VND',
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                      fontSize: 20,
+                Expanded(
+                  child: CupertinoButton(
+
+                    color: Colors.grey.withOpacity(0.1),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    child: Text(
+                      "${DateFormat("dd/MM/yyyy").format(dateTime)} (${dateTime.weekday})",
+                      style: const TextStyle(fontSize: 15, color: Colors.black54,fontWeight: FontWeight.bold),
                     ),
+                    onPressed: () {
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (BuildContext context) => SizedBox(
+                          height: 280,
+                          child: CupertinoDatePicker(
+                            backgroundColor: Colors.white,
+                            initialDateTime: dateTime,
+                            onDateTimeChanged: (DateTime newTime) {
+                              setState(() => dateTime = newTime);
+                            },
+                            use24hFormat: true,
+                            mode: CupertinoDatePickerMode.date,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ),
-              const SizedBox(height: 30, width: 30),
-            ],
+
+              ],
+            ),
+          ),
+          Container(
+            height: 60,
+            margin: EdgeInsets.symmetric(horizontal: 30,vertical: 5),
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ]
+            ),
+           child:
+           Row(
+             crossAxisAlignment: CrossAxisAlignment.center,
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             children: [
+               SizedBox(
+                 width: 70,
+                 child: Text(
+                   AppLocalizations.of(context).translate('note'),
+                   style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                 ),
+               ),
+               Expanded(
+                 child: TextFormField(
+                   controller: _noteController,
+                   decoration: InputDecoration(hintText: AppLocalizations.of(context).translate('more_details')),
+                  style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
+                 ),
+               ),
+             ],
+           ),
+          ),
+          Container(
+            height: 60,
+            margin: EdgeInsets.symmetric(horizontal: 30,vertical: 5),
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ]
+            ),
+             child:Row(
+               textBaseline: TextBaseline.alphabetic,
+               crossAxisAlignment: CrossAxisAlignment.center,
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 SizedBox(
+                   width: 70,
+                   child: Text(
+                     AppLocalizations.of(context).translate('expense'),
+                     style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                   ),
+                 ),
+                 Expanded(
+                   
+                   child: TextFormField(
+                     controller: _moneyController,
+                     keyboardType: TextInputType.number,
+                     inputFormatters: [CurrencyTextInputFormatter(locale: "vi")],
+                     validator: (value) {
+                       if (value == null || value.isEmpty) {
+                         return AppLocalizations.of(context).translate('please_enter_the_amount');
+                       }
+                       return null;
+                     },
+                     decoration: const InputDecoration(
+
+                       hintText: '10.000 VND',
+                       hintStyle: TextStyle(
+                         fontWeight: FontWeight.bold,
+                         color: Colors.black54,
+                         fontSize: 12,
+                       ),
+                     ),
+                   ),
+                 ),
+               ],
+             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(height: 30, width: 30),
+              const SizedBox(height: 30, width: 35),
               Text(
                 AppLocalizations.of(context).translate('category'),
                 style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
@@ -181,7 +189,8 @@ class _InputSpendingState extends State<InputSpending> {
             ],
           ),
           Container(
-            padding: const EdgeInsets.only(top: 5),
+            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 0),
+            padding: const EdgeInsets.only(top: 0),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -193,7 +202,7 @@ class _InputSpendingState extends State<InputSpending> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: Container(
-                        margin: const EdgeInsets.only(left: 5),
+                        margin: const EdgeInsets.only(left: 5,top: 10,bottom: 10),
                         width: 100,
                         height: 110,
                         decoration: BoxDecoration(
@@ -204,11 +213,11 @@ class _InputSpendingState extends State<InputSpending> {
                             width: activeCategory == index ? 2 : 0,
                           ),
                           borderRadius: BorderRadius.circular(12),
-                          color: Colors.black12.withOpacity(0.05),
+                          color: Colors.white,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.01),
-                              blurRadius: 3,
+                              color: Colors.grey.withOpacity(0.1),
+                              blurRadius: 2.5,
                               spreadRadius: 10,
                             ),
                           ],
@@ -257,6 +266,10 @@ class _InputSpendingState extends State<InputSpending> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black54),
+                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 10,horizontal: 20)),
+                    textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20,fontWeight: FontWeight.bold))),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     SpendingFirebase.addSpending(
@@ -272,6 +285,8 @@ class _InputSpendingState extends State<InputSpending> {
                   }
                 },
                 child: Text(AppLocalizations.of(context).translate('save')),
+
+
               ),
             ),
           ]),

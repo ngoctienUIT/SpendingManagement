@@ -66,6 +66,7 @@
   "edit_profile": "Edit profile",
   "change_password": "Change password",
   "spending_date": "Spending date",
+  "income_date": "Income date",
   "expense": "Expense",
   "incomes": "Incomes",
   "please_enter_the_amount": "Please enter the amount",
@@ -87,5 +88,10 @@
   "go_to_home": "Go to Home",
   "verify_email": "Verify Email",
   "login_success": "Login success",
-  "surplus": "Surplus"
+  "surplus": "Surplus",
+  "bonus": "Bonus",
+  "salary": "Salary",
+  "charity": "Subsidy",
+  "invest": "Invest",
+  "paycheck": "Side income"
 }
