@@ -53,21 +53,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
               scrollDirection: Axis.horizontal,
               controller: _pageController,
               itemCount: _pages.length,
-              onPageChanged: (value) {
-                setState(() {
-                  currentPage = value;
-                });
-              },
-              itemBuilder: (BuildContext context, int index) {
-                return _pages[index];
-              },
+              onPageChanged: (value) => setState(() => currentPage = value),
+              itemBuilder: (context, index) => _pages[index],
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List<Widget>.generate(
+                  children: List.generate(
                     _pages.length,
                     (int index) {
                       return AnimatedContainer(
@@ -75,7 +69,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         height: 10,
                         width: (index == currentPage) ? 30 : 10,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 30),
+                          horizontal: 5,
+                          vertical: 30,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: (index == currentPage)

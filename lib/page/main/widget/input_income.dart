@@ -8,9 +8,7 @@ class InputIncome extends StatelessWidget {
     return Column(
       children: const [
         TextField(
-          decoration: InputDecoration(
-            hintText: 'Personal Note',
-          ),
+          decoration: InputDecoration(hintText: 'Personal Note'),
         ),
       ],
     );

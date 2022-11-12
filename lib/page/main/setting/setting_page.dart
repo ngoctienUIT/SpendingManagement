@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spending_management/page/main/setting/profile_page.dart';
@@ -111,13 +110,14 @@ class _SettingPageState extends State<SettingPage> {
             ),
             const SizedBox(height: 40),
             Row(
-              children:  [
+              children: [
                 const Icon(Icons.volume_down, color: Colors.blue),
                 const SizedBox(width: 10),
                 Text(
                   AppLocalizations.of(context).translate('notifications'),
                   //"Notifications",
-                  style:const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -136,7 +136,6 @@ class _SettingPageState extends State<SettingPage> {
               AppLocalizations.of(context).translate('account_active'),
               valNotify2,
               onChangeFunction2,
-
             ),
             // buildNotificationsOptions(isIcon1,"Opportunity", valNotify3,onChangeFunction3),
             const SizedBox(height: 80),
@@ -266,20 +265,20 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Widget buildAccountOption1(
-      IconData icon,
-      Color color,
-      BuildContext context,
-      String title,
-      ) {
+    IconData icon,
+    Color color,
+    BuildContext context,
+    String title,
+  ) {
     return GestureDetector(
       onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>  SettingProfile(),
-              ),
-            );
-          },
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SettingProfile(),
+          ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         child: Row(

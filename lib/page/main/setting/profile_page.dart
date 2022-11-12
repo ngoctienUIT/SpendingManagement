@@ -16,11 +16,11 @@ class _SettingPageState extends State<SettingProfile> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
         leading: IconButton(
-          icon:const Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.green,
           ),
-          onPressed: () {  },
+          onPressed: () {},
         ),
       ),
       body: SafeArea(
@@ -34,6 +34,7 @@ class _SettingPageState extends State<SettingProfile> {
       ),
     );
   }
+
   Widget header() {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -44,7 +45,7 @@ class _SettingPageState extends State<SettingProfile> {
               Text(
                 AppLocalizations.of(context).translate('spending'),
                 style:
-                const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
             ],
@@ -53,9 +54,8 @@ class _SettingPageState extends State<SettingProfile> {
       ),
     );
   }
-  Widget body() {
-    return const Scaffold(
 
-    );
+  Widget body() {
+    return const Scaffold();
   }
 }

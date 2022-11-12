@@ -66,8 +66,7 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   itemBottomTab(
-                    text:
-                    AppLocalizations.of(context).translate('home'),
+                    text: AppLocalizations.of(context).translate('home'),
                     index: 0,
                     current: currentTab,
                     icon: FontAwesomeIcons.house,
@@ -95,8 +94,7 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   itemBottomTab(
-                    text:
-                    AppLocalizations.of(context).translate('analytic'),
+                    text: AppLocalizations.of(context).translate('analytic'),
                     index: 2,
                     current: currentTab,
                     icon: FontAwesomeIcons.chartPie,
@@ -107,8 +105,7 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                   itemBottomTab(
-                    text:
-                    AppLocalizations.of(context).translate('setting'),
+                    text: AppLocalizations.of(context).translate('setting'),
                     index: 3,
                     current: currentTab,
                     icon: FontAwesomeIcons.gear,
@@ -157,9 +154,10 @@ class _MainPageState extends State<MainPage> {
               TextButton(
                 child: Container(
                   padding: const EdgeInsets.only(right: 8),
-                  child:  Text(
+                  child: Text(
                     AppLocalizations.of(context).translate('skip'),
-                    style:const TextStyle(fontSize: 18, color: Colors.redAccent),
+                    style:
+                        const TextStyle(fontSize: 18, color: Colors.redAccent),
                   ),
                 ),
                 onPressed: () {
@@ -168,9 +166,9 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-           Text(
-             AppLocalizations.of(context).translate('add_spending'),
-            style:const TextStyle(
+          Text(
+            AppLocalizations.of(context).translate('add_spending'),
+            style: const TextStyle(
               color: Colors.orange,
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -180,11 +178,11 @@ class _MainPageState extends State<MainPage> {
             length: 2,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                customTabBar(),
-                const SizedBox(
+              children: const [
+                CustomTabBar(),
+                SizedBox(
                   height: 500,
-                  child:  TabBarView(
+                  child: TabBarView(
                     children: [
                       InputSpending(),
                       InputIncome(),

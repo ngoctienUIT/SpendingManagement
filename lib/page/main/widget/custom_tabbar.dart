@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
 
-class customTabBar extends StatelessWidget {
+class CustomTabBar extends StatelessWidget {
+  const CustomTabBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +23,8 @@ class customTabBar extends StatelessWidget {
             // color: Colors.black,
             height: 30,
             child: Center(
-              child: Text(AppLocalizations.of(context).translate('spending'),  style:const TextStyle(fontSize: 15)),
+              child: Text(AppLocalizations.of(context).translate('spending'),
+                  style: const TextStyle(fontSize: 15)),
             ),
           ),
           Container(
@@ -29,10 +32,8 @@ class customTabBar extends StatelessWidget {
             width: 100,
             height: 30,
             child: Center(
-              child: Text(
-                  AppLocalizations.of(context).translate('incomes'),
-                  style:const TextStyle(fontSize: 15)
-              ),
+              child: Text(AppLocalizations.of(context).translate('incomes'),
+                  style: const TextStyle(fontSize: 15)),
             ),
           ),
         ],
@@ -55,6 +56,3 @@ class customTabBar extends StatelessWidget {
     );
   }
 }
-
-
-
