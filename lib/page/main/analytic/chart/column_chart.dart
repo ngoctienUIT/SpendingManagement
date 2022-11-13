@@ -1,9 +1,9 @@
+import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:spending_management/constants/list.dart';
 import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/page/main/analytic/function/render_list_money.dart';
-import 'package:spending_management/page/main/analytic/function/round_number.dart';
 
 class ColumnChart extends StatefulWidget {
   const ColumnChart({
@@ -48,7 +48,7 @@ class ColumnChartState extends State<ColumnChart> {
     );
 
     max = (money.reduce((curr, next) => curr > next ? curr : next)).toDouble();
-    max = roundNumber(number: max);
+    max = max + pow(10, max.toString().length - 3);
 
     double width = 500;
     if (widget.index != 0) {

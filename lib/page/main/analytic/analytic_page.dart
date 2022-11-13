@@ -60,9 +60,7 @@ class _AnalyticPageState extends State<AnalyticPage>
         }
       });
     });
-    _typeController.addListener(() {
-      setState(() {});
-    });
+    _typeController.addListener(() => setState(() {}));
     super.initState();
   }
 
@@ -115,10 +113,9 @@ class _AnalyticPageState extends State<AnalyticPage>
         children: [
           Row(
             children: [
-              Text(
-                AppLocalizations.of(context).translate('spending'),
-                style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              const Text(
+                "Spending",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
               IconButton(
@@ -190,17 +187,14 @@ class _AnalyticPageState extends State<AnalyticPage>
 
                   return SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 10,
-                      ),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
                           showChart(classifySpending),
                           if (spendingList.isNotEmpty)
                             TotalReport(list: spendingList),
                           if (spendingList.isNotEmpty)
-                            showListSpending(list: spendingList)
+                            showListSpending(list: classifySpending)
                         ],
                       ),
                     ),

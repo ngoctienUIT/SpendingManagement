@@ -25,45 +25,46 @@ class _InputSpendingState extends State<InputSpending> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      // key: _formKey,
+      key: _formKey,
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
             height: 60,
-            margin: EdgeInsets.symmetric(horizontal: 30,vertical: 5),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 1,
-                  blurRadius: 10,
-                ),
-              ]
-            ),
-            child:Row(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ]),
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-
                 SizedBox(
                   width: 70,
                   child: Text(
                     AppLocalizations.of(context).translate('spending_date'),
-                    style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Expanded(
                   child: CupertinoButton(
-
                     color: Colors.grey.withOpacity(0.1),
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: Text(
                       "${DateFormat("dd/MM/yyyy").format(dateTime)} (${dateTime.weekday})",
-                      style: const TextStyle(fontSize: 15, color: Colors.black54,fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
                       showCupertinoModalPopup(
@@ -84,14 +85,13 @@ class _InputSpendingState extends State<InputSpending> {
                     },
                   ),
                 ),
-
               ],
             ),
           ),
           Container(
             height: 60,
-            margin: EdgeInsets.symmetric(horizontal: 30,vertical: 5),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -101,34 +101,36 @@ class _InputSpendingState extends State<InputSpending> {
                     spreadRadius: 1,
                     blurRadius: 10,
                   ),
-                ]
+                ]),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 70,
+                  child: Text(
+                    AppLocalizations.of(context).translate('note'),
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: TextFormField(
+                    controller: _noteController,
+                    decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)
+                            .translate('more_details')),
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
             ),
-           child:
-           Row(
-             crossAxisAlignment: CrossAxisAlignment.center,
-             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-             children: [
-               SizedBox(
-                 width: 70,
-                 child: Text(
-                   AppLocalizations.of(context).translate('note'),
-                   style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                 ),
-               ),
-               Expanded(
-                 child: TextFormField(
-                   controller: _noteController,
-                   decoration: InputDecoration(hintText: AppLocalizations.of(context).translate('more_details')),
-                  style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold),
-                 ),
-               ),
-             ],
-           ),
           ),
           Container(
             height: 60,
-            margin: EdgeInsets.symmetric(horizontal: 30,vertical: 5),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -138,45 +140,44 @@ class _InputSpendingState extends State<InputSpending> {
                     spreadRadius: 1,
                     blurRadius: 10,
                   ),
-                ]
+                ]),
+            child: Row(
+              textBaseline: TextBaseline.alphabetic,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 70,
+                  child: Text(
+                    AppLocalizations.of(context).translate('expense'),
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: TextFormField(
+                    controller: _moneyController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [CurrencyTextInputFormatter(locale: "vi")],
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return AppLocalizations.of(context)
+                            .translate('please_enter_the_amount');
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      hintText: '10.000 VND',
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-             child:Row(
-               textBaseline: TextBaseline.alphabetic,
-               crossAxisAlignment: CrossAxisAlignment.center,
-               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 SizedBox(
-                   width: 70,
-                   child: Text(
-                     AppLocalizations.of(context).translate('expense'),
-                     style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                   ),
-                 ),
-                 Expanded(
-                   
-                   child: TextFormField(
-                     controller: _moneyController,
-                     keyboardType: TextInputType.number,
-                     inputFormatters: [CurrencyTextInputFormatter(locale: "vi")],
-                     validator: (value) {
-                       if (value == null || value.isEmpty) {
-                         return AppLocalizations.of(context).translate('please_enter_the_amount');
-                       }
-                       return null;
-                     },
-                     decoration: const InputDecoration(
-
-                       hintText: '10.000 VND',
-                       hintStyle: TextStyle(
-                         fontWeight: FontWeight.bold,
-                         color: Colors.black54,
-                         fontSize: 12,
-                       ),
-                     ),
-                   ),
-                 ),
-               ],
-             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -184,12 +185,13 @@ class _InputSpendingState extends State<InputSpending> {
               const SizedBox(height: 30, width: 35),
               Text(
                 AppLocalizations.of(context).translate('category'),
-                style:const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ],
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 0),
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
             padding: const EdgeInsets.only(top: 0),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -202,7 +204,8 @@ class _InputSpendingState extends State<InputSpending> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: Container(
-                        margin: const EdgeInsets.only(left: 5,top: 10,bottom: 10),
+                        margin:
+                            const EdgeInsets.only(left: 5, top: 10, bottom: 10),
                         width: 100,
                         height: 110,
                         decoration: BoxDecoration(
@@ -245,7 +248,8 @@ class _InputSpendingState extends State<InputSpending> {
                                 ),
                               ),
                               Text(
-                                AppLocalizations.of(context).translate(categories[index]['name']),
+                                AppLocalizations.of(context)
+                                    .translate(categories[index]['name']),
                                 style: const TextStyle(
                                   color: Colors.black87,
                                   fontWeight: FontWeight.bold,
@@ -267,9 +271,14 @@ class _InputSpendingState extends State<InputSpending> {
               padding: const EdgeInsets.all(20),
               child: ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black54),
-                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 10,horizontal: 20)),
-                    textStyle: MaterialStateProperty.all(TextStyle(fontSize: 20,fontWeight: FontWeight.bold))),
+                  backgroundColor: MaterialStateProperty.all(Colors.black54),
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  ),
+                  textStyle: MaterialStateProperty.all(
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     await SpendingFirebase.addSpending(
@@ -281,12 +290,11 @@ class _InputSpendingState extends State<InputSpending> {
                         dateTime: dateTime,
                       ),
                     );
+                    if (!mounted) return;
                     Navigator.pop(context);
                   }
                 },
                 child: Text(AppLocalizations.of(context).translate('save')),
-
-
               ),
             ),
           ]),

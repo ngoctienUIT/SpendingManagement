@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-Widget boxText({required String text, required int number}) {
+Widget boxText({required String text, required int number, Color? color}) {
   var numberFormat = NumberFormat.currency(locale: "vi_VI");
 
   return Container(
@@ -17,14 +17,18 @@ Widget boxText({required String text, required int number}) {
           text,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 13),
         ),
         const SizedBox(width: 5),
         Flexible(
           child: Text(
             overflow: TextOverflow.ellipsis,
             numberFormat.format(number),
-            style: const TextStyle(fontSize: 16),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
           ),
         ),
       ],

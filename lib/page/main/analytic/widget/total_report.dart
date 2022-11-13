@@ -34,14 +34,13 @@ class TotalReport extends StatelessWidget {
               child: boxText(
                 text: "Chi tiêu: ",
                 number: spending,
+                color: Colors.red,
               ),
             ),
             const SizedBox(width: 5),
             Expanded(
               child: boxText(
-                text: "Thu nhập: ",
-                number: income,
-              ),
+                  text: "Thu nhập: ", number: income, color: Colors.blue),
             )
           ],
         ),

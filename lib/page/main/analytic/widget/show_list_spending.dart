@@ -6,8 +6,9 @@ import 'package:spending_management/page/main/analytic/view_list_spending_page.d
 
 Widget showListSpending({required List<Spending> list}) {
   var numberFormat = NumberFormat.currency(locale: "vi_VI");
-  int sum =
-      list.map((e) => e.money).reduce((value, element) => value + element);
+  int sum = list.isNotEmpty
+      ? list.map((e) => e.money).reduce((value, element) => value + element)
+      : 1;
 
   return ListView.builder(
     shrinkWrap: true,
