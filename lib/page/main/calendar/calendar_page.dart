@@ -1,6 +1,9 @@
+
+import 'package:spending_management/constants/function/list_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
@@ -14,7 +17,6 @@ class _CalendarPageState extends State<CalendarPage> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
-
   @override
   void initState() {
     // selectedEvents = {   };
@@ -159,8 +161,8 @@ class _CalendarPageState extends State<CalendarPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(child: Container(
-                height: 50,
-                margin: const EdgeInsets.symmetric(vertical:  ,horizontal: 2  ),
+                height: 48,
+                margin: const EdgeInsets.symmetric(vertical:4  ,horizontal: 2  ),
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -188,8 +190,8 @@ class _CalendarPageState extends State<CalendarPage> {
               ),),
 
               Expanded(child: Container(
-                height: 50,
-                margin: const EdgeInsets.symmetric(vertical: 5 ,horizontal: 2  ),
+                height: 48,
+                margin: const EdgeInsets.symmetric(vertical: 4 ,horizontal: 2  ),
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -216,8 +218,8 @@ class _CalendarPageState extends State<CalendarPage> {
               ),),
 
               Expanded(child: Container(
-                height: 50,
-                margin: const EdgeInsets.symmetric(vertical: 5 ,horizontal: 2  ),
+                height: 48,
+                margin: const EdgeInsets.symmetric(vertical: 4 ,horizontal: 2  ),
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -248,8 +250,8 @@ class _CalendarPageState extends State<CalendarPage> {
             ],
           ),
           Container(
-            height: 55,
-            margin: const EdgeInsets.symmetric(vertical: 0 , horizontal: 5  ),
+            height: 48 ,
+            margin: const EdgeInsets.symmetric(vertical: 0 , horizontal: 2  ),
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -290,12 +292,12 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
 
           Container(
-            height: 195,
-            margin: const EdgeInsets.symmetric(vertical: 5 , horizontal: 5  ),
+            height: 210,
+            margin: const EdgeInsets.symmetric(vertical: 4 , horizontal: 2  ),
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(5),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
@@ -303,7 +305,117 @@ class _CalendarPageState extends State<CalendarPage> {
                     blurRadius: 10,
                   ),
                 ]),
+            child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection('spending').snapshots(),
+                builder:(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
+                if(!snapshot.hasData){
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                final data =snapshot.requireData;
+                return ListView.builder(
+                  itemCount: data.size,
+                    itemBuilder: (context,index){
+                    //  var value_category = int.tryParse(" ${data.docs[index]['type']}");
 
+                      return Container(
+                      //height: 48,
+                      margin: const EdgeInsets.symmetric(vertical:3  ,horizontal: 3  ),
+                      padding: const EdgeInsets.all(0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(2),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 1,
+                              blurRadius: 10,
+                            ),
+                          ]
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+
+                            textBaseline: TextBaseline.ideographic,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(top:5  ,left: 10  ),
+                                padding: const EdgeInsets.all(0),
+                                child:Text("Datetime", style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Colors.grey,),),
+
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(child:
+                              Row(children: [
+                                Column(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(top:5  ,left: 20,bottom: 10  ),
+                                      padding: const EdgeInsets.all(0),
+                                      child: ImageIcon(
+                                        AssetImage(categories[0]['icon']),
+                                        color: Colors.black87,
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.symmetric(vertical:0  ,horizontal: 15  ),
+                                  padding: const EdgeInsets.all(0),
+                                  child:Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Text(AppLocalizations.of(context).translate(categories[0]['name'],),style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.black87),),
+                                      Text(" ${data.docs[index]['note']}",style: TextStyle(fontSize: 15,color: Colors.black38),)
+
+                                    ],
+                                  ),),
+                              ],
+
+
+                              ),),
+
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 8,horizontal: 10),
+                                width: 150,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children:  [
+                                    Text(
+                                      "  ${data.docs[index]['money'] }Vnd",
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black54,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+
+
+                    );
+                      //Text( " my name ${data.docs[index]['note']}");
+                    },
+                );
+                }
+            ),
           ),
         ],
       ),
