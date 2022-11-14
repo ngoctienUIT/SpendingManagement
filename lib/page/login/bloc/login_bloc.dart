@@ -32,8 +32,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         SharedPreferences.getInstance().then((value) {
           value.setBool("login", false);
         });
-        await initInfoUser();
-        emit(LoginSuccessState(social: Social.google));
+        bool check = await initInfoUser();
+        emit(LoginSuccessState(social: check ? Social.google : Social.newUser));
       } else {
         emit(LoginErrorState(status: _status));
       }
@@ -45,8 +45,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         SharedPreferences.getInstance().then((value) {
           value.setBool("login", false);
         });
-        await initInfoUser();
-        emit(LoginSuccessState(social: Social.facebook));
+        bool check = await initInfoUser();
+        emit(LoginSuccessState(
+            social: check ? Social.facebook : Social.newUser));
       } else {
         emit(LoginErrorState(status: _status));
       }
@@ -96,18 +97,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Future initInfoUser() async {
+  Future<bool> initInfoUser() async {
+    bool check = true;
     var firestore = FirebaseFirestore.instance
         .collection("info")
         .doc(FirebaseAuth.instance.currentUser!.uid);
     await firestore.get().then((value) async {
       if (!value.exists) {
         await firestore.set(myuser.User(
-                name: FirebaseAuth.instance.currentUser!.displayName.toString(),
-                birthday: DateFormat("dd/MM/yyyy").format(DateTime.now()),
-                avatar: FirebaseAuth.instance.currentUser!.photoURL.toString())
-            .toMap());
+          name: FirebaseAuth.instance.currentUser!.displayName.toString(),
+          birthday: DateFormat("dd/MM/yyyy").format(DateTime.now()),
+          avatar: FirebaseAuth.instance.currentUser!.photoURL.toString(),
+          money: 0,
+        ).toMap());
+        check = false;
       }
     });
+    return check;
   }
 }

@@ -41,7 +41,9 @@ class _LoginFormState extends State<LoginForm> {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         if (state is LoginSuccessState && check) {
-          Navigator.pop(context);
+          if (state.social == Social.email) {
+            Navigator.pop(context);
+          }
           Fluttertoast.showToast(
               msg: AppLocalizations.of(context).translate("login_success"));
           SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -49,7 +51,11 @@ class _LoginFormState extends State<LoginForm> {
                 !FirebaseAuth.instance.currentUser!.emailVerified) {
               Navigator.pushReplacementNamed(context, "/verify");
             } else {
-              Navigator.pushReplacementNamed(context, "/main");
+              if (state.social == Social.newUser) {
+                Navigator.pushReplacementNamed(context, '/wallet');
+              } else {
+                Navigator.pushReplacementNamed(context, "/main");
+              }
             }
           });
         }

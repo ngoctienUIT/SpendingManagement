@@ -85,6 +85,7 @@ class _SignupFormState extends State<SignupForm> {
                     validator: 1,
                     controller: _nameController,
                     inputType: TextInputType.name,
+                    textCapitalization: TextCapitalization.words,
                   ),
                   const SizedBox(height: 20),
                   inputText(
@@ -191,7 +192,7 @@ class _SignupFormState extends State<SignupForm> {
                             password: _passwordController.text,
                             user: User(
                               name: _nameController.text.trim(),
-                              // money: 0,
+                              money: 0,
                               birthday:
                                   DateFormat("dd/MM/yyyy").format(birthday),
                               gender: gender,

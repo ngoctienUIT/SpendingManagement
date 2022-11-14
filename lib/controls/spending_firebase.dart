@@ -100,6 +100,19 @@ class SpendingFirebase {
     return spendingList;
   }
 
+  static Future addWalletMoney(int money) async {
+    var data = {DateFormat("MM_yyyy").format(DateTime.now()): money};
+    FirebaseFirestore.instance
+        .collection("wallet")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set(data);
+
+    FirebaseFirestore.instance
+        .collection("info")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({"money": money});
+  }
+
   static Future updateInfo({required myuser.User user, File? image}) async {
     if (image != null) {
       user.avatar = await uploadImage(

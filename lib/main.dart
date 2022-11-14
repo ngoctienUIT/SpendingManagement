@@ -12,10 +12,16 @@ import 'package:spending_management/page/main/home/home_page.dart';
 import 'package:spending_management/page/main/main_page.dart';
 import 'package:spending_management/page/onboarding/onboarding_page.dart';
 import 'package:spending_management/page/signup/signup_page.dart';
+import 'package:spending_management/page/signup/verify/input_wallet.dart';
 import 'package:spending_management/page/signup/verify/verify_page.dart';
 import 'package:spending_management/setting/bloc/setting_cubit.dart';
 import 'package:spending_management/setting/bloc/setting_state.dart';
 import 'package:spending_management/setting/localization/app_localizations_setup.dart';
+
+bool loginMethod = false;
+int? language;
+bool isDark = false;
+bool isFirstStart = true;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,22 +29,16 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final prefs = await SharedPreferences.getInstance();
-  final int? language = prefs.getInt('language');
-  final bool isDark = prefs.getBool("isDark") ?? false;
-  final bool isFirstStart = prefs.getBool("firstStart") ?? true;
-  runApp(MyApp(language: language, isDark: isDark, isFirstStart: isFirstStart));
+  language = prefs.getInt('language');
+  isDark = prefs.getBool("isDark") ?? false;
+  isFirstStart = prefs.getBool("firstStart") ?? true;
+  loginMethod = prefs.getBool("login") ?? false;
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    super.key,
-    this.language,
-    required this.isDark,
-    required this.isFirstStart,
-  });
-  final int? language;
-  final bool isDark;
-  final bool isFirstStart;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +80,11 @@ class MyApp extends StatelessWidget {
                   ),
             initialRoute: FirebaseAuth.instance.currentUser == null
                 ? (isFirstStart ? "/" : '/login')
-                : (FirebaseAuth.instance.currentUser!.emailVerified
-                    ? '/main'
-                    : '/verify'),
+                : loginMethod
+                    ? (FirebaseAuth.instance.currentUser!.emailVerified
+                        ? '/main'
+                        : '/verify')
+                    : '/main',
             routes: {
               '/': (context) => const OnboardingPage(),
               '/login': (context) => const LoginPage(),
@@ -91,7 +93,8 @@ class MyApp extends StatelessWidget {
               '/main': (context) => const MainPage(),
               '/forgot': (context) => const ForgotPage(),
               '/success': (context) => const SuccessPage(),
-              '/verify': (context) => const VerifyPage()
+              '/verify': (context) => const VerifyPage(),
+              '/wallet': (context) => const InputWalletPage()
             },
           );
         },

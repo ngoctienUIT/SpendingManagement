@@ -1,4 +1,4 @@
-enum Social { email, google, facebook }
+enum Social { email, google, facebook, newUser }
 
 abstract class LoginState {}
 

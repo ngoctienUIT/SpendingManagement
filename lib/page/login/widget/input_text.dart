@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:spending_management/constants/app_styles.dart';
 
-Widget inputText(
-    {required String hint,
-    String? error,
-    required TextEditingController controller,
-    required int validator,
-    TextInputType? inputType}) {
+Widget inputText({
+  required String hint,
+  String? error,
+  required TextEditingController controller,
+  required int validator,
+  TextInputType? inputType,
+  TextCapitalization textCapitalization = TextCapitalization.none,
+}) {
   return TextFormField(
     controller: controller,
     style: AppStyles.p,
     keyboardType: inputType,
+    textCapitalization: textCapitalization,
     validator: (value) {
       if (validator == 0 &&
           (value!.isEmpty ||

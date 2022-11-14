@@ -104,7 +104,7 @@ class _VerifyPageState extends State<VerifyPage> {
                     height: 50,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/main');
+                        Navigator.pushReplacementNamed(context, '/wallet');
                       },
                       icon: const Icon(FontAwesomeIcons.house),
                       label: Text(
