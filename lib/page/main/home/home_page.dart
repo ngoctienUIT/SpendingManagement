@@ -317,6 +317,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                             Text(
                                               "${data.docs[index]['note']}",
+                                              overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
                                                   fontSize: 15,
                                                   color: Colors.green),
@@ -328,9 +329,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 10),
-                                  width: 130,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
