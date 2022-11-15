@@ -60,7 +60,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+        padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
         child: ListView(
           children: [
             const SizedBox(height: 10, width: 50),

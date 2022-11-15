@@ -108,14 +108,14 @@ class _AnalyticPageState extends State<AnalyticPage>
 
   Widget header() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
       child: Column(
         children: [
           Row(
             children: [
               const Text(
                 "Spending",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
               IconButton(
@@ -132,7 +132,7 @@ class _AnalyticPageState extends State<AnalyticPage>
                   size: 20,
                   color: Color.fromRGBO(180, 190, 190, 1),
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 20),

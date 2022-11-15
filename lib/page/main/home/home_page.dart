@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/function/list_categories.dart';
+import 'package:spending_management/page/main/analytic/search_page.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
-
 import 'day_month.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,12 +57,12 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 25),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 25),
               child: Column(
                 children: [
                   Row(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Daily Transaction",
                         style: TextStyle(
                           fontSize: 20,
@@ -70,15 +70,25 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.black,
                         ),
                       ),
-                      Spacer(),
-                      Icon(
-                        FontAwesomeIcons.magnifyingGlass,
-                        size: 20,
-                        color: Color.fromRGBO(180, 190, 190, 1),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SearchPage(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.magnifyingGlass,
+                          size: 20,
+                          color: Color.fromRGBO(180, 190, 190, 1),
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -184,9 +194,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const Spacer(),
-                const Text(
-                  "\$ sum price",
-                  style: TextStyle(
+                 Text(
+                   "123456",
+                  style:const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -197,7 +207,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 0),
           Container(
-            height: 500,
+            height: 520,
             margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
@@ -271,7 +281,7 @@ class _HomePageState extends State<HomePage> {
                                 Expanded(
                                   child: Row(
                                     children: [
-                                      Column(
+                                      Wrap(
                                         children: [
                                           Container(
                                             margin: const EdgeInsets.only(
@@ -306,9 +316,7 @@ class _HomePageState extends State<HomePage> {
                                                   color: Colors.black87),
                                             ),
                                             Text(
-
-                                              " ${data.docs[index]['note']}",
-                                              overflow: TextOverflow.visible,
+                                              "${data.docs[index]['note']}",
                                               style: const TextStyle(
                                                   fontSize: 15,
                                                   color: Colors.green),
@@ -320,14 +328,14 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Container(
-                                  padding:const EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 10),
                                   width: 130,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        "  ${data.docs[index]['money']} đ",
+                                        "${data.docs[index]['money']} đ",
                                         style: const TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600,
