@@ -1,4 +1,3 @@
-
 import 'package:spending_management/constants/function/list_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -17,11 +16,13 @@ class _CalendarPageState extends State<CalendarPage> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+
   @override
   void initState() {
     // selectedEvents = {   };
     super.initState();
   }
+
   // List<Event> _getEventsfromDay(DateTime date){
   //   // return selectedEvents[date] ?? [];
   // }
@@ -35,10 +36,7 @@ class _CalendarPageState extends State<CalendarPage> {
         title: const Text("Calendar"),
         centerTitle: true,
       ),
-      body:
-
-      Column(
-
+      body: Column(
         children: [
           TableCalendar(
             focusedDay: focusedDay,
@@ -136,122 +134,155 @@ class _CalendarPageState extends State<CalendarPage> {
               todayTextStyle: const TextStyle(color: Colors.green),
             ),
             headerStyle: HeaderStyle(
-
               formatButtonVisible: false,
               titleCentered: true,
               rightChevronPadding:
-              const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
               decoration: BoxDecoration(
                 color: Colors.black12,
                 borderRadius: BorderRadius.circular(15.0),
               ),
               headerPadding:
-              const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+                  const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
               headerMargin:
-              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
               titleTextStyle: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black54),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.black54),
             ),
             rowHeight: 40,
             // locale: 'vi',
           ),
           Row(
-            
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(child: Container(
-                height: 48,
-                margin: const EdgeInsets.symmetric(vertical:4  ,horizontal: 2  ),
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(2),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 10,
+              Expanded(
+                child: Container(
+                  height: 48,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 1,
+                          blurRadius: 10,
+                        ),
+                      ]),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context).translate('income'),
+                            style:
+                                TextStyle(fontSize: 15, color: Colors.black54),
+                          ),
+                          Text(
+                            "0vnd",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.lightBlue),
+                          )
+                        ],
                       ),
-                    ]
+                    ],
+                  ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        Text( AppLocalizations.of(context).translate('income'),style: TextStyle( fontSize: 15,color: Colors.black54),),
-                        Text("0vnd",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.lightBlue),)
-                      ],
-                    ),
-                  ],
-                ),
-              ),),
-
-              Expanded(child: Container(
-                height: 48,
-                margin: const EdgeInsets.symmetric(vertical: 4 ,horizontal: 2  ),
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(2),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 10,
+              ),
+              Expanded(
+                child: Container(
+                  height: 48,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 1,
+                          blurRadius: 10,
+                        ),
+                      ]),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context).translate('spending'),
+                            style:
+                                TextStyle(fontSize: 15, color: Colors.black54),
+                          ),
+                          Text(
+                            "0vnd",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red),
+                          )
+                        ],
                       ),
-                    ]),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        Text( AppLocalizations.of(context).translate('spending'),style: TextStyle( fontSize: 15,color: Colors.black54),),
-                        Text("0vnd",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.red),)
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),),
-
-              Expanded(child: Container(
-                height: 48,
-                margin: const EdgeInsets.symmetric(vertical: 4 ,horizontal: 2  ),
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(2),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 10,
+              ),
+              Expanded(
+                child: Container(
+                  height: 48,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 1,
+                          blurRadius: 10,
+                        ),
+                      ]),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context).translate('total'),
+                            style:
+                                TextStyle(fontSize: 15, color: Colors.black54),
+                          ),
+                          Text(
+                            "0vnd",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.lightBlue),
+                          )
+                        ],
                       ),
-                    ]),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        Text( AppLocalizations.of(context).translate('total'),style: TextStyle( fontSize: 15,color: Colors.black54),),
-                        Text("0vnd",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.lightBlue),)
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),),
-
-
-
+              ),
             ],
           ),
           Container(
-            height: 48 ,
-            margin: const EdgeInsets.symmetric(vertical: 0 , horizontal: 2  ),
+            height: 48,
+            margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 2),
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -271,29 +302,42 @@ class _CalendarPageState extends State<CalendarPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text( AppLocalizations.of(context).translate('opening_balance'),style: TextStyle( fontSize: 15,color: Colors.black54),),
-                    Text("0vnd",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.lightBlue),)
-
+                    Text(
+                      AppLocalizations.of(context).translate('opening_balance'),
+                      style: TextStyle(fontSize: 15, color: Colors.black54),
+                    ),
+                    Text(
+                      "0vnd",
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.lightBlue),
+                    )
                   ],
                 ),
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text( AppLocalizations.of(context).translate('surplus'),style: TextStyle( fontSize: 15,color: Colors.black54),),
-                    Text("0vnd",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.lightBlue),)
-
+                    Text(
+                      AppLocalizations.of(context).translate('surplus'),
+                      style: TextStyle(fontSize: 15, color: Colors.black54),
+                    ),
+                    Text(
+                      "0vnd",
+                      style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.lightBlue),
+                    )
                   ],
                 ),
-
               ],
             ),
           ),
-
           Container(
             height: 210,
-            margin: const EdgeInsets.symmetric(vertical: 4 , horizontal: 2  ),
+            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -306,116 +350,139 @@ class _CalendarPageState extends State<CalendarPage> {
                   ),
                 ]),
             child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('spending').snapshots(),
-                builder:(BuildContext context,AsyncSnapshot<QuerySnapshot> snapshot){
-                if(!snapshot.hasData){
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                final data =snapshot.requireData;
-                return ListView.builder(
-                  itemCount: data.size,
-                    itemBuilder: (context,index){
-                    //  var value_category = int.tryParse(" ${data.docs[index]['type']}");
+                stream: FirebaseFirestore.instance
+                    .collection('spending')
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final data = snapshot.requireData;
+                  return ListView.builder(
+                    itemCount: data.size,
+                    itemBuilder: (context, index) {
+                      //  var value_category = int.tryParse(" ${data.docs[index]['type']}");
 
                       return Container(
-                      //height: 48,
-                      margin: const EdgeInsets.symmetric(vertical:3  ,horizontal: 3  ),
-                      padding: const EdgeInsets.all(0),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(2),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 1,
-                              blurRadius: 10,
-                            ),
-                          ]
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-
-                            textBaseline: TextBaseline.ideographic,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(top:5  ,left: 10  ),
-                                padding: const EdgeInsets.all(0),
-                                child:Text("Datetime", style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Colors.grey,),),
-
+                        //height: 48,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 3, horizontal: 3),
+                        padding: const EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(2),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 10,
                               ),
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(child:
-                              Row(children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(top:5  ,left: 20,bottom: 10  ),
-                                      padding: const EdgeInsets.all(0),
-                                      child: ImageIcon(
-                                        AssetImage(categories[0]['icon']),
-                                        color: Colors.black87,
-                                        size: 30,
-                                      ),
+                            ]),
+                        child: Column(
+                          children: [
+                            Row(
+                              textBaseline: TextBaseline.ideographic,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(top: 5, left: 10),
+                                  padding: const EdgeInsets.all(0),
+                                  child: Text(
+                                    "Datetime",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
                                     ),
-                                  ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                top: 5, left: 20, bottom: 10),
+                                            padding: const EdgeInsets.all(0),
+                                            child: ImageIcon(
+                                              AssetImage(categories[0]['icon']),
+                                              color: Colors.black87,
+                                              size: 30,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 0, horizontal: 15),
+                                        padding: const EdgeInsets.all(0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              AppLocalizations.of(context)
+                                                  .translate(
+                                                categories[0]['name'],
+                                              ),
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black87),
+                                            ),
+                                            Text(
+                                              " ${data.docs[index]['note']}",
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black38),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.symmetric(vertical:0  ,horizontal: 15  ),
-                                  padding: const EdgeInsets.all(0),
-                                  child:Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 10),
+                                  width: 150,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-
-                                      Text(AppLocalizations.of(context).translate(categories[0]['name'],),style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.black87),),
-                                      Text(" ${data.docs[index]['note']}",style: TextStyle(fontSize: 15,color: Colors.black38),)
-
+                                      Text(
+                                        "  ${data.docs[index]['money']}Vnd",
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black54,
+                                        ),
+                                      )
                                     ],
-                                  ),),
-                              ],
-
-
-                              ),),
-
-                              Container(
-                                padding: EdgeInsets.symmetric(vertical: 8,horizontal: 10),
-                                width: 150,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children:  [
-                                    Text(
-                                      "  ${data.docs[index]['money'] }Vnd",
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black54,
-                                      ),
-                                    )
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-
-
-                    );
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
                       //Text( " my name ${data.docs[index]['note']}");
                     },
-                );
-                }
-            ),
+                  );
+                }),
           ),
         ],
       ),

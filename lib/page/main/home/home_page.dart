@@ -299,12 +299,8 @@ class _HomePageState extends State<HomePage> {
                                         margin: const EdgeInsets.symmetric(
                                             vertical: 0, horizontal: 15),
                                         padding: const EdgeInsets.all(0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
+                                        child: SingleChildScrollView(
+                                          child: (
                                             Text(
                                               AppLocalizations.of(context)
                                                   .translate(
@@ -314,21 +310,31 @@ class _HomePageState extends State<HomePage> {
                                                   fontSize: 17,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black87),
-                                            ),
-                                            Text(
-                                              "${data.docs[index]['note']}",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.green),
                                             )
-                                          ],
+                                          ),
                                         ),
                                       ),
+                                      Expanded(
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: (
+                                              Text(
+                                                "${data.docs[index]['note']}",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.green),
+                                              )
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
                                 Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 10),
+                                  width: 100,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
