@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/function/list_categories.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 
 import 'day_month.dart';
 
@@ -14,6 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int activeDay = 20;
   late ScrollController _scrollControlled;
+
   @override
   void initState() {
     super.initState();
@@ -117,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                               activeDay = index;
                             });
                           },
-                          child: Container(
+                          child: SizedBox(
                             width: (size.width - 40) / 7,
                             child: Column(
                               children: [
@@ -193,94 +196,156 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 0),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Column(
-              children: List.generate(
-                days.length,
-                (index) {
-                  return Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: (size.width - 40) * 0.7,
-                            child: Row(
+          Container(
+            height: 500,
+            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ]),
+            child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('spending')
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final data = snapshot.requireData;
+                  return ListView.builder(
+                    itemCount: data.size,
+                    itemBuilder: (context, index) {
+                      //  var value_category = int.tryParse(" ${data.docs[index]['type']}");
+
+                      return Container(
+                        //height: 48,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 3, horizontal: 3),
+                        padding: const EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(2),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 10,
+                              ),
+                            ]),
+                        child: Column(
+                          children: [
+                            Row(
+                              textBaseline: TextBaseline.ideographic,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                    child: Image.asset(
-                                      categories[index]['icon'],
-                                      width: 30,
-                                      height: 30,
+                                  margin:
+                                      const EdgeInsets.only(top: 5, left: 10),
+                                  padding: const EdgeInsets.all(0),
+                                  child: Text(
+                                    " ${data.docs[index]['date']}",
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 15),
-                                Container(
-                                  width: (size.width - 90) * 0.5,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Row(
                                     children: [
-                                      Text(
-                                        categories[index]['name'],
-                                        style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      Column(
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                top: 5, left: 20, bottom: 10),
+                                            padding: const EdgeInsets.all(0),
+                                            child: ImageIcon(
+                                              AssetImage(categories[0]['icon']),
+                                              color: Colors.black87,
+                                              size: 30,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                        "dateTime.now",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black.withOpacity(0.5),
-                                          fontWeight: FontWeight.w900,
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 0, horizontal: 15),
+                                        padding: const EdgeInsets.all(0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              AppLocalizations.of(context)
+                                                  .translate(
+                                                categories[0]['name'],
+                                              ),
+                                              style: const TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black87),
+                                            ),
+                                            Text(
+
+                                              " ${data.docs[index]['note']}",
+                                              overflow: TextOverflow.visible,
+                                              style: const TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.green),
+                                            )
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: (size.width - 40) * 0.3,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
-                                Text(
-                                  "price",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.green,
+                                ),
+                                Container(
+                                  padding:const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                  width: 130,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "  ${data.docs[index]['money']} đ",
+                                        style: const TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.redAccent,
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 65, top: 8),
-                        child: Divider(thickness: 0.8),
-                      )
-                    ],
+                          ],
+                        ),
+                      );
+                      //Text( " my name ${data.docs[index]['note']}");
+                    },
                   );
-                },
-              ),
-            ),
+                }),
           ),
         ],
       ),
