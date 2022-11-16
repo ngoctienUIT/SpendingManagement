@@ -1,5 +1,6 @@
 import 'package:spending_management/constants/function/list_categories.dart';
 import 'package:flutter/material.dart';
+import 'package:spending_management/models/spending.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +17,7 @@ class _CalendarPageState extends State<CalendarPage> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  late Spending indexcate;
 
   @override
   void initState() {
@@ -361,10 +363,12 @@ class _CalendarPageState extends State<CalendarPage> {
                     );
                   }
                   final data = snapshot.requireData;
+
                   return ListView.builder(
                     itemCount: data.size,
                     itemBuilder: (context, index) {
                       //  var value_category = int.tryParse(" ${data.docs[index]['type']}");
+                      indexcate=Spending.fromFirebase(data.docs[index]);
 
                       return Container(
                         //height: 48,
@@ -392,8 +396,8 @@ class _CalendarPageState extends State<CalendarPage> {
                                   margin:
                                       const EdgeInsets.only(top: 5, left: 10),
                                   padding: const EdgeInsets.all(0),
-                                  child: const Text(
-                                    "Datetime",
+                                  child:  Text(
+                                    "${indexcate.dateTime}",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
@@ -404,7 +408,7 @@ class _CalendarPageState extends State<CalendarPage> {
                               ],
                             ),
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Expanded(
@@ -414,10 +418,10 @@ class _CalendarPageState extends State<CalendarPage> {
                                         children: [
                                           Container(
                                             margin: const EdgeInsets.only(
-                                                top: 5, left: 20, bottom: 10),
+                                                top: 5, left: 15, bottom: 10),
                                             padding: const EdgeInsets.all(0),
                                             child: ImageIcon(
-                                              AssetImage(categories[0]['icon']),
+                                              AssetImage(categories[indexcate.type]['icon']),
                                               color: Colors.black87,
                                               size: 30,
                                             ),
@@ -425,8 +429,9 @@ class _CalendarPageState extends State<CalendarPage> {
                                         ],
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 0, horizontal: 15),
+                                        width: 170,
+                                        margin: const EdgeInsets.only(
+                                            left: 10,top: 5),
                                         padding: const EdgeInsets.all(0),
                                         child: Column(
                                           crossAxisAlignment:
@@ -437,7 +442,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                             Text(
                                               AppLocalizations.of(context)
                                                   .translate(
-                                                categories[0]['name'],
+                                                categories[indexcate.type]['name'],
                                               ),
                                               style: const TextStyle(
                                                   fontSize: 17,
@@ -447,9 +452,10 @@ class _CalendarPageState extends State<CalendarPage> {
                                             Text(
                                               " ${data.docs[index]['note']}",
                                               style: const TextStyle(
+                                                overflow: TextOverflow.ellipsis,
                                                   fontSize: 15,
                                                   color: Colors.black38),
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -457,18 +463,20 @@ class _CalendarPageState extends State<CalendarPage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 10),
-                                  width: 150,
+
+                                  padding: const EdgeInsets.only(
+                                      top: 8, right: 8),
+                                  width: 140,
                                   child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
                                         "  ${data.docs[index]['money']}Vnd",
-                                        style: const TextStyle(
+                                        style:  TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600,
-                                          color: Colors.black54,
+                                          color: data.docs[index]['money'] >= 0 ? Colors.blueAccent : Colors.red,
                                         ),
                                       )
                                     ],
