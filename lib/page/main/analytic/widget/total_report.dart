@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/page/main/analytic/widget/box_text.dart';
 
-
 class TotalReport extends StatelessWidget {
   const TotalReport({Key? key, required this.list}) : super(key: key);
   final List<Spending> list;
@@ -24,7 +23,6 @@ class TotalReport extends StatelessWidget {
         : spendingList
             .map((e) => e.money)
             .reduce((value, element) => value + element);
-    // ignore: unused_local_variable
 
     return Column(
       children: [
@@ -49,24 +47,6 @@ class TotalReport extends StatelessWidget {
         boxText(
           text: "Thu chi:",
           number: income + spending,
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            Expanded(
-              child: boxText(
-                text: 'Số tiền: ',
-                number: 1234,
-              ),
-            ),
-            const SizedBox(width: 5),
-            Expanded(
-              child: boxText(
-                text: 'Số dư: ',
-                number: 1234,
-              ),
-            )
-          ],
         ),
         const SizedBox(height: 10),
       ],

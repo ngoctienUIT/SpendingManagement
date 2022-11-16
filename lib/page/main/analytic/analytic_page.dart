@@ -194,7 +194,10 @@ class _AnalyticPageState extends State<AnalyticPage>
                           if (spendingList.isNotEmpty)
                             TotalReport(list: spendingList),
                           if (spendingList.isNotEmpty)
-                            showListSpending(list: classifySpending)
+                            showListSpending(
+                              list: classifySpending,
+                              type: _typeController.index,
+                            )
                         ],
                       ),
                     ),

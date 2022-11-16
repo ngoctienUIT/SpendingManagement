@@ -13,11 +13,11 @@ List categories = [
   {"name": "add_category", "icon": "assets/category/add.png"},
 ];
 
-List income=[
-  {"name":'salary',"icon":"assets/category/salary.png"},
-  {"name":'charity',"icon":"assets/category/charity.png"},
-  {"name":'bonus',"icon":"assets/category/bonus.png"},
-  {"name":'invest',"icon":"assets/category/invest.png"},
-  {"name":'paycheck',"icon":"assets/category/paycheck.png"},
+List income = [
+  {"name": 'salary', "icon": "assets/category/salary.png"},
+  {"name": 'charity', "icon": "assets/category/charity.png"},
+  {"name": 'bonus', "icon": "assets/category/bonus.png"},
+  {"name": 'invest', "icon": "assets/category/invest.png"},
+  {"name": 'paycheck', "icon": "assets/category/paycheck.png"},
   {"name": "add_category", "icon": "assets/category/add.png"},
 ];

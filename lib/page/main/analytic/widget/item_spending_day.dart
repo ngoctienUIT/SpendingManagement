@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:spending_management/constants/function/list_categories.dart';
 import 'package:spending_management/models/spending.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ItemSpendingDay extends StatefulWidget {
-  const ItemSpendingDay({Key? key, required this.spendingList})
-      : super(key: key);
+  const ItemSpendingDay({
+    Key? key,
+    required this.spendingList,
+    required this.type,
+  }) : super(key: key);
   final List<Spending> spendingList;
+  final int type;
 
   @override
   State<ItemSpendingDay> createState() => _ItemSpendingDayState();
@@ -89,12 +94,20 @@ class _ItemSpendingDayState extends State<ItemSpendingDay> {
                         child: Row(
                           children: [
                             Image.asset(
-                              categories[widget.spendingList[0].type]["icon"]!,
+                              widget.type == 0
+                                  ? categories[widget.spendingList[0].type]
+                                      ["icon"]!
+                                  : income[widget.spendingList[0].type]["icon"],
                               width: 40,
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              categories[widget.spendingList[0].type]["name"]!,
+                              AppLocalizations.of(context).translate(
+                                  widget.type == 0
+                                      ? categories[widget.spendingList[0].type]
+                                          ["name"]!
+                                      : income[widget.spendingList[0].type]
+                                          ["name"]),
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
