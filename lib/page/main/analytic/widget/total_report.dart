@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/page/main/analytic/widget/box_text.dart';
 
+
 class TotalReport extends StatelessWidget {
   const TotalReport({Key? key, required this.list}) : super(key: key);
   final List<Spending> list;
-
   @override
   Widget build(BuildContext context) {
     List<Spending> spendingList =
@@ -24,6 +24,7 @@ class TotalReport extends StatelessWidget {
         : spendingList
             .map((e) => e.money)
             .reduce((value, element) => value + element);
+    // ignore: unused_local_variable
 
     return Column(
       children: [

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spending_management/page/main/setting/change_pass_word_page.dart';
 import 'package:spending_management/page/main/setting/profile_page.dart';
 import 'package:spending_management/setting/bloc/setting_cubit.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
@@ -90,7 +91,7 @@ class _SettingPageState extends State<SettingPage> {
             const Divider(height: 20, thickness: 2),
             const SizedBox(height: 10),
             if (loginMethod)
-              buildAccountOption(
+              buildAccountOption2(
                 Icons.password_outlined,
                 const Color(0xff000000),
                 context,
@@ -276,6 +277,42 @@ class _SettingPageState extends State<SettingPage> {
           context,
           MaterialPageRoute(
             builder: (context) => const SettingProfile(),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(icon, color: color),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey[10],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, color: Colors.grey)
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildAccountOption2(
+      IconData icon,
+      Color color,
+      BuildContext context,
+      String title,
+      ) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ChangePassWord(),
           ),
         );
       },

@@ -94,5 +94,7 @@
   "salary": "Salary",
   "charity": "Subsidy",
   "invest": "Invest",
-  "paycheck": "Side income"
+  "paycheck": "Side income",
+  "profile": "Profile",
+  "change": "ChangePassWord"
 }

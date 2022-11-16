@@ -31,9 +31,9 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: Colors.white,
-      backgroundColor: Color.fromRGBO(250, 250, 250, 1),
+      backgroundColor: const Color.fromRGBO(250, 250, 250, 1),
       appBar: AppBar(
-        title: const Text("Calendar"),
+        title: const Text("Calendar", style: TextStyle(color: Colors.cyan),),
         centerTitle: true,
       ),
       body: Column(
@@ -111,19 +111,19 @@ class _CalendarPageState extends State<CalendarPage> {
                     strokeAlign: StrokeAlign.inside),
               ),
               isTodayHighlighted: false,
-              selectedDecoration: BoxDecoration(
+              selectedDecoration: const BoxDecoration(
                 color: Colors.cyanAccent,
                 shape: BoxShape.circle,
                 //borderRadius: BorderRadius.circular(6.0),
               ),
               cellPadding: const EdgeInsets.all(0),
               selectedTextStyle: const TextStyle(color: Colors.green),
-              todayDecoration: BoxDecoration(
+              todayDecoration: const BoxDecoration(
                 color: Colors.cyanAccent,
                 shape: BoxShape.rectangle,
                 //borderRadius: BorderRadius.circular(6.0),
               ),
-              defaultDecoration: BoxDecoration(
+              defaultDecoration: const BoxDecoration(
                 shape: BoxShape.rectangle,
                 //borderRadius: BorderRadius.circular(6.0),
               ),
@@ -183,9 +183,9 @@ class _CalendarPageState extends State<CalendarPage> {
                           Text(
                             AppLocalizations.of(context).translate('income'),
                             style:
-                                TextStyle(fontSize: 15, color: Colors.black54),
+                                const TextStyle(fontSize: 15, color: Colors.black54),
                           ),
-                          Text(
+                          const Text(
                             "0vnd",
                             style: TextStyle(
                                 fontSize: 17,
@@ -223,9 +223,9 @@ class _CalendarPageState extends State<CalendarPage> {
                           Text(
                             AppLocalizations.of(context).translate('spending'),
                             style:
-                                TextStyle(fontSize: 15, color: Colors.black54),
+                                const TextStyle(fontSize: 15, color: Colors.black54),
                           ),
-                          Text(
+                          const Text(
                             "0vnd",
                             style: TextStyle(
                                 fontSize: 17,
@@ -263,9 +263,9 @@ class _CalendarPageState extends State<CalendarPage> {
                           Text(
                             AppLocalizations.of(context).translate('total'),
                             style:
-                                TextStyle(fontSize: 15, color: Colors.black54),
+                                const TextStyle(fontSize: 15, color: Colors.black54),
                           ),
-                          Text(
+                          const Text(
                             "0vnd",
                             style: TextStyle(
                                 fontSize: 17,
@@ -304,9 +304,9 @@ class _CalendarPageState extends State<CalendarPage> {
                   children: [
                     Text(
                       AppLocalizations.of(context).translate('opening_balance'),
-                      style: TextStyle(fontSize: 15, color: Colors.black54),
+                      style: const TextStyle(fontSize: 15, color: Colors.black54),
                     ),
-                    Text(
+                    const Text(
                       "0vnd",
                       style: TextStyle(
                           fontSize: 17,
@@ -321,9 +321,9 @@ class _CalendarPageState extends State<CalendarPage> {
                   children: [
                     Text(
                       AppLocalizations.of(context).translate('surplus'),
-                      style: TextStyle(fontSize: 15, color: Colors.black54),
+                      style: const TextStyle(fontSize: 15, color: Colors.black54),
                     ),
-                    Text(
+                    const Text(
                       "0vnd",
                       style: TextStyle(
                           fontSize: 17,
@@ -356,7 +356,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -392,7 +392,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                   margin:
                                       const EdgeInsets.only(top: 5, left: 10),
                                   padding: const EdgeInsets.all(0),
-                                  child: Text(
+                                  child: const Text(
                                     "Datetime",
                                     style: TextStyle(
                                       fontSize: 12,
@@ -439,14 +439,14 @@ class _CalendarPageState extends State<CalendarPage> {
                                                   .translate(
                                                 categories[0]['name'],
                                               ),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 17,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black87),
                                             ),
                                             Text(
                                               " ${data.docs[index]['note']}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontSize: 15,
                                                   color: Colors.black38),
                                             )
@@ -457,7 +457,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 10),
                                   width: 150,
                                   child: Row(
@@ -465,7 +465,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                     children: [
                                       Text(
                                         "  ${data.docs[index]['money']}Vnd",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.black54,

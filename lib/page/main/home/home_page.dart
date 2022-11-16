@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/function/list_categories.dart';
 import 'package:spending_management/page/main/analytic/search_page.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:spending_management/page/main/analytic/widget/total_report.dart';
 import 'day_month.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int activeDay = 20;
-  late ScrollController _scrollControlled;
+  //late ScrollController _scrollControlled;
 
   @override
   void initState() {
@@ -194,8 +195,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const Spacer(),
-                 Text(
-                   "123456",
+                  Text(
+                   "",
                   style:const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -332,7 +333,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 10),
                                   width: 100,
                                   child: Row(
