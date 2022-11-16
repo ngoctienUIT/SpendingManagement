@@ -283,8 +283,8 @@ class _InputSpendingState extends State<InputSpending> {
                   if (_formKey.currentState!.validate()) {
                     await SpendingFirebase.addSpending(
                       Spending(
-                        money: int.parse(_moneyController.text
-                            .replaceAll(RegExp(r'[^0-9]'), '')),
+                        money: (-1)*int.parse("${_moneyController.text}"
+                            .replaceAll(RegExp(r'[^0-9-]'), '')),
                         note: _noteController.text,
                         type: activeCategory,
                         dateTime: dateTime,
