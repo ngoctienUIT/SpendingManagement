@@ -17,7 +17,7 @@ class MySearchDelegate extends SearchDelegate<String> {
           onPressed: () {
             close(context, query);
           },
-          child: Text(text),
+          child: const Text("Tìm kiếm"),
         )
       ];
 
@@ -50,7 +50,6 @@ class MySearchDelegate extends SearchDelegate<String> {
         if (snapshot.hasData) {
           var snapshotData = snapshot.requireData.data();
           if (snapshotData == null) return Container();
-
           var data = snapshotData;
           List<String> history = (data["history"] as List<dynamic>)
               .map((e) => e.toString())
@@ -59,7 +58,6 @@ class MySearchDelegate extends SearchDelegate<String> {
               .toList()
               .reversed
               .toList();
-
           return ListView.builder(
             itemCount: history.length,
             itemBuilder: (context, index) {

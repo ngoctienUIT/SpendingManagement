@@ -398,7 +398,7 @@ class _CalendarPageState extends State<CalendarPage> {
                                   padding: const EdgeInsets.all(0),
                                   child:  Text(
                                     "${indexcate.dateTime}",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.grey,

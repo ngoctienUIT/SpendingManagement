@@ -1,12 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/page/main/analytic/widget/box_text.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
-import 'package:flutter/material.dart';
 
 class TotalReport extends StatelessWidget {
   const TotalReport({Key? key, required this.list}) : super(key: key);
   final List<Spending> list;
-
   @override
   Widget build(BuildContext context) {
     List<Spending> spendingList =
@@ -33,7 +31,7 @@ class TotalReport extends StatelessWidget {
           children: [
             Expanded(
               child: boxText(
-                text: "${AppLocalizations.of(context).translate('spending')}: ",
+                text: "Chi tiêu: ",
                 number: spending,
                 color: Colors.red,
               ),
@@ -41,17 +39,13 @@ class TotalReport extends StatelessWidget {
             const SizedBox(width: 5),
             Expanded(
               child: boxText(
-                text: "${AppLocalizations.of(context).translate('income')}: ",
-                number: income,
-                color: Colors.blue,
-              ),
+                  text: "Thu nhập: ", number: income, color: Colors.blue),
             )
           ],
         ),
         const SizedBox(height: 10),
         boxText(
-          text:
-              "${AppLocalizations.of(context).translate('revenue_expenditure')}: ",
+          text: "Thu chi:",
           number: income + spending,
         ),
         const SizedBox(height: 10),

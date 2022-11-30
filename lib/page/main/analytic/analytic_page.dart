@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:spending_management/constants/function/get_data_spending.dart';
 import 'package:spending_management/constants/function/get_date.dart';
-import 'package:spending_management/constants/function/route_function.dart';
 import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/page/main/analytic/chart/column_chart.dart';
 import 'package:spending_management/page/main/analytic/chart/pie_chart.dart';
@@ -13,8 +14,6 @@ import 'package:spending_management/page/main/analytic/widget/tabbar_chart.dart'
 import 'package:spending_management/page/main/analytic/widget/tabbar_type.dart';
 import 'package:spending_management/page/main/analytic/widget/total_report.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -109,44 +108,29 @@ class _AnalyticPageState extends State<AnalyticPage>
 
   Widget header() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
       child: Column(
         children: [
           Row(
             children: [
               const Text(
                 "Spending",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
-              InkWell(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () {
-                  Navigator.of(context).push(
-                    createRoute(
-                      screen: const SearchPage(),
-                      begin: const Offset(1, 0),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SearchPage(),
                     ),
                   );
                 },
-                child: Material(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(90),
-                  ),
-                  elevation: 1,
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(90),
-                    ),
-                    child: const Icon(
-                      FontAwesomeIcons.magnifyingGlass,
-                      size: 20,
-                      color: Color.fromRGBO(180, 190, 190, 1),
-                    ),
-                  ),
+                icon: const Icon(
+                  FontAwesomeIcons.magnifyingGlass,
+                  size: 20,
+                  color: Color.fromRGBO(180, 190, 190, 1),
                 ),
               ),
             ],
@@ -210,7 +194,10 @@ class _AnalyticPageState extends State<AnalyticPage>
                           if (spendingList.isNotEmpty)
                             TotalReport(list: spendingList),
                           if (spendingList.isNotEmpty)
-                            showListSpending(list: classifySpending)
+                            showListSpending(
+                              list: classifySpending,
+                              type: _typeController.index,
+                            )
                         ],
                       ),
                     ),
@@ -258,7 +245,7 @@ class _AnalyticPageState extends State<AnalyticPage>
                     child: Text(
                       AppLocalizations.of(context).translate('no_data'),
                       style: const TextStyle(
-                        color: Color.fromRGBO(255, 224, 111, 1),
+                        color: Colors.blue,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
