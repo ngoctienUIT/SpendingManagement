@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:flutter/material.dart';
 
 class TabBarType extends StatelessWidget {
   const TabBarType({Key? key, required this.controller}) : super(key: key);
@@ -19,9 +20,9 @@ class TabBarType extends StatelessWidget {
           unselectedLabelStyle: AppStyles.p,
           isScrollable: false,
           indicator: const CircleTabIndicator(color: Colors.black38, radius: 4),
-          tabs: const [
-            Tab(text: "Chi tiêu"),
-            Tab(text: "Thu nhập"),
+          tabs: [
+            Tab(text: AppLocalizations.of(context).translate('spending')),
+            Tab(text: AppLocalizations.of(context).translate('income')),
           ]),
     );
   }

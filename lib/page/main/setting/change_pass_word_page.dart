@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
-import 'setting_page.dart';
 
 class ChangePassWord extends StatefulWidget {
   const ChangePassWord({Key? key}) : super(key: key);
@@ -14,7 +13,11 @@ class _ChangePassWord extends State<ChangePassWord> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('change'), style:const TextStyle(fontSize: 25,color: Colors.black, fontWeight: FontWeight.bold),),
+        title: Text(
+          AppLocalizations.of(context).translate('change'),
+          style: const TextStyle(
+              fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -35,13 +38,12 @@ class _ChangePassWord extends State<ChangePassWord> {
       child: Column(
         children: [
           Row(
-            children: [
+            children: const [
               Text(
                 "doi mat khau",
-                style:
-                const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              const Spacer(),
+              Spacer(),
             ],
           ),
         ],

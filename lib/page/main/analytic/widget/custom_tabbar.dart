@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({Key? key, required this.controller}) : super(key: key);
@@ -12,7 +13,7 @@ class CustomTabBar extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
-        color: const Color.fromRGBO(242, 243, 247, 1),
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TabBar(
@@ -28,10 +29,10 @@ class CustomTabBar extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
-          tabs: const [
-            Tab(text: 'Week'),
-            Tab(text: 'Month'),
-            Tab(text: 'Year')
+          tabs: [
+            Tab(text: AppLocalizations.of(context).translate('week')),
+            Tab(text: AppLocalizations.of(context).translate('month')),
+            Tab(text: AppLocalizations.of(context).translate('year'))
           ]),
     );
   }
