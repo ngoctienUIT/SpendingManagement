@@ -24,15 +24,15 @@ class Spending {
   });
 
   Map<String, dynamic> toMap() => {
-        "money": money,
-        "type": type,
-        "note": note,
-        "date": dateTime,
-        "image": image,
-        "typeName": typeName,
-        "location": location,
-        "friends": friends
-      };
+    "money": money,
+    "type": type,
+    "note": note,
+    "date": dateTime,
+    "image": image,
+    "typeName": typeName,
+    "location": location,
+    "friends": friends
+  };
 
   factory Spending.fromFirebase(DocumentSnapshot snapshot) {
     var data = snapshot.data() as Map<String, dynamic>;
