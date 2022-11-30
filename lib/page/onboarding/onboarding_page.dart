@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:spending_management/constants/function/on_will_pop.dart';
+import '../../constants/app_colors.dart';
+import '../../setting/localization/app_localizations.dart';
 import 'onboarding_body.dart';
+import 'package:flutter/material.dart';
+
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -10,112 +15,109 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
-  final PageController _pageController = PageController();
-  int currentPage = 0;
-  DateTime? currentBackPressTime;
-
-  final List<Widget> _pages = [
-    const OnboardingBody(
-      title: "keep save",
-      description: "accessToken",
-      image: "assets/images/anh11.jpg",
-    ),
-    const OnboardingBody(
-      title: "keep save",
-      description: "accessToken",
-      image: "assets/images/anh1.jpg",
-    ),
-    const OnboardingBody(
-      title: "keep save",
-      description: "accessToken",
-      image: "assets/images/anh22.png",
-    ),
+  final controller = PageController();
+  bool isLastPage = false;
+  List<Map<String, String>> listPage = [
+    {
+      "image": "assets/images/",
+      "title": "Trang chủ",
+      "content": "Xem tổng kết chi tiêu và số dư còn lại hàng tháng"
+    },
+    {
+      "image": "assets/images/",
+      "title": "Lịch",
+      "content": "Xem lại những chi tiêu theo lịch biểu"
+    },
+    {
+      "image": "assets/images/",
+      "title": "Báo cáo",
+      "content": "Xem báo cáo chi tiêu và thu nhập của bạn qua biểu đồ"
+    },
   ];
 
-  onPageChanged(int index) {
-    setState(() {
-      currentPage = index;
-    });
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    //final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: WillPopScope(
-        onWillPop: () => onWillPop(
-          action: (now) => currentBackPressTime = now,
-          currentBackPressTime: currentBackPressTime,
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 60),
+          child: PageView.builder(
+            controller: controller,
+            itemCount: listPage.length,
+            onPageChanged: (value) {
+              setState(() => isLastPage = value == 2);
+            },
+            itemBuilder: (context, index) => itemOnboarding(listPage[index]),
+          ),
         ),
-        child: Stack(
+      ),
+      bottomSheet: isLastPage
+          ? TextButton(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+          foregroundColor: Colors.white,
+          backgroundColor: AppColors.buttonLogin,
+          minimumSize: const Size.fromHeight(60),
+        ),
+        onPressed: () {
+          Navigator.pushReplacementNamed(context, '/login');
+        },
+        child: Text(
+          AppLocalizations.of(context).translate('get_started'),
+          style: const TextStyle(fontSize: 20),
+        ),
+      )
+          : Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PageView.builder(
-              scrollDirection: Axis.horizontal,
-              controller: _pageController,
-              itemCount: _pages.length,
-              onPageChanged: (value) => setState(() => currentPage = value),
-              itemBuilder: (context, index) => _pages[index],
+            TextButton(
+              onPressed: () => controller.jumpToPage(2),
+              child: Text(
+                AppLocalizations.of(context).translate('skip'),
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    _pages.length,
-                    (int index) {
-                      return AnimatedContainer(
-                        duration: const Duration(microseconds: 300),
-                        height: 10,
-                        width: (index == currentPage) ? 30 : 10,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                          vertical: 30,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: (index == currentPage)
-                              ? Colors.blue
-                              : Colors.blue.withOpacity(0.5),
-                        ),
-                      );
-                    },
-                  ),
+            Center(
+              child: SmoothPageIndicator(
+                controller: controller,
+                count: 3,
+                effect: WormEffect(
+                  spacing: 10,
+                  dotWidth: 10,
+                  dotHeight: 10,
+                  dotColor: Colors.black26,
+                  activeDotColor: Colors.teal.shade700,
                 ),
-                InkWell(
-                  onTap: () {
-                    _pageController.nextPage(
-                      duration: const Duration(milliseconds: 800),
-                      curve: Curves.easeInOutQuint,
-                    );
-                    if (currentPage == 2) {
-                      Navigator.pushReplacementNamed(context, "/login");
-                    }
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    height: 70,
-                    alignment: Alignment.center,
-                    width: (currentPage == (_pages.length - 1)) ? 200 : 70,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(35),
-                    ),
-                    child: (currentPage == (_pages.length - 1))
-                        ? const Text(
-                            "get stated",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          )
-                        : const Icon(
-                            Icons.navigate_next,
-                            color: Colors.white,
-                            size: 50,
-                          ),
-                  ),
+                onDotClicked: (index) => controller.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
                 ),
-                const SizedBox(height: 50),
-              ],
-            )
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                controller.nextPage(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                );
+              },
+              child: Text(
+                AppLocalizations.of(context).translate('next'),
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
           ],
         ),
       ),
