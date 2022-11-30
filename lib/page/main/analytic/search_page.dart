@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:spending_management/constants/function/list_categories.dart';
+import 'package:spending_management/constants/function/extension.dart';
+import 'package:spending_management/constants/function/route_function.dart';
+import 'package:spending_management/constants/list.dart';
 import 'package:spending_management/controls/spending_firebase.dart';
+import 'package:spending_management/models/filter.dart';
 import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/page/main/analytic/widget/filter_page.dart';
-import 'package:spending_management/page/main/analytic/widget/item_spending_day.dart';
 import 'package:spending_management/page/main/analytic/widget/my_search_delegate.dart';
+import 'package:spending_management/page/main/home/widget/item_spending_day.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class SearchPage extends StatefulWidget {
@@ -19,10 +23,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   String? query;
-  List<int> chooseIndex = [0, 0, 0, 0];
-  int money = 0;
-  DateTime? dateTime;
-  String note = "";
+  Filter filter = Filter(chooseIndex: [0, 0, 0], friends: [], colors: []);
 
   @override
   void dispose() {
@@ -31,27 +32,57 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   bool checkResult(Spending spending) {
-    if (!categories[spending.type]["name"]!
+    if (!AppLocalizations.of(context)
+        .translate(listType[spending.type]["title"]!)
         .toUpperCase()
         .contains(query!.toUpperCase())) return false;
 
-    if (chooseIndex[0] == 1 && spending.money < money) {
+    if (filter.chooseIndex[0] == 1 && spending.money.abs() < filter.money) {
       return false;
-    } else if (chooseIndex[0] == 2 && spending.money > money) {
+    } else if (filter.chooseIndex[0] == 2 &&
+        spending.money.abs() > filter.money) {
       return false;
-    } else if (chooseIndex[0] == 4 && spending.money == money) {
+    } else if (filter.chooseIndex[0] == 3 &&
+        (spending.money.abs() > filter.finishMoney ||
+            spending.money.abs() < filter.money)) {
       return false;
-    }
-
-    if (chooseIndex[2] == 1 && dateTime!.isAfter(spending.dateTime)) {
-      return false;
-    } else if (chooseIndex[2] == 2 && dateTime!.isBefore(spending.dateTime)) {
-      return false;
-    } else if (chooseIndex[2] == 4 && isSameDay(spending.dateTime, dateTime)) {
+    } else if (filter.chooseIndex[0] == 4 &&
+        spending.money.abs() == filter.money) {
       return false;
     }
 
-    if (spending.note != null && !spending.note!.contains(note)) return false;
+    if (filter.chooseIndex[1] == 1 &&
+        filter.time!.isAfter(spending.dateTime.formatToDate())) {
+      return false;
+    } else if (filter.chooseIndex[1] == 2 &&
+        filter.time!.isBefore(spending.dateTime.formatToDate())) {
+      return false;
+    } else if (filter.chooseIndex[1] == 3 &&
+        (spending.dateTime.formatToDate().isAfter(filter.finishTime!) ||
+            spending.dateTime.formatToDate().isBefore(filter.time!))) {
+      return false;
+    } else if (filter.chooseIndex[1] == 4 &&
+        isSameDay(spending.dateTime, filter.time)) {
+      return false;
+    }
+
+    if (filter.chooseIndex[2] == 1 && spending.money < 0) {
+      return false;
+    } else if (filter.chooseIndex[2] == 2 && spending.money > 0) {
+      return false;
+    }
+
+    if (filter.friends!.isNotEmpty) {
+      List<String> list = filter.friends!
+          .where((element) => spending.friends!.contains(element))
+          .toList();
+
+      if (list.isEmpty) return false;
+    }
+
+    if (spending.note != null && !spending.note!.contains(filter.note)) {
+      return false;
+    }
     return true;
   }
 
@@ -59,17 +90,18 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 2,
         title: TextField(
           controller: _searchController,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: "Tìm kiếm",
+            hintText: AppLocalizations.of(context).translate('search'),
           ),
           onTap: () async {
             query = await showSearch(
               context: context,
               delegate: MySearchDelegate(
-                text: "Tìm kiếm",
+                text: AppLocalizations.of(context).translate('search'),
                 q: _searchController.text,
               ),
             );
@@ -87,17 +119,12 @@ class _SearchPageState extends State<SearchPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FilterPage(
-                    action: (list, money, dateTime, note) {
-                      setState(() {
-                        this.dateTime = dateTime;
-                        this.money = money;
-                        this.note = note;
-                        chooseIndex = list;
-                      });
+              Navigator.of(context).push(
+                createRoute(
+                  screen: FilterPage(
+                    filter: filter,
+                    action: (filter) {
+                      setState(() => this.filter = filter.copyWith());
                     },
                   ),
                 ),
@@ -131,14 +158,15 @@ class _SearchPageState extends State<SearchPage> {
                           var spendingList = snapshot.data;
                           var list = spendingList!.where(checkResult).toList();
                           if (list.isEmpty) {
-                            return const Center(
+                            return Center(
                               child: Text(
-                                "Không có gì ở đây!",
-                                style: TextStyle(fontSize: 16),
+                                AppLocalizations.of(context)
+                                    .translate('nothing_here'),
+                                style: const TextStyle(fontSize: 16),
                               ),
                             );
                           }
-                          return ItemSpendingDay(spendingList: list, type: 0);
+                          return ItemSpendingDay(spendingList: list);
                         }
                         return const Center(child: CircularProgressIndicator());
                       });

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spending_management/page/main/setting/setting_page.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class SettingProfile extends StatefulWidget {
@@ -14,7 +13,11 @@ class _SettingPageState extends State<SettingProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('profile'), style:const TextStyle(fontSize: 25,color: Colors.black, fontWeight: FontWeight.bold),),
+        title: Text(
+          AppLocalizations.of(context).translate('profile'),
+          style: const TextStyle(
+              fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(

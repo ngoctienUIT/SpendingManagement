@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/function/list_categories.dart';
 import 'package:spending_management/page/main/analytic/search_page.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
-import 'package:spending_management/page/main/analytic/widget/total_report.dart';
 import 'day_month.dart';
 
 class HomePage extends StatefulWidget {
@@ -195,9 +194,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const Spacer(),
-                  Text(
-                   "",
-                  style:const TextStyle(
+                const Text(
+                  "",
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -301,32 +300,28 @@ class _HomePageState extends State<HomePage> {
                                             vertical: 0, horizontal: 15),
                                         padding: const EdgeInsets.all(0),
                                         child: SingleChildScrollView(
-                                          child: (
-                                            Text(
-                                              AppLocalizations.of(context)
-                                                  .translate(
-                                                categories[0]['name'],
-                                              ),
-                                              style: const TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black87),
-                                            )
-                                          ),
+                                          child: (Text(
+                                            AppLocalizations.of(context)
+                                                .translate(
+                                              categories[0]['name'],
+                                            ),
+                                            style: const TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black87),
+                                          )),
                                         ),
                                       ),
                                       Expanded(
                                         child: SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
-                                          child: (
-                                              Text(
-                                                "${data.docs[index]['note']}",
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.green),
-                                              )
-                                          ),
+                                          child: (Text(
+                                            "${data.docs[index]['note']}",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.green),
+                                          )),
                                         ),
                                       )
                                     ],

@@ -1,8 +1,8 @@
 import 'dart:math';
+import 'package:spending_management/constants/list.dart';
+import 'package:spending_management/models/spending.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:spending_management/constants/function/list_categories.dart';
-import 'package:spending_management/models/spending.dart';
 
 class MyPieChart extends StatefulWidget {
   const MyPieChart({Key? key, required this.list}) : super(key: key);
@@ -19,7 +19,7 @@ class _MyPieChartState extends State<MyPieChart> {
 
   @override
   void initState() {
-    for (int i = 0; i < categories.length; i++) {
+    for (int i = 0; i < listType.length; i++) {
       listColor.add(
           Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0));
     }
@@ -60,7 +60,7 @@ class _MyPieChartState extends State<MyPieChart> {
 
   List<PieChartSectionData> showingSections() {
     List<PieChartSectionData> pieChartList = [];
-    for (int i = 0; i < categories.length; i++) {
+    for (int i = 0; i < listType.length; i++) {
       if (![0, 10, 21, 27, 35, 38].contains(i)) {
         List<Spending> spendingList =
             widget.list.where((element) => element.type == i).toList();
@@ -88,7 +88,7 @@ class _MyPieChartState extends State<MyPieChart> {
                 color: const Color(0xffffffff),
               ),
               badgeWidget: _Badge(
-                categories[i]["icon"]!,
+                listType[i]["image"]!,
                 size: widgetSize,
                 borderColor: const Color(0xff0293ee),
               ),

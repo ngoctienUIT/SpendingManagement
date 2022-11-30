@@ -1,9 +1,10 @@
 import 'dart:io';
+import 'package:spending_management/constants/function/get_data_spending.dart';
+import 'package:spending_management/models/spending.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/models/user.dart' as myuser;
 
 class SpendingFirebase {
@@ -14,6 +15,13 @@ class SpendingFirebase {
     var firestoreData = FirebaseFirestore.instance
         .collection("data")
         .doc(FirebaseAuth.instance.currentUser!.uid);
+
+    if (spending.image != null) {
+      spending.image = await uploadImage(
+          folder: "spending",
+          name: "${firestoreSpending.id}.png",
+          image: File(spending.image!));
+    }
 
     await firestoreSpending.set(spending.toMap());
 
@@ -43,13 +51,31 @@ class SpendingFirebase {
     });
   }
 
-  /*static Future updateSpending(Spending spending, DateTime oldDay) async {
+  static Future updateSpending(
+    Spending spending,
+    DateTime oldDay,
+    File? image,
+    bool check,
+  ) async {
     var firestoreSpending =
         FirebaseFirestore.instance.collection("spending").doc(spending.id);
 
     var firestoreData = FirebaseFirestore.instance
         .collection("data")
         .doc(FirebaseAuth.instance.currentUser!.uid);
+
+    if (image != null) {
+      spending.image = await uploadImage(
+          folder: "spending",
+          name: "${firestoreSpending.id}.png",
+          image: image);
+    } else if (check) {
+      await FirebaseStorage.instance
+          .ref()
+          .child("spending/${spending.id}.png")
+          .delete();
+      spending.image = null;
+    }
 
     firestoreSpending.update(spending.toMap());
 
@@ -83,7 +109,40 @@ class SpendingFirebase {
         }
       }
     });
-  }*/
+  }
+
+  static Future deleteSpending(Spending spending) async {
+    var firestoreData = FirebaseFirestore.instance
+        .collection("data")
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+
+    await firestoreData.get().then((value) async {
+      List<String> dataSpending = [];
+
+      var data = value.data() as Map<String, dynamic>;
+      if (data[DateFormat("MM_yyyy").format(spending.dateTime)] != null) {
+        dataSpending = (data[DateFormat("MM_yyyy").format(spending.dateTime)]
+                as List<dynamic>)
+            .map((e) => e.toString())
+            .toList();
+        dataSpending.remove(spending.id);
+        firestoreData.update(
+            {DateFormat("MM_yyyy").format(spending.dateTime): dataSpending});
+      }
+
+      if (spending.image != null) {
+        await FirebaseStorage.instance
+            .ref()
+            .child("spending/${spending.id}.png")
+            .delete();
+      }
+
+      await FirebaseFirestore.instance
+          .collection("spending")
+          .doc(spending.id)
+          .delete();
+    });
+  }
 
   static Future<List<Spending>> getSpendingList(List<String> list) async {
     List<Spending> spendingList = [];
@@ -100,6 +159,38 @@ class SpendingFirebase {
     return spendingList;
   }
 
+  static Future updateInfo({required myuser.User user, File? image}) async {
+    if (image != null) {
+      user.avatar = await uploadImage(
+        folder: "avatar",
+        name: "${FirebaseAuth.instance.currentUser!.uid}.png",
+        image: image,
+      );
+    }
+
+    updateWalletMoney(user.money);
+
+    FirebaseFirestore.instance
+        .collection("info")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update(user.toMap());
+  }
+
+  static Future updateWalletMoney(int money) async {
+    FirebaseFirestore.instance
+        .collection("wallet")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      var data = value.data() as Map<String, dynamic>;
+      data[DateFormat("MM_yyyy").format(DateTime.now())] = money;
+      FirebaseFirestore.instance
+          .collection("wallet")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update(data);
+    });
+  }
+
   static Future addWalletMoney(int money) async {
     var data = {DateFormat("MM_yyyy").format(DateTime.now()): money};
     FirebaseFirestore.instance
@@ -113,24 +204,11 @@ class SpendingFirebase {
         .update({"money": money});
   }
 
-  static Future updateInfo({required myuser.User user, File? image}) async {
-    if (image != null) {
-      user.avatar = await uploadImage(
-        folder: "avatar",
-        name: "${FirebaseAuth.instance.currentUser!.uid}.png",
-        image: image,
-      );
-    }
-    FirebaseFirestore.instance
-        .collection("info")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update(user.toMap());
-  }
-
-  static Future<String> uploadImage(
-      {required String folder,
-      required String name,
-      required File image}) async {
+  static Future<String> uploadImage({
+    required String folder,
+    required String name,
+    required File image,
+  }) async {
     Reference upload = FirebaseStorage.instance.ref().child("$folder/$name");
     await upload.putFile(image);
     return await upload.getDownloadURL();
