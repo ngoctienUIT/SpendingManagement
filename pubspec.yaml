@@ -109,10 +109,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/logo/
-     - assets/images/
-     - assets/category/
-     - assets/lang/
+    - assets/logo/
+    - assets/images/
+    - assets/icons/
+    - assets/lang/
+    - assets/intro/
 
 
   # An images asset can refer to one or more resolution-specific "variants", see
