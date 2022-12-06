@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:spending_management/constants/app_colors.dart';
 import 'package:spending_management/constants/function/on_will_pop.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:spending_management/page/login/widget/custom_button.dart';
 
 class SuccessPage extends StatefulWidget {
@@ -16,7 +16,6 @@ class _SuccessPageState extends State<SuccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whisperBackground,
       body: WillPopScope(
         onWillPop: () => onWillPop(
           action: (now) => currentBackPressTime = now,
@@ -27,19 +26,20 @@ class _SuccessPageState extends State<SuccessPage> {
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
             child: Column(
               children: [
-                const Text(
-                  "Success",
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context).translate('success'),
+                  style: const TextStyle(
                     fontSize: 25,
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   textAlign: TextAlign.center,
-                  "Vui lòng kiểm tra email và thực hiện thay đổi mật khẩu mới!",
-                  style: TextStyle(fontSize: 18),
+                  AppLocalizations.of(context)
+                      .translate('check_your_email_make_password_change'),
+                  style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 20),
                 Image.asset(
@@ -48,7 +48,7 @@ class _SuccessPageState extends State<SuccessPage> {
                 ),
                 const SizedBox(height: 20),
                 customButton(
-                  text: 'Go to Login',
+                  text: AppLocalizations.of(context).translate('go_to_login'),
                   action: () {
                     Navigator.pushReplacementNamed(context, '/login');
                   },

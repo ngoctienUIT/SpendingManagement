@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spending_management/page/signup/bloc/signup_event.dart';
 import 'package:spending_management/page/signup/bloc/singup_state.dart';
 import 'package:spending_management/models/user.dart' as myuser;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   String _status = "";
@@ -15,7 +15,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           await createAccount(email: event.email, password: event.password);
       if (check) {
         SharedPreferences.getInstance().then((value) {
-          value.setBool("login", false);
+          value.setBool("login", true);
         });
         await initInfoUser(event.user);
         emit(SignupSuccessState());

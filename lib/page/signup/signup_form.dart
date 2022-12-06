@@ -1,10 +1,14 @@
+import 'package:spending_management/constants/function/loading_animation.dart';
+import 'package:spending_management/constants/function/route_function.dart';
+import 'package:spending_management/page/login/login_page.dart';
+import 'package:spending_management/page/signup/verify/verify_page.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:spending_management/constants/app_styles.dart';
-import 'package:spending_management/constants/function/loading_animation.dart';
 import 'package:spending_management/models/user.dart';
 import 'package:spending_management/page/login/widget/custom_button.dart';
 import 'package:spending_management/page/login/widget/input_password.dart';
@@ -13,7 +17,6 @@ import 'package:spending_management/page/signup/bloc/signup_bloc.dart';
 import 'package:spending_management/page/signup/bloc/signup_event.dart';
 import 'package:spending_management/page/signup/bloc/singup_state.dart';
 import 'package:spending_management/page/signup/gender_widget.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -54,7 +57,9 @@ class _SignupFormState extends State<SignupForm> {
                   .translate("create-account-success"));
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Future.delayed(const Duration(seconds: 3), () {
-              Navigator.pushReplacementNamed(context, "/verify");
+              Navigator.of(context).pushReplacement(
+                createRoute(screen: const VerifyPage()),
+              );
             });
           });
         }
@@ -73,14 +78,18 @@ class _SignupFormState extends State<SignupForm> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
                 children: [
-                  const Text(
-                    "Hello New User!",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  Text(
+                    AppLocalizations.of(context).translate('hello_new_user'),
+                    style: const TextStyle(
+                        fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  const Text("Welcome to App", style: TextStyle(fontSize: 20)),
+                  Text(
+                    AppLocalizations.of(context).translate('welcome_to_app'),
+                    style: const TextStyle(fontSize: 20),
+                  ),
                   const SizedBox(height: 50),
-                  inputText(
+                  InputText(
                     hint: AppLocalizations.of(context).translate('full_name'),
                     validator: 1,
                     controller: _nameController,
@@ -88,7 +97,7 @@ class _SignupFormState extends State<SignupForm> {
                     textCapitalization: TextCapitalization.words,
                   ),
                   const SizedBox(height: 20),
-                  inputText(
+                  InputText(
                     hint: "Email",
                     validator: 0,
                     controller: _userController,
@@ -98,7 +107,7 @@ class _SignupFormState extends State<SignupForm> {
                   Row(
                     children: [
                       const Spacer(),
-                      genderWidget(
+                      GenderWidget(
                           currentGender: gender,
                           gender: true,
                           action: () {
@@ -108,7 +117,7 @@ class _SignupFormState extends State<SignupForm> {
                             }
                           }),
                       const Spacer(),
-                      genderWidget(
+                      GenderWidget(
                           currentGender: gender,
                           gender: false,
                           action: () {
@@ -140,7 +149,7 @@ class _SignupFormState extends State<SignupForm> {
                       width: double.infinity,
                       height: 57,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).backgroundColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -160,7 +169,7 @@ class _SignupFormState extends State<SignupForm> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  inputPassword(
+                  InputPassword(
                     action: () {
                       check = false;
                       setState(() => hide = !hide);
@@ -170,7 +179,7 @@ class _SignupFormState extends State<SignupForm> {
                     hide: hide,
                   ),
                   const SizedBox(height: 20),
-                  inputPassword(
+                  InputPassword(
                     action: () {
                       check = false;
                       setState(() => hide = !hide);
@@ -215,7 +224,9 @@ class _SignupFormState extends State<SignupForm> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/login');
+                          Navigator.of(context).pushReplacement(
+                            createRoute(screen: const LoginPage()),
+                          );
                         },
                         child: Text(
                           AppLocalizations.of(context).translate('login_now'),

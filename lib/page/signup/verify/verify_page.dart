@@ -1,11 +1,13 @@
 import 'dart:async';
+import 'package:spending_management/constants/function/on_will_pop.dart';
+import 'package:spending_management/constants/function/route_function.dart';
+import 'package:spending_management/page/signup/verify/input_wallet.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/app_colors.dart';
 import 'package:spending_management/constants/app_styles.dart';
-import 'package:spending_management/constants/function/on_will_pop.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({Key? key}) : super(key: key);
@@ -86,8 +88,10 @@ class _VerifyPageState extends State<VerifyPage> {
                 Text(
                   textAlign: TextAlign.center,
                   isEmailVerify
-                      ? "Chúc mừng bạn!\nEmail của bạn đã được xác thực!"
-                      : "Vui lòng kiểm tra email và xác thực email của bạn!",
+                      ? AppLocalizations.of(context)
+                          .translate('congratulation_your_email_verified')
+                      : AppLocalizations.of(context).translate(
+                          'please_check_your_email_verify_your_email'),
                   style: const TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 20),
@@ -104,7 +108,9 @@ class _VerifyPageState extends State<VerifyPage> {
                     height: 50,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/wallet');
+                        Navigator.of(context).pushReplacement(
+                          createRoute(screen: const InputWalletPage()),
+                        );
                       },
                       icon: const Icon(FontAwesomeIcons.house),
                       label: Text(

@@ -1,3 +1,8 @@
+import 'package:spending_management/constants/function/loading_animation.dart';
+import 'package:spending_management/constants/function/route_function.dart';
+import 'package:spending_management/page/forgot/forgot_page.dart';
+import 'package:spending_management/page/signup/signup_page.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -5,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spending_management/constants/app_styles.dart';
-import 'package:spending_management/constants/function/loading_animation.dart';
 import 'package:spending_management/page/login/bloc/login_bloc.dart';
 import 'package:spending_management/page/login/bloc/login_event.dart';
 import 'package:spending_management/page/login/bloc/login_state.dart';
@@ -13,7 +17,6 @@ import 'package:spending_management/page/login/widget/custom_button.dart';
 import 'package:spending_management/page/login/widget/input_password.dart';
 import 'package:spending_management/page/login/widget/input_text.dart';
 import 'package:spending_management/page/login/widget/text_continue.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -74,27 +77,29 @@ class _LoginFormState extends State<LoginForm> {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
                 children: [
-                  const Text(
-                    "Hello Again!",
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context).translate('hello_again'),
+                    style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    "Welcome back you've been missed",
-                    style: TextStyle(fontSize: 20),
+                  Text(
+                    AppLocalizations.of(context)
+                        .translate('welcome_back_you_been_missed'),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 20),
                   ),
                   const SizedBox(height: 50),
-                  inputText(
+                  InputText(
                     hint: "Email",
                     validator: 0,
                     controller: _userController,
                     inputType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 20),
-                  inputPassword(
+                  InputPassword(
                     action: () {
                       check = false;
                       setState(() => hide = !hide);
@@ -107,11 +112,15 @@ class _LoginFormState extends State<LoginForm> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/forgot');
-                          },
-                          child: Text(AppLocalizations.of(context)
-                              .translate('forgot_password'))),
+                        onPressed: () {
+                          Navigator.of(context).push(createRoute(
+                            screen: const ForgotPage(),
+                            begin: const Offset(1, 0),
+                          ));
+                        },
+                        child: Text(AppLocalizations.of(context)
+                            .translate('forgot_password')),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -131,7 +140,7 @@ class _LoginFormState extends State<LoginForm> {
                     text: AppLocalizations.of(context).translate('sign_in'),
                   ),
                   const SizedBox(height: 30),
-                  textContinue(),
+                  const TextContinue(),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -199,7 +208,9 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/signup');
+                          Navigator.of(context).pushReplacement(
+                            createRoute(screen: const SignupPage()),
+                          );
                         },
                         child: Text(
                           AppLocalizations.of(context)

@@ -1,11 +1,11 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:spending_management/constants/app_styles.dart';
 import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/controls/spending_firebase.dart';
 import 'package:spending_management/page/login/widget/custom_button.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputWalletPage extends StatefulWidget {
   const InputWalletPage({Key? key}) : super(key: key);
@@ -43,10 +43,11 @@ class _InputWalletPageState extends State<InputWalletPage> {
                       fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   textAlign: TextAlign.center,
-                  "Nhập vào số tiền chi tiêu hàng tháng mà bạn muốn quản lý!",
-                  style: TextStyle(
+                  AppLocalizations.of(context).translate(
+                      'enter_monthly_spending_amount_you_want_manage'),
+                  style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),

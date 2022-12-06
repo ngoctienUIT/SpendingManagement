@@ -11,8 +11,6 @@ import 'package:spending_management/page/login/login_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
 import 'package:spending_management/page/main/main_page.dart';
 import 'package:spending_management/page/onboarding/onboarding_page.dart';
-import 'package:spending_management/page/signup/signup_page.dart';
-import 'package:spending_management/page/signup/verify/input_wallet.dart';
 import 'package:spending_management/page/signup/verify/verify_page.dart';
 import 'package:spending_management/setting/bloc/setting_cubit.dart';
 import 'package:spending_management/setting/bloc/setting_state.dart';
@@ -33,7 +31,6 @@ void main() async {
   isDark = prefs.getBool("isDark") ?? false;
   isFirstStart = prefs.getBool("firstStart") ?? true;
   loginMethod = prefs.getBool("login") ?? false;
-
   runApp(const MyApp());
 }
 
@@ -52,53 +49,62 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<SettingCubit, SettingState>(
-        buildWhen: (previous, current) => previous != current,
-        builder: (_, settingState) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            supportedLocales: AppLocalizationsSetup.supportedLocales,
-            localizationsDelegates:
-                AppLocalizationsSetup.localizationsDelegates,
-            localeResolutionCallback:
-                AppLocalizationsSetup.localeResolutionCallback,
-            locale: settingState.locale,
-            title: 'Spending Management',
-            theme: settingState.isDark
-                ? ThemeData(
-                    brightness: Brightness.dark,
-                    primarySwatch: Colors.blue,
-                  )
-                : ThemeData(
-                    brightness: Brightness.light,
-                    primarySwatch: Colors.blue,
-                    scaffoldBackgroundColor: AppColors.whisperBackground,
-                    bottomAppBarColor: AppColors.whisperBackground,
-                    appBarTheme: const AppBarTheme(
+          buildWhen: (previous, current) => previous != current,
+          builder: (_, settingState) {
+            return MaterialApp(
+              supportedLocales: AppLocalizationsSetup.supportedLocales,
+              localizationsDelegates:
+                  AppLocalizationsSetup.localizationsDelegates,
+              localeResolutionCallback:
+                  AppLocalizationsSetup.localeResolutionCallback,
+              locale: settingState.locale,
+              debugShowCheckedModeBanner: false,
+              title: 'Spending Management',
+              theme: settingState.isDark
+                  ? ThemeData(
+                      brightness: Brightness.dark,
+                      primarySwatch: Colors.blue,
+                    )
+                  : ThemeData(
+                      cardColor: Colors.white,
                       backgroundColor: Colors.white,
-                      iconTheme: IconThemeData(color: Colors.black),
+                      brightness: Brightness.light,
+                      primarySwatch: Colors.blue,
+                      scaffoldBackgroundColor: AppColors.whisperBackground,
+                      bottomAppBarColor: AppColors.whisperBackground,
+                      floatingActionButtonTheme:
+                          const FloatingActionButtonThemeData(
+                        backgroundColor: Color.fromRGBO(121, 158, 84, 1),
+                      ),
+                      appBarTheme: AppBarTheme(
+                        backgroundColor: AppColors.whisperBackground,
+                        iconTheme: const IconThemeData(color: Colors.black),
+                        titleTextStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      primaryColor: const Color.fromRGBO(242, 243, 247, 1),
                     ),
-                  ),
-            initialRoute: FirebaseAuth.instance.currentUser == null
-                ? (isFirstStart ? "/" : '/login')
-                : loginMethod
-                    ? (FirebaseAuth.instance.currentUser!.emailVerified
-                        ? '/main'
-                        : '/verify')
-                    : '/main',
-            routes: {
-              '/': (context) => const OnboardingPage(),
-              '/login': (context) => const LoginPage(),
-              '/signup': (context) => const SignupPage(),
-              '/home': (context) => const HomePage(),
-              '/main': (context) => const MainPage(),
-              '/forgot': (context) => const ForgotPage(),
-              '/success': (context) => const SuccessPage(),
-              '/verify': (context) => const VerifyPage(),
-              '/wallet': (context) => const InputWalletPage()
-            },
-          );
-        },
-      ),
+              initialRoute: FirebaseAuth.instance.currentUser == null
+                  ? (isFirstStart ? "/" : "/login")
+                  : loginMethod
+                      ? (FirebaseAuth.instance.currentUser!.emailVerified
+                          ? '/main'
+                          : '/verify')
+                      : '/main',
+              routes: {
+                '/': (context) => const OnBoardingPage(),
+                '/login': (context) => const LoginPage(),
+                '/home': (context) => const HomePage(),
+                '/main': (context) => const MainPage(),
+                '/forgot': (context) => const ForgotPage(),
+                '/success': (context) => const SuccessPage(),
+                '/verify': (context) => const VerifyPage(),
+              },
+            );
+          }),
     );
   }
 }

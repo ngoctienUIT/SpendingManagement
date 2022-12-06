@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spending_management/page/login/bloc/login_event.dart';
 import 'package:spending_management/page/login/bloc/login_state.dart';
 import 'package:spending_management/models/user.dart' as myuser;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   String _status = "";
@@ -105,11 +105,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     await firestore.get().then((value) async {
       if (!value.exists) {
         await firestore.set(myuser.User(
-          name: FirebaseAuth.instance.currentUser!.displayName.toString(),
-          birthday: DateFormat("dd/MM/yyyy").format(DateTime.now()),
-          avatar: FirebaseAuth.instance.currentUser!.photoURL.toString(),
-          money: 0,
-        ).toMap());
+                name: FirebaseAuth.instance.currentUser!.displayName.toString(),
+                birthday: DateFormat("dd/MM/yyyy").format(DateTime.now()),
+                money: 0,
+                avatar: FirebaseAuth.instance.currentUser!.photoURL.toString())
+            .toMap());
         check = false;
       }
     });

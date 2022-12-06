@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget itemOnboarding(Map<String, String> item) {
+Widget itemOnBoarding(Map<String, String> item) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
     child: Column(

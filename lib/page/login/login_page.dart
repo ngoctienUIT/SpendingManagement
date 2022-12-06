@@ -1,7 +1,6 @@
+import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spending_management/constants/app_colors.dart';
-import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/page/login/bloc/login_bloc.dart';
 import 'package:spending_management/page/login/login_form.dart';
 
@@ -18,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whisperBackground,
+      // backgroundColor: AppColors.whisperBackground,
       body: WillPopScope(
         onWillPop: () => onWillPop(
           action: (now) => currentBackPressTime = now,
