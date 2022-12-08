@@ -8,10 +8,9 @@ import 'package:spending_management/page/main/analytic/analytic_page.dart';
 import 'package:spending_management/page/main/calendar/calendar_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
 import 'package:spending_management/page/main/profile/profile_page.dart';
-import 'package:spending_management/page/main/widget/custom_tabbar.dart';
-import 'package:spending_management/page/main/widget/input_income.dart';
-import 'package:spending_management/page/main/widget/input_spending.dart';
+import 'package:spending_management/constants/function/route_function.dart';
 import 'package:spending_management/page/main/widget/item_bottom_tab.dart';
+import 'package:spending_management/page/main/add_spending/add_spending.dart';
 
 import '../../setting/localization/app_localizations.dart';
 
@@ -49,7 +48,12 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showBottomSheet(),
+        onPressed: () {
+          Navigator.of(context).push(
+            createRoute(screen: const AddSpendingPage()),
+          );
+          // Navigator.pushNamed(context, '/add');
+        },
         child: const Icon(Icons.add_rounded),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -124,78 +128,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  void showBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: const Color.fromRGBO(240, 240, 240, 1),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            margin: const EdgeInsets.fromLTRB(150, 10.0, 150, 0.0),
-            height: 8,
-            width: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.add_a_photo_outlined, size: 30),
-                onPressed: () => pickImage(),
-              ),
-              TextButton(
-                child: Container(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: Text(
-                    AppLocalizations.of(context).translate('skip'),
-                    style:
-                        const TextStyle(fontSize: 18, color: Colors.redAccent),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-          Text(
-            AppLocalizations.of(context).translate('add_spending'),
-            style: const TextStyle(
-              color: Colors.black87,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          DefaultTabController(
-            length: 2,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                CustomTabBar(),
-                SizedBox(
-                  height: 500,
-                  child: TabBarView(
-                    children: [
-                      InputSpending(),
-                      InputIncome(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Future pickImage() async {
     try {
