@@ -7,7 +7,7 @@ import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/page/main/analytic/analytic_page.dart';
 import 'package:spending_management/page/main/calendar/calendar_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
-import 'package:spending_management/page/main/setting/setting_page.dart';
+import 'package:spending_management/page/main/profile/profile_page.dart';
 import 'package:spending_management/page/main/widget/custom_tabbar.dart';
 import 'package:spending_management/page/main/widget/input_income.dart';
 import 'package:spending_management/page/main/widget/input_spending.dart';
@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
     const HomePage(),
     const CalendarPage(),
     const AnalyticPage(),
-    const SettingPage()
+    const ProfilePage()
   ];
 
   DateTime? currentBackPressTime;
