@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -88,68 +87,68 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       bottomSheet: isLastPage
           ? TextButton(
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
-          ),
-          foregroundColor: Colors.white,
-          backgroundColor: AppColors.buttonLogin,
-          minimumSize: const Size.fromHeight(60),
-        ),
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, '/login');
-        },
-        child: Text(
-          AppLocalizations.of(context).translate('get_started'),
-          style: const TextStyle(fontSize: 20),
-        ),
-      )
-          : Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 60,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextButton(
-              onPressed: () => controller.jumpToPage(6),
-              child: Text(
-                AppLocalizations.of(context).translate('skip'),
-                style: const TextStyle(fontSize: 16),
-              ),
-            ),
-            Center(
-              child: SmoothPageIndicator(
-                controller: controller,
-                count: 7,
-                effect: WormEffect(
-                  spacing: 10,
-                  dotWidth: 10,
-                  dotHeight: 10,
-                  dotColor: Colors.black26,
-                  activeDotColor: Colors.teal.shade700,
+              style: TextButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
                 ),
-                onDotClicked: (index) => controller.animateToPage(
-                  index,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeIn,
-                ),
+                foregroundColor: Colors.white,
+                backgroundColor: AppColors.buttonLogin,
+                minimumSize: const Size.fromHeight(60),
               ),
-            ),
-            TextButton(
               onPressed: () {
-                controller.nextPage(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeIn,
-                );
+                Navigator.pushReplacementNamed(context, '/login');
               },
               child: Text(
-                AppLocalizations.of(context).translate('next'),
-                style: const TextStyle(fontSize: 16),
+                AppLocalizations.of(context).translate('get_started'),
+                style: const TextStyle(fontSize: 20),
+              ),
+            )
+          : Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () => controller.jumpToPage(6),
+                    child: Text(
+                      AppLocalizations.of(context).translate('skip'),
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Center(
+                    child: SmoothPageIndicator(
+                      controller: controller,
+                      count: 7,
+                      effect: WormEffect(
+                        spacing: 10,
+                        dotWidth: 10,
+                        dotHeight: 10,
+                        dotColor: Colors.black26,
+                        activeDotColor: Colors.teal.shade700,
+                      ),
+                      onDotClicked: (index) => controller.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeIn,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      controller.nextPage(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeIn,
+                      );
+                    },
+                    child: Text(
+                      AppLocalizations.of(context).translate('next'),
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

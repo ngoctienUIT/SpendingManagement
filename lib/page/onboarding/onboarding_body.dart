@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
 
@@ -11,8 +10,9 @@ class ItemOnBoarding extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
           Text(
             AppLocalizations.of(context).translate(item["title"]!),
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -24,15 +24,17 @@ class ItemOnBoarding extends StatelessWidget {
             style: const TextStyle(fontSize: 16),
           ),
           const SizedBox(height: 20),
+          const Spacer(),
           Container(
             decoration:
-            BoxDecoration(border: Border.all(color: Colors.black54)),
+                BoxDecoration(border: Border.all(color: Colors.black54)),
             child: Image.asset(
               item["image"]!,
               fit: BoxFit.fitHeight,
-              height: MediaQuery.of(context).size.height - 250,
+              height: MediaQuery.of(context).size.height - 300,
             ),
-          )
+          ),
+          const Spacer(),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:spending_management/constants/function/route_function.dart';
-import 'package:spending_management/page/main/add_spending/add_friend_page.dart';
+import 'package:spending_management/page/add_spending/add_friend_page.dart';
 import 'package:spending_management/page/add_spending/widget/circle_text.dart';
 import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
