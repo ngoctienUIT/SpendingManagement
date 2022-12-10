@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:spending_management/constants/function/loading_animation.dart';
+import 'package:spending_management/constants/function/route_function.dart';
 import 'package:spending_management/constants/list.dart';
 import 'package:spending_management/controls/spending_firebase.dart';
 import 'package:spending_management/models/spending.dart';
 import 'package:spending_management/page/add_spending/widget/circle_text.dart';
+import 'package:spending_management/page/edit_spending/edit_spending_page.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -77,26 +80,26 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
           ),
           IconButton(
             onPressed: () {
-              // Navigator.of(context).push(createRoute(
-              //   screen: EditSpendingPage(
-              //     spending: spending,
-              //     change: (spending, colors) async {
-              //       try {
-              //         spending.image = await FirebaseStorage.instance
-              //             .ref()
-              //             .child("spending/${spending.id}.png")
-              //             .getDownloadURL();
-              //       } catch (_) {}
-              //       if (widget.change != null) {
-              //         widget.change!(spending);
-              //       }
-              //       setState(() {
-              //         this.spending = spending;
-              //         this.colors = colors;
-              //       });
-              //     },
-              //   ),
-              // ));
+               Navigator.of(context).push(createRoute(
+                 screen: EditSpendingPage(
+                   spending: spending,
+                   change: (spending, colors) async {
+                     try {
+                       spending.image = await FirebaseStorage.instance
+                           .ref()
+                           .child("spending/${spending.id}.png")
+                           .getDownloadURL();
+                     } catch (_) {}
+                     if (widget.change != null) {
+                       widget.change!(spending);
+                     }
+                     setState(() {
+                       this.spending = spending;
+                       this.colors = colors;
+                     });
+                   },
+                ),
+               ));
             },
             icon: const Icon(
               Icons.edit,
