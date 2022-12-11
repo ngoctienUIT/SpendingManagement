@@ -1,6 +1,7 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:spending_management/constants/list.dart';
 import 'package:spending_management/models/filter.dart';
+import 'package:spending_management/page/add_spending/add_friend_page.dart';
 import 'package:spending_management/page/add_spending/widget/circle_text.dart';
 import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
 import 'package:spending_management/page/main/analytic/widget/item_filter.dart';
@@ -57,10 +58,7 @@ class _FilterPageState extends State<FilterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context).translate('filter'),
-          style: const TextStyle(color: Colors.black),
-        ),
+        title: Text(AppLocalizations.of(context).translate('filter')),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -86,7 +84,7 @@ class _FilterPageState extends State<FilterPage> {
             },
             child: Text(
               AppLocalizations.of(context).translate('search'),
-              style: const TextStyle(fontSize: 16, color: Colors.black),
+              style: const TextStyle(fontSize: 16),
             ),
           )
         ],
@@ -217,21 +215,21 @@ class _FilterPageState extends State<FilterPage> {
         Expanded(
           child: InkWell(
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => AddFriendPage(
-              //       friends: filter.friends!,
-              //       colors: filter.colors!,
-              //       action: (friends, colors) {
-              //         setState(() {
-              //           filter.friends = List.from(friends);
-              //           filter.colors = List.from(colors);
-              //         });
-              //       },
-              //     ),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddFriendPage(
+                    friends: filter.friends!,
+                    colors: filter.colors!,
+                    action: (friends, colors) {
+                      setState(() {
+                        filter.friends = List.from(friends);
+                        filter.colors = List.from(colors);
+                      });
+                    },
+                  ),
+                ),
+              );
             },
             child: Container(
               width: double.infinity,
@@ -360,6 +358,11 @@ class _FilterPageState extends State<FilterPage> {
                     ),
                   const SizedBox(height: 10),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
                     onPressed: () {
                       int money = int.parse(moneyController.text
                           .replaceAll(RegExp(r'[^0-9]'), ''));

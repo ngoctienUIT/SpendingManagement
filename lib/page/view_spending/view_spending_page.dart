@@ -80,26 +80,26 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
           ),
           IconButton(
             onPressed: () {
-               Navigator.of(context).push(createRoute(
-                 screen: EditSpendingPage(
-                   spending: spending,
-                   change: (spending, colors) async {
-                     try {
-                       spending.image = await FirebaseStorage.instance
-                           .ref()
-                           .child("spending/${spending.id}.png")
-                           .getDownloadURL();
-                     } catch (_) {}
-                     if (widget.change != null) {
-                       widget.change!(spending);
-                     }
-                     setState(() {
-                       this.spending = spending;
-                       this.colors = colors;
-                     });
-                   },
+              Navigator.of(context).push(createRoute(
+                screen: EditSpendingPage(
+                  spending: spending,
+                  change: (spending, colors) async {
+                    try {
+                      spending.image = await FirebaseStorage.instance
+                          .ref()
+                          .child("spending/${spending.id}.png")
+                          .getDownloadURL();
+                    } catch (_) {}
+                    if (widget.change != null) {
+                      widget.change!(spending);
+                    }
+                    setState(() {
+                      this.spending = spending;
+                      this.colors = colors;
+                    });
+                  },
                 ),
-               ));
+              ));
             },
             icon: const Icon(
               Icons.edit,
@@ -319,6 +319,11 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
               children: [
                 const Spacer(),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
                   onPressed: () async {
                     loadingAnimation(context);
                     await SpendingFirebase.deleteSpending(spending);
@@ -334,6 +339,11 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
                 ),
                 const Spacer(),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
