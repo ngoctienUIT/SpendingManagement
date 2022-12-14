@@ -1,19 +1,22 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:spending_management/constants/function/loading_animation.dart';
-import 'package:spending_management/constants/function/route_function.dart';
-import 'package:spending_management/constants/list.dart';
-import 'package:spending_management/controls/spending_firebase.dart';
-import 'package:spending_management/models/spending.dart';
-import 'package:spending_management/page/add_spending/widget/circle_text.dart';
-import 'package:spending_management/page/edit_spending/edit_spending_page.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../constants/function/loading_animation.dart';
+import '../../constants/function/route_function.dart';
+import '../../constants/list.dart';
+import '../../controls/spending_firebase.dart';
+import '../../models/spending.dart';
+import '../../setting/localization/app_localizations.dart';
+import '../add_spending/widget/circle_text.dart';
+import '../edit_spending/edit_spending_page.dart';
 
 class ViewSpendingPage extends StatefulWidget {
   const ViewSpendingPage({
@@ -66,7 +69,7 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
                 if (image != null) {
                   final directory = await getApplicationDocumentsDirectory();
                   final imagePath =
-                      await File('${directory.path}/image.png').create();
+                  await File('${directory.path}/image.png').create();
                   await imagePath.writeAsBytes(image);
 
                   await Share.shareFiles([imagePath.path]);
@@ -141,7 +144,7 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
                         spending.type == 41
                             ? spending.typeName!
                             : AppLocalizations.of(context)
-                                .translate(listType[spending.type]["title"]!),
+                            .translate(listType[spending.type]["title"]!),
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -233,7 +236,24 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
                     ),
                   if (spending.friends != null && spending.friends!.isNotEmpty)
                     const SizedBox(height: 10),
-                  if (spending.image != null) Image.network(spending.image!)
+                  if (spending.image != null)
+                    CachedNetworkImage(
+                      imageUrl: spending.image!,
+                      width: double.infinity,
+                      fit: BoxFit.fitWidth,
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          height: 150,
+                          width: double.infinity,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                      const Icon(Icons.error),
+                    ),
+                  //Image.network(spending.image!)
                 ],
               ),
             ),

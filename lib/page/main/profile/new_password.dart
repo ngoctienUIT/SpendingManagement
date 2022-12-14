@@ -87,6 +87,8 @@ class _NewPasswordState extends State<NewPassword> {
                           msg: AppLocalizations.of(context)
                               .translate("change_password_successfully"),
                         );
+                        Navigator.pop(context);
+                        Navigator.pop(context);
                       }).catchError((error) {
                         Fluttertoast.showToast(msg: error.toString());
                       });
