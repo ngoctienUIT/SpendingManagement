@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:spending_management/page/main/home/widget/item_spending_day.dart';
+import 'package:spending_management/page/main/home/widget/item_spending_widget.dart';
 
 import '../../../controls/spending_firebase.dart';
 import '../../../models/spending.dart';
 import '../../../setting/localization/app_localizations.dart';
-import '../home/widget/item_spending_day.dart';
-import '../home/widget/item_spending_widget.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -20,6 +20,12 @@ class HistoryPage extends StatelessWidget {
         elevation: 2,
         title: Text(AppLocalizations.of(context).translate("history")),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+        ),
       ),
       body: FutureBuilder(
         future: FirebaseFirestore.instance
@@ -28,7 +34,7 @@ class HistoryPage extends StatelessWidget {
             .get(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            var data = snapshot.requireData.data() as Map<String, dynamic>;
+            var data = (snapshot.requireData.data() ?? <String, dynamic>{});
             List<String> listID = [];
             for (var list in data.values) {
               listID.addAll(
@@ -41,7 +47,7 @@ class HistoryPage extends StatelessWidget {
                 if (snapshot.hasData) {
                   List<Spending> listSpending = snapshot.requireData;
                   listSpending.sort(
-                      (a, b) => b.dateTime.difference(a.dateTime).inSeconds);
+                          (a, b) => b.dateTime.difference(a.dateTime).inSeconds);
 
                   return ItemSpendingDay(spendingList: listSpending);
                 }
@@ -97,7 +103,7 @@ class HistoryPage extends StatelessWidget {
                   Column(
                     children: List.generate(
                       Random().nextInt(4) + 1,
-                      (index) {
+                          (index) {
                         return Container(
                           padding: const EdgeInsets.all(10),
                           child: Row(
