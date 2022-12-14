@@ -19,7 +19,6 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  bool check = true;
   List<Spending>? _currentSpendingList;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
@@ -42,7 +41,6 @@ class _CalendarPageState extends State<CalendarPage> {
                   data = snapshot.requireData.data() as Map<String, dynamic>;
                 }
                 List<String> list = [];
-                check = true;
 
                 return StatefulBuilder(builder: (context, setState) {
                   if (data[DateFormat("MM_yyyy").format(_focusedDay)] != null) {
@@ -58,14 +56,12 @@ class _CalendarPageState extends State<CalendarPage> {
                         if (futureSnapshot.hasData) {
                           var dataSpending = futureSnapshot.requireData;
 
-                          List<Spending> spendingList = dataSpending
-                              .where((element) =>
-                              isSameDay(element.dateTime, _selectedDay))
-                              .toList();
-
-                          if (check) {
+                          if (isSameMonth(_focusedDay, _selectedDay)) {
+                            List<Spending> spendingList = dataSpending
+                                .where((element) =>
+                                isSameDay(element.dateTime, _selectedDay))
+                                .toList();
                             _currentSpendingList = spendingList;
-                            check = false;
                           }
 
                           return Column(
@@ -80,7 +76,6 @@ class _CalendarPageState extends State<CalendarPage> {
                                     setState(() {
                                       _focusedDay = focusedDay;
                                       _selectedDay = selectedDay;
-                                      check = true;
                                     });
                                   }),
                               const SizedBox(height: 5),
