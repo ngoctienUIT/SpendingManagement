@@ -46,7 +46,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     .translate('you_want_change_your_password'),
                 textAlign: TextAlign.center,
                 style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               Text(
@@ -75,7 +75,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         password: _passwordController.text,
                       );
                       var result =
-                          await user.reauthenticateWithCredential(credential);
+                      await user.reauthenticateWithCredential(credential);
                       if (result.user != null) {
                         if (!mounted) return;
                         Navigator.of(context).push(createRoute(
@@ -90,7 +90,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                         );
                       }
                     } catch (e) {
-                      Fluttertoast.showToast(msg: e.toString());
+                      Fluttertoast.showToast(
+                        msg: AppLocalizations.of(context)
+                            .translate("incorrect_password"),
+                      );
+                      // Fluttertoast.showToast(msg: e.toString());
                     }
                     return;
                   }
