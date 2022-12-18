@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -25,14 +24,14 @@ class AboutPage extends StatelessWidget {
           Image.asset("assets/logo/logo.png", width: 150),
           const SizedBox(height: 15),
           const Text(
-            "Spending Manager",
+            "Spending Management",
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           Text("${AppLocalizations.of(context).translate('version')} 1.0.0"),
           const SizedBox(height: 5),
           Text(
-            "${AppLocalizations.of(context).translate('developed_by')} Trần Ngọc Tiến",
+            "${AppLocalizations.of(context).translate('developed_by')} Warrior Team",
           ),
           const SizedBox(height: 15),
           const Divider(color: Colors.black45, height: 1),
