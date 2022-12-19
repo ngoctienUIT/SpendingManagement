@@ -1,4 +1,3 @@
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,7 +75,7 @@ class _ItemSpendingDayState extends State<ItemSpendingDay> {
                   child: Row(
                     children: [
                       Text(
-                        "${listDate[index].day}",
+                        DateFormat("dd").format(listDate[index]),
                         style: const TextStyle(fontSize: 30),
                       ),
                       const SizedBox(width: 20),

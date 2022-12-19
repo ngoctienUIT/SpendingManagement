@@ -7,12 +7,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class ColumnChart extends StatefulWidget {
-  const ColumnChart(
-      {Key? key,
-      required this.index,
-      required this.list,
-      required this.dateTime})
-      : super(key: key);
+  const ColumnChart({
+    Key? key,
+    required this.index,
+    required this.list,
+    required this.dateTime,
+  }) : super(key: key);
   final int index;
   final List<Spending> list;
   final DateTime dateTime;

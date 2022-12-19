@@ -1,10 +1,12 @@
+import 'package:spending_management/constants/function/route_function.dart';
 import 'package:spending_management/constants/list.dart';
 import 'package:spending_management/models/spending.dart';
+import 'package:spending_management/page/main/home/view_list_spending_page.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-Widget showListSpending({required List<Spending> list}) {
+Widget showListSpendingPie({required List<Spending> list}) {
   var numberFormat = NumberFormat.currency(locale: "vi_VI");
   int sum = list.isNotEmpty
       ? list.map((e) => e.money).reduce((value, element) => value + element)
@@ -28,10 +30,10 @@ Widget showListSpending({required List<Spending> list}) {
           return InkWell(
             borderRadius: BorderRadius.circular(15),
             onTap: () {
-              // Navigator.of(context).push(createRoute(
-              //   screen: ViewListSpendingPage(spendingList: spendingList),
-              //   begin: const Offset(1, 0),
-              // ));
+              Navigator.of(context).push(createRoute(
+                screen: ViewListSpendingPage(spendingList: spendingList),
+                begin: const Offset(1, 0),
+              ));
             },
             child: Card(
               shape: RoundedRectangleBorder(

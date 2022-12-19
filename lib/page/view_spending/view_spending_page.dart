@@ -8,7 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../constants/function/loading_animation.dart';
 import '../../constants/function/route_function.dart';
 import '../../constants/list.dart';
@@ -69,7 +68,7 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
                 if (image != null) {
                   final directory = await getApplicationDocumentsDirectory();
                   final imagePath =
-                  await File('${directory.path}/image.png').create();
+                      await File('${directory.path}/image.png').create();
                   await imagePath.writeAsBytes(image);
 
                   await Share.shareFiles([imagePath.path]);
@@ -144,7 +143,7 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
                         spending.type == 41
                             ? spending.typeName!
                             : AppLocalizations.of(context)
-                            .translate(listType[spending.type]["title"]!),
+                                .translate(listType[spending.type]["title"]!),
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -251,7 +250,7 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
                         ),
                       ),
                       errorWidget: (context, url, error) =>
-                      const Icon(Icons.error),
+                          const Icon(Icons.error),
                     ),
                   //Image.network(spending.image!)
                 ],
