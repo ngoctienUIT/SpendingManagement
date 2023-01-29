@@ -12,8 +12,7 @@ bool isSameMonth(DateTime day1, DateTime day2) =>
 BorderSide customBorderSide() => const BorderSide(
     color: Colors.black12,
     width: 1.0,
-    style: BorderStyle.solid,
-    strokeAlign: StrokeAlign.inside);
+    style: BorderStyle.solid);
 
 class CustomTableCalendar extends StatelessWidget {
   const CustomTableCalendar({

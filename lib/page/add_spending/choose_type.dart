@@ -1,8 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/material.dart';
 import 'package:spending_management/constants/app_styles.dart';
 import 'package:spending_management/constants/list.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
-import 'package:flutter/material.dart';
 
 class ChooseType extends StatefulWidget {
   const ChooseType({Key? key, required this.action}) : super(key: key);
@@ -37,7 +37,7 @@ class _ChooseTypeState extends State<ChooseType> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         centerTitle: true,
         title: DropdownButtonHideUnderline(

@@ -1,27 +1,28 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:spending_management/constants/app_styles.dart';
-import 'package:spending_management/constants/function/loading_animation.dart';
-import 'package:spending_management/constants/function/pick_function.dart';
-import 'package:spending_management/constants/function/route_function.dart';
-import 'package:spending_management/page/add_spending/widget/add_friend.dart';
-import 'package:spending_management/page/add_spending/widget/input_money.dart';
-import 'package:spending_management/page/add_spending/widget/pick_image_widget.dart';
-import 'package:spending_management/constants/list.dart';
-import 'package:spending_management/controls/spending_firebase.dart';
-import 'package:spending_management/models/spending.dart';
-import 'package:spending_management/page/add_spending/choose_type.dart';
-import 'package:spending_management/page/add_spending/widget/input_spending.dart';
-import 'package:spending_management/page/add_spending/widget/item_spending.dart';
-import 'package:spending_management/page/add_spending/widget/more_button.dart';
-import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/constants/function/loading_animation.dart';
+import 'package:spending_management/constants/function/pick_function.dart';
+import 'package:spending_management/constants/function/route_function.dart';
+import 'package:spending_management/constants/list.dart';
+import 'package:spending_management/controls/spending_firebase.dart';
+import 'package:spending_management/models/spending.dart';
+import 'package:spending_management/page/add_spending/choose_type.dart';
+import 'package:spending_management/page/add_spending/widget/add_friend.dart';
+import 'package:spending_management/page/add_spending/widget/input_money.dart';
+import 'package:spending_management/page/add_spending/widget/input_spending.dart';
+import 'package:spending_management/page/add_spending/widget/item_spending.dart';
+import 'package:spending_management/page/add_spending/widget/more_button.dart';
+import 'package:spending_management/page/add_spending/widget/pick_image_widget.dart';
+import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class EditSpendingPage extends StatefulWidget {
   const EditSpendingPage({
@@ -91,7 +92,7 @@ class _EditSpendingPageState extends State<EditSpendingPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(AppLocalizations.of(context).translate('edit_spending')),
         centerTitle: true,
         actions: [

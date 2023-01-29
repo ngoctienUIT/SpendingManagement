@@ -1,4 +1,9 @@
 import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:spending_management/constants/app_styles.dart';
 import 'package:spending_management/constants/function/loading_animation.dart';
 import 'package:spending_management/constants/function/pick_function.dart';
@@ -15,10 +20,6 @@ import 'package:spending_management/page/add_spending/widget/more_button.dart';
 import 'package:spending_management/page/add_spending/widget/pick_image_widget.dart';
 import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
 import 'package:spending_management/setting/localization/app_localizations.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 class AddSpendingPage extends StatefulWidget {
   const AddSpendingPage({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _AddSpendingPageState extends State<AddSpendingPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(AppLocalizations.of(context).translate('add_spending')),
         centerTitle: true,
         actions: [

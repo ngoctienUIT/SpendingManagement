@@ -1,15 +1,13 @@
-import 'package:spending_management/constants/function/loading_animation.dart';
-import 'package:spending_management/constants/function/route_function.dart';
-import 'package:spending_management/page/login/login_page.dart';
-import 'package:spending_management/page/signup/verify/verify_page.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/constants/function/loading_animation.dart';
+import 'package:spending_management/constants/function/route_function.dart';
 import 'package:spending_management/models/user.dart';
+import 'package:spending_management/page/login/login_page.dart';
 import 'package:spending_management/page/login/widget/custom_button.dart';
 import 'package:spending_management/page/login/widget/input_password.dart';
 import 'package:spending_management/page/login/widget/input_text.dart';
@@ -17,6 +15,8 @@ import 'package:spending_management/page/signup/bloc/signup_bloc.dart';
 import 'package:spending_management/page/signup/bloc/signup_event.dart';
 import 'package:spending_management/page/signup/bloc/singup_state.dart';
 import 'package:spending_management/page/signup/gender_widget.dart';
+import 'package:spending_management/page/signup/verify/verify_page.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -149,7 +149,7 @@ class _SignupFormState extends State<SignupForm> {
                       width: double.infinity,
                       height: 57,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
+                        color: Theme.of(context).colorScheme.background,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(

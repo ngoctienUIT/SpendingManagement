@@ -67,11 +67,13 @@ class MyApp extends StatelessWidget {
                     )
                   : ThemeData(
                       cardColor: Colors.white,
-                      backgroundColor: Colors.white,
+                      colorScheme:
+                          const ColorScheme.light(background: Colors.white),
                       brightness: Brightness.light,
                       primarySwatch: Colors.blue,
                       scaffoldBackgroundColor: AppColors.whisperBackground,
-                      bottomAppBarColor: AppColors.whisperBackground,
+                      bottomAppBarTheme:
+                          BottomAppBarTheme(color: AppColors.whisperBackground),
                       floatingActionButtonTheme:
                           const FloatingActionButtonThemeData(
                         backgroundColor: Color.fromRGBO(121, 158, 84, 1),

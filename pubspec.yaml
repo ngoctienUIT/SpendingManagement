@@ -44,7 +44,7 @@ dependencies:
   firebase_core: ^2.1.1
   firebase_storage: ^11.0.3
   cloud_firestore: ^4.0.3
-  fl_chart: ^0.55.1
+  fl_chart: ^0.60.0
   equatable: ^2.0.5
   shimmer: ^2.0.0
   font_awesome_flutter: ^10.2.1
@@ -81,7 +81,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  flutter_launcher_icons: ^0.10.0
+  flutter_launcher_icons: ^0.11.0
 
 flutter_icons:
   android: true
