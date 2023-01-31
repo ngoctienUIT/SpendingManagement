@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:spending_management/page/view_spending/view_image.dart';
+
 import '../../constants/function/loading_animation.dart';
 import '../../constants/function/route_function.dart';
 import '../../constants/list.dart';
@@ -236,21 +239,32 @@ class _ViewSpendingPageState extends State<ViewSpendingPage> {
                   if (spending.friends != null && spending.friends!.isNotEmpty)
                     const SizedBox(height: 10),
                   if (spending.image != null)
-                    CachedNetworkImage(
-                      imageUrl: spending.image!,
-                      width: double.infinity,
-                      fit: BoxFit.fitWidth,
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Container(
-                          height: 150,
-                          width: double.infinity,
-                          color: Colors.grey,
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ViewImage(url: spending.image!),
+                          ),
+                        );
+                      },
+                      child: CachedNetworkImage(
+                        imageUrl: spending.image!,
+                        width: double.infinity,
+                        fit: BoxFit.fitWidth,
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            height: 150,
+                            width: double.infinity,
+                            color: Colors.grey,
+                          ),
                         ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
                     ),
                   //Image.network(spending.image!)
                 ],
