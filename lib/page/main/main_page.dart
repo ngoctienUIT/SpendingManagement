@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:spending_management/constants/app_colors.dart';
 import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/constants/function/route_function.dart';
 import 'package:spending_management/page/add_spending/add_spending.dart';
@@ -60,7 +59,7 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: AppColors.whisperBackground,
+        // color: AppColors.whisperBackground,
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(
