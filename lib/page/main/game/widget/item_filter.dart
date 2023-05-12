@@ -1,5 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../../setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ItemFilter extends StatelessWidget {
@@ -43,13 +43,13 @@ class ItemFilter extends StatelessWidget {
                 child: DropdownButton2<String>(
                   hint: Center(
                       child: Text(
-                    value,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  )),
+                        value,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      )),
                   underline: const SizedBox.shrink(),
                   icon: const SizedBox.shrink(),
                   isExpanded: true,

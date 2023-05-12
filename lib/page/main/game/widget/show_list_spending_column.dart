@@ -1,12 +1,12 @@
-import 'package:spending_management/constants/function/get_date.dart';
-import 'package:spending_management/constants/function/route_function.dart';
-import 'package:spending_management/constants/list.dart';
-import 'package:spending_management/models/spending.dart';
-import 'package:spending_management/page/main/calendar/widget/custom_table_calendar.dart';
-import 'package:spending_management/page/main/home/view_list_spending_page.dart';
-import 'package:spending_management/setting/bloc/setting_cubit.dart';
-import 'package:spending_management/setting/bloc/setting_state.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../../constants/function/get_date.dart';
+import '../../../../constants/function/route_function.dart';
+import '../../../../constants/list.dart';
+import '../../../../models/spending.dart';
+import '../../../../page/main/calendar/widget/custom_table_calendar.dart';
+import '../../../../page/main/home/view_list_spending_page.dart';
+import '../../../../setting/bloc/setting_cubit.dart';
+import '../../../../setting/bloc/setting_state.dart';
+import '../../../../setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -33,8 +33,8 @@ class _ShowListSpendingColumnState extends State<ShowListSpendingColumn> {
     List<DateTime> listDate = widget.index == 0
         ? getListDayOfWeek(widget.spendingList[0].dateTime)
         : (widget.index == 1
-            ? getListWeekOfMonth(widget.spendingList[0].dateTime)
-            : getListMonthOfYear(widget.spendingList[0].dateTime));
+        ? getListWeekOfMonth(widget.spendingList[0].dateTime)
+        : getListMonthOfYear(widget.spendingList[0].dateTime));
 
     return BlocBuilder<SettingCubit, SettingState>(
         buildWhen: (previous, current) => previous != current,
@@ -51,18 +51,18 @@ class _ShowListSpendingColumnState extends State<ShowListSpendingColumn> {
       itemBuilder: (context, index) {
         List<Spending> list = widget.index == 0
             ? widget.spendingList
-                .where(
-                    (element) => isSameDay(element.dateTime, listDate[index]))
-                .toList()
+            .where(
+                (element) => isSameDay(element.dateTime, listDate[index]))
+            .toList()
             : (widget.index == 1
-                ? widget.spendingList
-                    .where((element) =>
-                        checkOnWeek(listDate[index], element.dateTime))
-                    .toList()
-                : widget.spendingList
-                    .where((element) =>
-                        isSameMonth(element.dateTime, listDate[index]))
-                    .toList());
+            ? widget.spendingList
+            .where((element) =>
+            checkOnWeek(listDate[index], element.dateTime))
+            .toList()
+            : widget.spendingList
+            .where((element) =>
+            isSameMonth(element.dateTime, listDate[index]))
+            .toList());
 
         if (list.isEmpty) {
           return const SizedBox.shrink();
@@ -101,8 +101,8 @@ class _ShowListSpendingColumnState extends State<ShowListSpendingColumn> {
                     Text(
                       list.isNotEmpty
                           ? numberFormat.format(list
-                              .map((e) => e.money)
-                              .reduce((value, element) => value + element))
+                          .map((e) => e.money)
+                          .reduce((value, element) => value + element))
                           : "0 VND",
                       style: const TextStyle(
                         fontSize: 16,
@@ -131,7 +131,7 @@ class _ShowListSpendingColumnState extends State<ShowListSpendingColumn> {
     return Column(
       children: List.generate(listType.length, (index) {
         List<Spending> list =
-            listSpending.where((element) => element.type == index).toList();
+        listSpending.where((element) => element.type == index).toList();
 
         if (list.isEmpty) {
           return const SizedBox.shrink();

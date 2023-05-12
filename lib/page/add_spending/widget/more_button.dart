@@ -1,5 +1,5 @@
-import 'package:spending_management/constants/app_styles.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../constants/app_styles.dart';
+import '../../../setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class MoreButton extends StatelessWidget {

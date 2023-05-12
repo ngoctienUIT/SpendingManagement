@@ -7,22 +7,22 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:spending_management/constants/app_styles.dart';
-import 'package:spending_management/constants/function/loading_animation.dart';
-import 'package:spending_management/constants/function/pick_function.dart';
-import 'package:spending_management/constants/function/route_function.dart';
-import 'package:spending_management/constants/list.dart';
-import 'package:spending_management/controls/spending_firebase.dart';
-import 'package:spending_management/models/spending.dart';
-import 'package:spending_management/page/add_spending/choose_type.dart';
-import 'package:spending_management/page/add_spending/widget/add_friend.dart';
-import 'package:spending_management/page/add_spending/widget/input_money.dart';
-import 'package:spending_management/page/add_spending/widget/input_spending.dart';
-import 'package:spending_management/page/add_spending/widget/item_spending.dart';
-import 'package:spending_management/page/add_spending/widget/more_button.dart';
-import 'package:spending_management/page/add_spending/widget/pick_image_widget.dart';
-import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../constants/app_styles.dart';
+import '../../../constants/function/loading_animation.dart';
+import '../../../constants/function/pick_function.dart';
+import '../../../constants/function/route_function.dart';
+import '../../../constants/list.dart';
+import '../../../controls/spending_firebase.dart';
+import '../../../models/spending.dart';
+import '../../../page/add_spending/choose_type.dart';
+import '../../../page/add_spending/widget/add_friend.dart';
+import '../../../page/add_spending/widget/input_money.dart';
+import '../../../page/add_spending/widget/input_spending.dart';
+import '../../../page/add_spending/widget/item_spending.dart';
+import '../../../page/add_spending/widget/more_button.dart';
+import '../../../page/add_spending/widget/pick_image_widget.dart';
+import '../../../page/add_spending/widget/remove_icon.dart';
+import '../../../setting/localization/app_localizations.dart';
 
 class EditSpendingPage extends StatefulWidget {
   const EditSpendingPage({
@@ -177,9 +177,9 @@ class _EditSpendingPageState extends State<EditSpendingPage> {
                             type == null
                                 ? AppLocalizations.of(context).translate('type')
                                 : (type == 41
-                                    ? typeName!
-                                    : AppLocalizations.of(context)
-                                        .translate(listType[type!]["title"]!)),
+                                ? typeName!
+                                : AppLocalizations.of(context)
+                                .translate(listType[type!]["title"]!)),
                             style: AppStyles.p,
                           ),
                           const Spacer(),
@@ -209,7 +209,7 @@ class _EditSpendingPageState extends State<EditSpendingPage> {
                 color: const Color.fromRGBO(241, 186, 5, 1),
                 icon: Icons.access_time_rounded,
                 text:
-                    "${selectedTime.hour.toString().padLeft(2, "0")}:${selectedTime.minute.toString().padLeft(2, "0")}",
+                "${selectedTime.hour.toString().padLeft(2, "0")}:${selectedTime.minute.toString().padLeft(2, "0")}",
                 action: () async {
                   var time = await selectTime(
                       context: context, initialTime: selectedTime);
@@ -253,7 +253,7 @@ class _EditSpendingPageState extends State<EditSpendingPage> {
                     textCapitalization: TextCapitalization.words,
                     textInputAction: TextInputAction.done,
                     hintText:
-                        AppLocalizations.of(context).translate('location'),
+                    AppLocalizations.of(context).translate('location'),
                   ),
                   line(),
                   const SizedBox(height: 5),
@@ -290,10 +290,10 @@ class _EditSpendingPageState extends State<EditSpendingPage> {
       ),
       child: image == null && (widget.spending.image == null || checkPickImage)
           ? pickImageWidget(image: (file) {
-              if (file != null) {
-                setState(() => image = file);
-              }
-            })
+        if (file != null) {
+          setState(() => image = file);
+        }
+      })
           : showImage(),
     );
   }
@@ -404,7 +404,7 @@ class _EditSpendingPageState extends State<EditSpendingPage> {
     } else {
       Fluttertoast.showToast(
         msg:
-            AppLocalizations.of(context).translate('please_enter_valid_amount'),
+        AppLocalizations.of(context).translate('please_enter_valid_amount'),
       );
     }
   }

@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:spending_management/page/login/bloc/login_event.dart';
-import 'package:spending_management/page/login/bloc/login_state.dart';
-import 'package:spending_management/models/user.dart' as myuser;
+import '../../../page/login/bloc/login_event.dart';
+import '../../../page/login/bloc/login_state.dart';
+import '../../../models/user.dart' as myuser;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -59,7 +59,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     if (googleUser != null) {
       final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -77,7 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     if (loginResult.accessToken != null) {
       final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      FacebookAuthProvider.credential(loginResult.accessToken!.token);
       await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
       return true;
     }
@@ -105,10 +105,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     await firestore.get().then((value) async {
       if (!value.exists) {
         await firestore.set(myuser.User(
-                name: FirebaseAuth.instance.currentUser!.displayName.toString(),
-                birthday: DateFormat("dd/MM/yyyy").format(DateTime.now()),
-                money: 0,
-                avatar: FirebaseAuth.instance.currentUser!.photoURL.toString())
+            name: FirebaseAuth.instance.currentUser!.displayName.toString(),
+            birthday: DateFormat("dd/MM/yyyy").format(DateTime.now()),
+            money: 0,
+            avatar: FirebaseAuth.instance.currentUser!.photoURL.toString())
             .toMap());
         check = false;
       }

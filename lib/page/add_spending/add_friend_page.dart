@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'package:spending_management/constants/app_styles.dart';
-import 'package:spending_management/page/add_spending/widget/circle_text.dart';
-import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../constants/app_styles.dart';
+import '../../../page/add_spending/widget/circle_text.dart';
+import '../../../page/add_spending/widget/remove_icon.dart';
+import '../../../setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class AddFriendPage extends StatefulWidget {
@@ -79,7 +79,7 @@ class _AddFriendPageState extends State<AddFriendPage> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText:
-                      AppLocalizations.of(context).translate('add_friends'),
+                  AppLocalizations.of(context).translate('add_friends'),
                   hintStyle: AppStyles.p,
                 ),
               ),

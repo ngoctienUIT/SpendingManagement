@@ -1,16 +1,16 @@
 import 'dart:io';
-import 'package:spending_management/constants/function/get_data_spending.dart';
-import 'package:spending_management/models/spending.dart';
+import '../../../constants/function/get_data_spending.dart';
+import '../../../models/spending.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:spending_management/models/user.dart' as myuser;
+import '../../../models/user.dart' as myuser;
 
 class SpendingFirebase {
   static Future addSpending(Spending spending) async {
     var firestoreSpending =
-        FirebaseFirestore.instance.collection("spending").doc();
+    FirebaseFirestore.instance.collection("spending").doc();
 
     var firestoreData = FirebaseFirestore.instance
         .collection("data")
@@ -31,7 +31,7 @@ class SpendingFirebase {
         var data = value.data() as Map<String, dynamic>;
         if (data[DateFormat("MM_yyyy").format(spending.dateTime)] != null) {
           dataSpending = (data[DateFormat("MM_yyyy").format(spending.dateTime)]
-                  as List<dynamic>)
+          as List<dynamic>)
               .map((e) => e.toString())
               .toList();
           dataSpending.add(firestoreSpending.id);
@@ -52,13 +52,13 @@ class SpendingFirebase {
   }
 
   static Future updateSpending(
-    Spending spending,
-    DateTime oldDay,
-    File? image,
-    bool check,
-  ) async {
+      Spending spending,
+      DateTime oldDay,
+      File? image,
+      bool check,
+      ) async {
     var firestoreSpending =
-        FirebaseFirestore.instance.collection("spending").doc(spending.id);
+    FirebaseFirestore.instance.collection("spending").doc(spending.id);
 
     var firestoreData = FirebaseFirestore.instance
         .collection("data")
@@ -95,7 +95,7 @@ class SpendingFirebase {
         // thêm id vào tháng mới
         if (data[DateFormat("MM_yyyy").format(spending.dateTime)] != null) {
           dataSpending = (data[DateFormat("MM_yyyy").format(spending.dateTime)]
-                  as List<dynamic>)
+          as List<dynamic>)
               .map((e) => e.toString())
               .toList();
           dataSpending.add(spending.id!);
@@ -122,7 +122,7 @@ class SpendingFirebase {
       var data = value.data() as Map<String, dynamic>;
       if (data[DateFormat("MM_yyyy").format(spending.dateTime)] != null) {
         dataSpending = (data[DateFormat("MM_yyyy").format(spending.dateTime)]
-                as List<dynamic>)
+        as List<dynamic>)
             .map((e) => e.toString())
             .toList();
         dataSpending.remove(spending.id);

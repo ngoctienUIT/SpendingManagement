@@ -1,8 +1,9 @@
 import 'dart:math';
-import 'package:spending_management/constants/list.dart';
-import 'package:spending_management/models/spending.dart';
-import 'package:spending_management/page/main/analytic/function/render_list_money.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../../constants/list.dart';
+
+import '../../../../models/spending.dart';
+import '../../../../page/main/game/function/render_list_money.dart';
+import '../../../../setting/localization/app_localizations.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -70,12 +71,12 @@ class ColumnChartState extends State<ColumnChart> {
   }
 
   BarChartGroupData makeGroupData(
-    int x,
-    double y, {
-    bool isTouched = false,
-    Color barColor = Colors.white,
-    List<int> showTooltips = const [],
-  }) {
+      int x,
+      double y, {
+        bool isTouched = false,
+        Color barColor = Colors.white,
+        List<int> showTooltips = const [],
+      }) {
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -100,7 +101,7 @@ class ColumnChartState extends State<ColumnChart> {
     }
     return List.generate(
       column,
-      (i) =>
+          (i) =>
           makeGroupData(i, money[i].toDouble(), isTouched: i == touchedIndex),
     );
   }
@@ -118,7 +119,7 @@ class ColumnChartState extends State<ColumnChart> {
                     .translate(listDayOfWeek[group.x.toInt()]);
               } else if (widget.index == 1) {
                 weekDay =
-                    "${AppLocalizations.of(context).translate('week')} ${group.x.toInt() + 1}";
+                "${AppLocalizations.of(context).translate('week')} ${group.x.toInt() + 1}";
               } else {
                 weekDay = AppLocalizations.of(context)
                     .translate(listMonthOfYear[group.x.toInt()]);

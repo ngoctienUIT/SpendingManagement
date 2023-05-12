@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       const SizedBox(height: 10),
-                      settingItem(
+                      /*settingItem(
                         text: AppLocalizations.of(context).translate('account'),
                         action: () {
                           Navigator.of(context).push(createRoute(
@@ -93,10 +93,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         icon: FontAwesomeIcons.solidUser,
                         color: const Color.fromRGBO(0, 150, 255, 1),
-                      ),
+                      ),*/
                       if (loginMethod) const SizedBox(height: 20),
                       if (loginMethod)
-                        settingItem(
+                      /*  settingItem(
                           text: AppLocalizations.of(context)
                               .translate('change_password'),
                           action: () {
@@ -107,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                           icon: FontAwesomeIcons.lock,
                           color: const Color.fromRGBO(233, 116, 81, 1),
-                        ),
+                        ),*/
                       const SizedBox(height: 20),
                       settingItem(
                         text:
@@ -152,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      settingItem(
+                     /* settingItem(
                         text: AppLocalizations.of(context).translate('history'),
                         action: () {
                           Navigator.of(context).push(createRoute(
@@ -162,9 +162,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         icon: Icons.history_rounded,
                         color: const Color.fromRGBO(121, 189, 161, 1),
-                      ),
+                      ),*/
                       const SizedBox(height: 20),
-                      settingItem(
+                      /*settingItem(
                         text:
                             "${AppLocalizations.of(context).translate('export')} CSV",
                         action: () async {
@@ -175,9 +175,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         icon: Icons.archive_outlined,
                         color: const Color.fromRGBO(137, 207, 240, 1),
-                      ),
+                      ),*/
                       const SizedBox(height: 20),
-                      settingItem(
+                      /*settingItem(
                         text: AppLocalizations.of(context)
                             .translate('currency_exchange_rate'),
                         action: () async {
@@ -188,9 +188,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         icon: Icons.attach_money_rounded,
                         color: const Color.fromRGBO(255, 192, 0, 1),
-                      ),
+                      ),*/
                       const SizedBox(height: 20),
-                      settingItem(
+                      /*settingItem(
                         text: AppLocalizations.of(context).translate('about'),
                         action: () {
                           Navigator.of(context).push(createRoute(
@@ -200,7 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         icon: FontAwesomeIcons.circleInfo,
                         color: const Color.fromRGBO(79, 121, 66, 1),
-                      ),
+                      ),*/
                       const SizedBox(height: 40),
                       SizedBox(
                         width: double.infinity,

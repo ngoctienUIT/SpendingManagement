@@ -1,12 +1,12 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
-import 'package:spending_management/constants/list.dart';
-import 'package:spending_management/models/filter.dart';
-import 'package:spending_management/page/add_spending/add_friend_page.dart';
-import 'package:spending_management/page/add_spending/widget/circle_text.dart';
-import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
-import 'package:spending_management/page/main/analytic/widget/item_filter.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
-import 'package:spending_management/constants/function/pick_function.dart';
+import '../../../../constants/list.dart';
+import '../../../../models/filter.dart';
+import '../../../../page/add_spending/add_friend_page.dart';
+import '../../../../page/add_spending/widget/circle_text.dart';
+import '../../../../page/add_spending/widget/remove_icon.dart';
+import '../../../../page/main/game/widget/item_filter.dart';
+import '../../../../setting/localization/app_localizations.dart';
+import '../../../../constants/function/pick_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -73,11 +73,11 @@ class _FilterPageState extends State<FilterPage> {
                 money: moneyController.text.isEmpty
                     ? 0
                     : int.parse(
-                        moneyController.text.replaceAll(RegExp(r'[^0-9]'), '')),
+                    moneyController.text.replaceAll(RegExp(r'[^0-9]'), '')),
                 finishMoney: finishMoneyController.text.isEmpty
                     ? 0
                     : int.parse(finishMoneyController.text
-                        .replaceAll(RegExp(r'[^0-9]'), '')),
+                    .replaceAll(RegExp(r'[^0-9]'), '')),
                 note: noteController.text,
               ));
               Navigator.pop(context);
@@ -102,10 +102,10 @@ class _FilterPageState extends State<FilterPage> {
                 text: AppLocalizations.of(context).translate('money'),
                 value: filter.chooseIndex[0] == 0
                     ? AppLocalizations.of(context)
-                        .translate(moneyList[filter.chooseIndex[0]])
+                    .translate(moneyList[filter.chooseIndex[0]])
                     : (filter.chooseIndex[0] == 3
-                        ? "${moneyController.text} - ${finishMoneyController.text}"
-                        : "${AppLocalizations.of(context).translate(moneyList[filter.chooseIndex[0]])} ${moneyController.text.isNotEmpty ? moneyController.text : numberFormat.format(filter.money)}"),
+                    ? "${moneyController.text} - ${finishMoneyController.text}"
+                    : "${AppLocalizations.of(context).translate(moneyList[filter.chooseIndex[0]])} ${moneyController.text.isNotEmpty ? moneyController.text : numberFormat.format(filter.money)}"),
                 list: moneyList,
                 action: (value) async {
                   if (value != 0 && value != 3) {
@@ -122,10 +122,10 @@ class _FilterPageState extends State<FilterPage> {
                 text: AppLocalizations.of(context).translate('time'),
                 value: filter.chooseIndex[1] == 0
                     ? AppLocalizations.of(context)
-                        .translate(timeList[filter.chooseIndex[1]])
+                    .translate(timeList[filter.chooseIndex[1]])
                     : (filter.chooseIndex[1] == 3
-                        ? "${DateFormat("dd/MM/yyyy").format(filter.time!)} - ${DateFormat("dd/MM/yyyy").format(filter.finishTime!)}"
-                        : "${AppLocalizations.of(context).translate(timeList[filter.chooseIndex[1]])} ${DateFormat("dd/MM/yyyy").format(filter.time!)}"),
+                    ? "${DateFormat("dd/MM/yyyy").format(filter.time!)} - ${DateFormat("dd/MM/yyyy").format(filter.finishTime!)}"
+                    : "${AppLocalizations.of(context).translate(timeList[filter.chooseIndex[1]])} ${DateFormat("dd/MM/yyyy").format(filter.time!)}"),
                 list: timeList,
                 action: (value) async {
                   if (value != 0 && value != 3) {
@@ -176,7 +176,7 @@ class _FilterPageState extends State<FilterPage> {
                         filled: true,
                         fillColor: Colors.grey[300],
                         hintText:
-                            AppLocalizations.of(context).translate('note'),
+                        AppLocalizations.of(context).translate('note'),
                         contentPadding: const EdgeInsets.all(0),
                       ),
                     ),
@@ -241,51 +241,51 @@ class _FilterPageState extends State<FilterPage> {
               ),
               child: filter.friends!.isEmpty
                   ? Center(
-                      child: Text(
-                        AppLocalizations.of(context).translate('friend'),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    )
+                child: Text(
+                  AppLocalizations.of(context).translate('friend'),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                  ),
+                ),
+              )
                   : Wrap(
-                      runSpacing: 5,
-                      spacing: 2,
-                      children: List.generate(filter.friends!.length, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Container(
-                            padding: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.7),
-                              borderRadius: BorderRadius.circular(90),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                circleText(
-                                  text: filter.friends![index][0],
-                                  color: filter.colors![index],
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  filter.friends![index],
-                                  style: const TextStyle(fontSize: 16),
-                                ),
-                                const SizedBox(width: 5),
-                                removeIcon(action: () {
-                                  setState(() {
-                                    filter.friends!.removeAt(index);
-                                    filter.colors!.removeAt(index);
-                                  });
-                                }),
-                              ],
-                            ),
+                runSpacing: 5,
+                spacing: 2,
+                children: List.generate(filter.friends!.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Container(
+                      padding: const EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.7),
+                        borderRadius: BorderRadius.circular(90),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          circleText(
+                            text: filter.friends![index][0],
+                            color: filter.colors![index],
                           ),
-                        );
-                      }),
+                          const SizedBox(width: 10),
+                          Text(
+                            filter.friends![index],
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(width: 5),
+                          removeIcon(action: () {
+                            setState(() {
+                              filter.friends!.removeAt(index);
+                              filter.colors!.removeAt(index);
+                            });
+                          }),
+                        ],
+                      ),
                     ),
+                  );
+                }),
+              ),
             ),
           ),
         ),

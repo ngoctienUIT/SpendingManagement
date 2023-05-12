@@ -1,4 +1,4 @@
-import 'package:spending_management/constants/function/get_date.dart';
+import '../../../../constants/function/get_date.dart';
 import 'package:flutter/material.dart';
 
 Widget showDate({
@@ -30,7 +30,7 @@ Widget showDate({
         Text(
           date,
           style:
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         TextButton(
           onPressed: () {

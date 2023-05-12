@@ -1,8 +1,8 @@
-import 'package:spending_management/constants/function/route_function.dart';
-import 'package:spending_management/page/add_spending/add_friend_page.dart';
-import 'package:spending_management/page/add_spending/widget/circle_text.dart';
-import 'package:spending_management/page/add_spending/widget/remove_icon.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../constants/function/route_function.dart';
+import '../../../page/add_spending/add_friend_page.dart';
+import '../../../page/add_spending/widget/circle_text.dart';
+import '../../../page/add_spending/widget/remove_icon.dart';
+import '../../../setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class AddFriend extends StatelessWidget {
@@ -49,45 +49,45 @@ class AddFriend extends StatelessWidget {
                 const SizedBox(width: 10),
                 friends.isEmpty
                     ? Text(
-                        AppLocalizations.of(context).translate('friend'),
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.grey),
-                      )
+                  AppLocalizations.of(context).translate('friend'),
+                  style:
+                  const TextStyle(fontSize: 16, color: Colors.grey),
+                )
                     : Expanded(
-                        child: Wrap(
-                          runSpacing: 5,
-                          spacing: 2,
-                          children: List.generate(friends.length, (index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              child: Container(
-                                padding: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.7),
-                                  borderRadius: BorderRadius.circular(90),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    circleText(
-                                      text: friends[index][0],
-                                      color: colors[index],
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      friends[index],
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    const SizedBox(width: 5),
-                                    removeIcon(action: () => remove(index)),
-                                  ],
-                                ),
+                  child: Wrap(
+                    runSpacing: 5,
+                    spacing: 2,
+                    children: List.generate(friends.length, (index) {
+                      return Padding(
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 5),
+                        child: Container(
+                          padding: const EdgeInsets.only(right: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(90),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              circleText(
+                                text: friends[index][0],
+                                color: colors[index],
                               ),
-                            );
-                          }),
+                              const SizedBox(width: 10),
+                              Text(
+                                friends[index],
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const SizedBox(width: 5),
+                              removeIcon(action: () => remove(index)),
+                            ],
+                          ),
                         ),
-                      ),
+                      );
+                    }),
+                  ),
+                ),
               ],
             ),
           ),

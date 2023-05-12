@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
                   AppLocalizationsSetup.localeResolutionCallback,
               locale: settingState.locale,
               debugShowCheckedModeBanner: false,
-              title: 'Spending Management',
+              title: 'UD ho tro chom soc cay trong',
               theme: settingState.isDark
                   ? ThemeData(
                       brightness: Brightness.dark,

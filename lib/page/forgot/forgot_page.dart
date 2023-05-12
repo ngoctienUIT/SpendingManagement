@@ -1,6 +1,6 @@
-import 'package:spending_management/page/login/widget/custom_button.dart';
-import 'package:spending_management/page/login/widget/input_text.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../page/login/widget/custom_button.dart';
+import '../../../page/login/widget/input_text.dart';
+import '../../../setting/localization/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class _ForgotPageState extends State<ForgotPage> {
               Text(
                 AppLocalizations.of(context).translate('forgot_password'),
                 style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               Text(

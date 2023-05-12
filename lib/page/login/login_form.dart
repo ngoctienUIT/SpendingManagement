@@ -1,22 +1,22 @@
-import 'package:spending_management/constants/function/loading_animation.dart';
-import 'package:spending_management/constants/function/route_function.dart';
-import 'package:spending_management/page/forgot/forgot_page.dart';
-import 'package:spending_management/page/signup/signup_page.dart';
-import 'package:spending_management/setting/localization/app_localizations.dart';
+import '../../../constants/function/loading_animation.dart';
+import '../../../constants/function/route_function.dart';
+import '../../../page/forgot/forgot_page.dart';
+import '../../../page/signup/signup_page.dart';
+import '../../../setting/localization/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:spending_management/constants/app_styles.dart';
-import 'package:spending_management/page/login/bloc/login_bloc.dart';
-import 'package:spending_management/page/login/bloc/login_event.dart';
-import 'package:spending_management/page/login/bloc/login_state.dart';
-import 'package:spending_management/page/login/widget/custom_button.dart';
-import 'package:spending_management/page/login/widget/input_password.dart';
-import 'package:spending_management/page/login/widget/input_text.dart';
-import 'package:spending_management/page/login/widget/text_continue.dart';
+import '../../../constants/app_styles.dart';
+import '../../../page/login/bloc/login_bloc.dart';
+import '../../../page/login/bloc/login_event.dart';
+import '../../../page/login/bloc/login_state.dart';
+import '../../../page/login/widget/custom_button.dart';
+import '../../../page/login/widget/input_password.dart';
+import '../../../page/login/widget/input_text.dart';
+import '../../../page/login/widget/text_continue.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -78,7 +78,8 @@ class _LoginFormState extends State<LoginForm> {
               child: Column(
                 children: [
                   Text(
-                    AppLocalizations.of(context).translate('hello_again'),
+                    "UD hỗ trợ chăm sóc cây trồng",
+                    //AppLocalizations.of(context).translate('hello_again'),
                     style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -187,7 +188,7 @@ class _LoginFormState extends State<LoginForm> {
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
-                                  const Color.fromRGBO(66, 103, 178, 1),
+                              const Color.fromRGBO(66, 103, 178, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),

@@ -14,12 +14,14 @@ class ItemOnBoarding extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           Text(
-            AppLocalizations.of(context).translate(item["title"]!),
+            //AppLocalizations.of(context).translate
+            (item["title"]!),
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
           Text(
-            AppLocalizations.of(context).translate(item["content"]!),
+            //AppLocalizations.of(context).translate
+              (item["content"]!),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
