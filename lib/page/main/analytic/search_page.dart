@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../../constants/function/extension.dart';
-import '../../../../constants/function/route_function.dart';
-import '../../../../constants/list.dart';
-import '../../../../controls/spending_firebase.dart';
-import '../../../../models/filter.dart';
-import '../../../../models/spending.dart';
-import '../../../../page/main/game/widget/filter_page.dart';
-import '../../../../page/main/game/widget/my_search_delegate.dart';
-import '../../../../page/main/home/widget/item_spending_day.dart';
-import '../../../../setting/localization/app_localizations.dart';
+import 'package:spending_management/constants/function/extension.dart';
+import 'package:spending_management/constants/function/route_function.dart';
+import 'package:spending_management/constants/list.dart';
+import 'package:spending_management/controls/spending_firebase.dart';
+import 'package:spending_management/models/filter.dart';
+import 'package:spending_management/models/spending.dart';
+import 'package:spending_management/page/main/analytic/widget/filter_page.dart';
+import 'package:spending_management/page/main/analytic/widget/my_search_delegate.dart';
+import 'package:spending_management/page/main/home/widget/item_spending_day.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -137,42 +137,42 @@ class _SearchPageState extends State<SearchPage> {
       body: query == null
           ? Container()
           : FutureBuilder(
-          future: FirebaseFirestore.instance
-              .collection("data")
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .get(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              var data =
-              snapshot.requireData.data() as Map<String, dynamic>;
-              List<String> list = [];
-              for (var element in data.entries) {
-                list.addAll((element.value as List<dynamic>)
-                    .map((e) => e.toString())
-                    .toList());
-              }
-              return FutureBuilder(
-                  future: SpendingFirebase.getSpendingList(list),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      var spendingList = snapshot.data;
-                      var list = spendingList!.where(checkResult).toList();
-                      if (list.isEmpty) {
-                        return Center(
-                          child: Text(
-                            AppLocalizations.of(context)
-                                .translate('nothing_here'),
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        );
-                      }
-                      return ItemSpendingDay(spendingList: list);
-                    }
-                    return const Center(child: CircularProgressIndicator());
-                  });
-            }
-            return const Center(child: CircularProgressIndicator());
-          }),
+              future: FirebaseFirestore.instance
+                  .collection("data")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .get(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  var data =
+                      snapshot.requireData.data() as Map<String, dynamic>;
+                  List<String> list = [];
+                  for (var element in data.entries) {
+                    list.addAll((element.value as List<dynamic>)
+                        .map((e) => e.toString())
+                        .toList());
+                  }
+                  return FutureBuilder(
+                      future: SpendingFirebase.getSpendingList(list),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var spendingList = snapshot.data;
+                          var list = spendingList!.where(checkResult).toList();
+                          if (list.isEmpty) {
+                            return Center(
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('nothing_here'),
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            );
+                          }
+                          return ItemSpendingDay(spendingList: list);
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      });
+                }
+                return const Center(child: CircularProgressIndicator());
+              }),
     );
   }
 }

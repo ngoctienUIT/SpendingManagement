@@ -49,7 +49,7 @@ dependencies:
   shimmer: ^2.0.0
   font_awesome_flutter: ^10.2.1
   google_sign_in: ^5.4.1
-  shared_preferences: ^2.0.18
+  shared_preferences: ^2.0.15
   intl: ^0.17.0
   flutter_facebook_auth: ^5.0.1
   fluttertoast: ^8.0.9

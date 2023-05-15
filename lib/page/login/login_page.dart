@@ -1,8 +1,8 @@
-import '../../../constants/function/on_will_pop.dart';
+import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../page/login/bloc/login_bloc.dart';
-import '../../../page/login/login_form.dart';
+import 'package:spending_management/page/login/bloc/login_bloc.dart';
+import 'package:spending_management/page/login/login_form.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

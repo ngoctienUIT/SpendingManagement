@@ -1,4 +1,4 @@
-import '../../../page/main/calendar/widget/custom_table_calendar.dart';
+import 'package:spending_management/page/main/calendar/widget/custom_table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 

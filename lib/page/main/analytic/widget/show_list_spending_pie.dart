@@ -1,8 +1,8 @@
-import '../../../../constants/function/route_function.dart';
-import '../../../../constants/list.dart';
-import '../../../../models/spending.dart';
-import '../../../../page/main/home/view_list_spending_page.dart';
-import '../../../../setting/localization/app_localizations.dart';
+import 'package:spending_management/constants/function/route_function.dart';
+import 'package:spending_management/constants/list.dart';
+import 'package:spending_management/models/spending.dart';
+import 'package:spending_management/page/main/home/view_list_spending_page.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -21,7 +21,7 @@ Widget showListSpendingPie({required List<Spending> list}) {
         return const SizedBox.shrink();
       } else {
         List<Spending> spendingList =
-        list.where((element) => element.type == index).toList();
+            list.where((element) => element.type == index).toList();
         if (spendingList.isNotEmpty) {
           int sumSpending = spendingList
               .map((e) => e.money)
@@ -41,7 +41,7 @@ Widget showListSpendingPie({required List<Spending> list}) {
               ),
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 child: Row(
                   children: [
                     Image.asset(

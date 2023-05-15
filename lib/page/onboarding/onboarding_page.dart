@@ -19,39 +19,39 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   DateTime? currentBackPressTime;
   List<Map<String, String>> listPage = [
     {
-      "image": '',
-      "title": "",
-      "content": ""
+      "image": "assets/intro/home.jpg",
+      "title": "home",
+      "content": "view_monthly_spending_summary_and_remaining_balance"
     },
     {
-      "image": "",
-      "title": "",
-      "content": ""
+      "image": "assets/intro/calendar.jpg",
+      "title": "calendar",
+      "content": "review_your_scheduled_expenses"
     },
     {
-      "image": "",
-      "title": "",
-      "content": ""
+      "image": "assets/intro/add.jpg",
+      "title": "add_spending",
+      "content": "add_and_edit_your_daily_spending"
     },
     {
-      "image": "",
-      "title": "",
-      "content": ""
+      "image": "assets/intro/share.jpg",
+      "title": "share",
+      "content": "share_your_spending_with_friends"
     },
     {
-      "image": "",
-      "title": "",
-      "content": ""
+      "image": "assets/intro/search.jpg",
+      "title": "search",
+      "content": "search_for_your_expenses"
     },
     {
-      "image": "",
-      "title": "",
-      "content": ""
+      "image": "assets/intro/analytic.jpg",
+      "title": "statistical",
+      "content": "view_your_spending_and_income_reports_through_graphs"
     },
     {
-      "image": "",
-      "title": "",
-      "content": ""
+      "image": "assets/intro/profile.jpg",
+      "title": "account",
+      "content": "edit_personal_information_and_other_settings"
     },
   ];
 

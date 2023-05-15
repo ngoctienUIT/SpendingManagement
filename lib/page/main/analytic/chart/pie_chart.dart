@@ -1,6 +1,6 @@
 import 'dart:math';
-import '../../../../constants/list.dart';
-import '../../../../models/spending.dart';
+import 'package:spending_management/constants/list.dart';
+import 'package:spending_management/models/spending.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +63,7 @@ class _MyPieChartState extends State<MyPieChart> {
     for (int i = 0; i < listType.length; i++) {
       if (![0, 10, 21, 27, 35, 38].contains(i)) {
         List<Spending> spendingList =
-        widget.list.where((element) => element.type == i).toList();
+            widget.list.where((element) => element.type == i).toList();
         if (spendingList.isNotEmpty) {
           final isTouched = pieChartList.length == touchedIndex;
           final fontSize = isTouched ? 20.0 : 16.0;
@@ -104,11 +104,11 @@ class _MyPieChartState extends State<MyPieChart> {
 
 class _Badge extends StatelessWidget {
   const _Badge(
-      this.imgAsset, {
-        Key? key,
-        required this.size,
-        required this.borderColor,
-      }) : super(key: key);
+    this.imgAsset, {
+    Key? key,
+    required this.size,
+    required this.borderColor,
+  }) : super(key: key);
 
   final String imgAsset;
   final double size;

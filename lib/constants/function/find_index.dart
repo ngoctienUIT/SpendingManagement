@@ -1,4 +1,4 @@
-import '../../../models/spending.dart';
+import 'package:spending_management/models/spending.dart';
 
 int findIndex(List<Spending> spendingList, String id) {
   for (int i = 0; i < spendingList.length; i++) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../../../constants/function/list_categories.dart';
-import '../../../../models/spending.dart';
-import '../../../../setting/localization/app_localizations.dart';
+import 'package:spending_management/constants/function/list_categories.dart';
+import 'package:spending_management/models/spending.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ItemSpendingDay extends StatefulWidget {
@@ -87,7 +87,7 @@ class _ItemSpendingDayState extends State<ItemSpendingDay> {
                 Column(
                   children: List.generate(
                     list.length,
-                        (index) => InkWell(
+                    (index) => InkWell(
                       onTap: () {},
                       child: Container(
                         padding: const EdgeInsets.all(10),
@@ -96,7 +96,7 @@ class _ItemSpendingDayState extends State<ItemSpendingDay> {
                             Image.asset(
                               widget.type == 0
                                   ? categories[widget.spendingList[0].type]
-                              ["icon"]!
+                                      ["icon"]!
                                   : income[widget.spendingList[0].type]["icon"],
                               width: 40,
                             ),
@@ -105,9 +105,9 @@ class _ItemSpendingDayState extends State<ItemSpendingDay> {
                               AppLocalizations.of(context).translate(
                                   widget.type == 0
                                       ? categories[widget.spendingList[0].type]
-                                  ["name"]!
+                                          ["name"]!
                                       : income[widget.spendingList[0].type]
-                                  ["name"]),
+                                          ["name"]),
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,

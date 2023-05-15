@@ -1,13 +1,13 @@
-import '../../../../constants/function/get_data_spending.dart';
-import '../../../../models/spending.dart';
+import 'package:spending_management/constants/function/get_data_spending.dart';
+import 'package:spending_management/models/spending.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 List<int> renderListMoney(
     {required int index,
-      required DateTime dateTime,
-      required List<Spending> list,
-      required Function(List<String>) getList}) {
+    required DateTime dateTime,
+    required List<Spending> list,
+    required Function(List<String>) getList}) {
   if (index == 0) {
     getList([]);
     return renderListWeek(dateTime: dateTime, list: list);
@@ -25,18 +25,18 @@ List<int> renderListWeek({
 }) {
   return List.generate(
     7,
-        (index) {
+    (index) {
       int weekDay = dateTime.weekday;
       DateTime firstDayOfWeek = dateTime.subtract(Duration(days: weekDay - 1));
       List<Spending> spendingList = list
           .where((element) => isSameDay(
-          element.dateTime, firstDayOfWeek.add(Duration(days: index))))
+              element.dateTime, firstDayOfWeek.add(Duration(days: index))))
           .toList();
       return spendingList.isEmpty
           ? 0
           : spendingList
-          .map((e) => e.money.abs())
-          .reduce((value, element) => value + element);
+              .map((e) => e.money.abs())
+              .reduce((value, element) => value + element);
     },
   );
 }
@@ -67,16 +67,16 @@ List<int> renderListMonth({
         "${DateFormat("dd/MM").format(date)} - ${DateFormat("dd/MM").format(lastWeek)}");
     List<Spending> spendingList = list
         .where((element) =>
-    date.isBefore(element.dateTime) &&
-        lastWeek.isAfter(element.dateTime) ||
-        isSameDay(element.dateTime, date) ||
-        isSameDay(element.dateTime, lastWeek))
+            date.isBefore(element.dateTime) &&
+                lastWeek.isAfter(element.dateTime) ||
+            isSameDay(element.dateTime, date) ||
+            isSameDay(element.dateTime, lastWeek))
         .toList();
     listMoney.add(spendingList.isEmpty
         ? 0
         : spendingList
-        .map((e) => e.money.abs())
-        .reduce((value, element) => value + element));
+            .map((e) => e.money.abs())
+            .reduce((value, element) => value + element));
     if (check) {
       date = lastWeek.add(const Duration(days: 1));
     }
@@ -91,16 +91,16 @@ List<int> renderListYear({
 }) {
   return List.generate(
     12,
-        (index) {
+    (index) {
       List<Spending> spendingList = list
           .where((element) => isSameMonth(
-          element.dateTime, DateTime(dateTime.year, (index + 1))))
+              element.dateTime, DateTime(dateTime.year, (index + 1))))
           .toList();
       return spendingList.isEmpty
           ? 0
           : spendingList
-          .map((e) => e.money.abs())
-          .reduce((value, element) => value + element);
+              .map((e) => e.money.abs())
+              .reduce((value, element) => value + element);
     },
   );
 }

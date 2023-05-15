@@ -1,5 +1,5 @@
-import '../../../../constants/app_styles.dart';
-import '../../../../setting/localization/app_localizations.dart';
+import 'package:spending_management/constants/app_styles.dart';
+import 'package:spending_management/setting/localization/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatelessWidget {
@@ -20,7 +20,7 @@ class CustomTabBar extends StatelessWidget {
           controller: controller,
           labelColor: Colors.black87,
           labelStyle:
-          const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           unselectedLabelColor: const Color.fromRGBO(45, 216, 198, 1),
           unselectedLabelStyle: AppStyles.p,
           isScrollable: false,

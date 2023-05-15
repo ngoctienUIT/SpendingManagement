@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:spending_management/constants/function/on_will_pop.dart';
 import 'package:spending_management/constants/function/route_function.dart';
 import 'package:spending_management/page/add_spending/add_spending.dart';
-import 'package:spending_management/page/main/game/analytic_page.dart';
+import 'package:spending_management/page/main/analytic/analytic_page.dart';
 import 'package:spending_management/page/main/calendar/calendar_page.dart';
 import 'package:spending_management/page/main/home/home_page.dart';
 import 'package:spending_management/page/main/profile/profile_page.dart';
@@ -99,9 +99,7 @@ class _MainPageState extends State<MainPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   itemBottomTab(
-                    text:
-                    //AppLocalizations.of(context).translate
-                      ('Trò chơi'),
+                    text: AppLocalizations.of(context).translate('analytic'),
                     index: 2,
                     current: currentTab,
                     icon: FontAwesomeIcons.chartPie,

@@ -1,4 +1,4 @@
-import '../../../constants/function/pick_function.dart';
+import 'package:spending_management/constants/function/pick_function.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

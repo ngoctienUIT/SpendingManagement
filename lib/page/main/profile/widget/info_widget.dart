@@ -54,7 +54,7 @@ class InfoWidget extends StatelessWidget {
               : loadingInfo(width: 150, height: 150, radius: 90),
         ),
         const SizedBox(height: 20),
-        /*Text(
+        Text(
           AppLocalizations.of(context).translate('monthly_money').capitalize(),
           style: const TextStyle(fontSize: 16),
         ),
@@ -67,7 +67,7 @@ class InfoWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               )
-            : loadingInfo(width: Random().nextInt(50) + 150, height: 30),*/
+            : loadingInfo(width: Random().nextInt(50) + 150, height: 30),
       ],
     );
   }
